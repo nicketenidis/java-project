@@ -2,13 +2,16 @@ package api;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class LogIn {
 
-    File file = new File("C:\\Users\\keten\\OneDrive\\Υπολογιστής\\Credentials.txt");
+    private ArrayList<String> type;
+
+    File file = new File("src/api/Credentials");
     Scanner scanner = new Scanner(file);
     private HashMap<String,String> cred;
 
@@ -19,6 +22,7 @@ public class LogIn {
         this.username = username;
         this.password = password;
         cred = new HashMap<>();
+        type = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -31,27 +35,39 @@ public class LogIn {
 
     public void addCredits(){
         scanner.useDelimiter(",");
-        String u,p;
+        String name,pass;
         while(scanner.hasNextLine()){
-            u = scanner.next();
+            name = scanner.next();
             scanner.skip(",");
-            p = scanner.nextLine();
-            scanner.nextLine();
-            cred.put(u,p);
+            pass = scanner.nextLine();
+            type.add(scanner.nextLine());
+            cred.put(name,pass);
         }
 
     }
 
-    public boolean isUser(String u,String p){
+    public boolean accCheck(String u,String p){
         for(Map.Entry<String,String> entry : cred.entrySet()){
-            if(entry.getKey().equals(u) && entry.getValue().equals(p)){
+            if(entry.getKey().equals(u) && entry.getValue().equals(p)) {
                 return true;
             }
         }
         return false;
-
-
     }
+
+    public String whatUser(String n,String p,String t){
+        int i=0;
+        for(Map.Entry<String,String> entry : cred.entrySet()){
+            if(entry.getKey().equals(n) && entry.getValue().equals(p) && type.get(i).equals(t)) {
+                return "user";
+            }
+            i++;
+        }
+        return "provider";
+    }
+
+
+
 
 
 
