@@ -57,6 +57,9 @@ public class Provider {
     public void newProp(int c,File f,String n) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("The name of property");
+
+
+
         String name = scanner.nextLine();
         System.out.println("The Type of property");
         String type = scanner.nextLine();
