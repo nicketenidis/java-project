@@ -49,7 +49,7 @@ public class LogIn {
     }
 
     public boolean accCheck(String u,String p){
-       // System.out.println(cred.size());
+
         for(Map.Entry<String,String> entry : cred.entrySet()){
             if(entry.getKey().equals(u) && entry.getValue().equals(p)) {
                 return true;
@@ -62,7 +62,7 @@ public class LogIn {
         int i=0;
         for(Map.Entry<String,String> entry : cred.entrySet()){
             if(entry.getKey().equals(n) && entry.getValue().equals(p) && type.get(i).equals(t)) {
-                System.out.println(entry.getKey()+","+entry.getValue()+","+ type.get(i));
+
                 return "user";
             }
             i++;
