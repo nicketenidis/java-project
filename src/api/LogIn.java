@@ -34,7 +34,7 @@ public class LogIn {
         String name,pass,t;
         while(scanner.hasNextLine()){
             name = scanner.next();
-           scanner.skip(",");
+            scanner.skip(",");
             pass = scanner.nextLine();
             t = scanner.nextLine();
             addAccount(name,pass,t);
