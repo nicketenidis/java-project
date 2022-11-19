@@ -3,6 +3,8 @@ package api;
 import java.io.*;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +14,6 @@ public class Main {
         File fileP = new File("src/api/Properties");
         File fileR = new File("src/api/UserReviews");
         Scanner input;
-        File fileCred = null;
         Provider prov = new Provider();
         User user = new User();
         LogIn log =null;
@@ -20,12 +21,13 @@ public class Main {
         //ΚΑΤΑΧΩΡΗΣΗ ΚΑΤΑΛΥΜΑΤΩΝ ΚΑΙ ΑΞΙΟΛΟΓΗΣΕΩΝ
 
         input = new Scanner(fileR);
-        String review,fromUser,forProp;
+        String review,fromUser,forProp,rate;
         while(input.hasNextLine()){
             review = input.nextLine();
             forProp = input.nextLine();
             fromUser =input.nextLine();
-            user.addReviews(review,forProp,fromUser);
+            rate = input.nextLine();
+            user.addReviews(review,forProp,fromUser,rate);
         }
 
 
@@ -152,7 +154,9 @@ public class Main {
                                 System.out.println(" Type the number of property above to delete");
                                 int p = sc.nextInt();
                                 prov.deleteProp(p, fileP);
+                                user.deletePropRev(p);
                                 prov.reNewFile(fileP);
+                                user.reNewFile(fileR);
 
                             }
                             else
@@ -161,7 +165,7 @@ public class Main {
                         if (ans.equals("4")) {
                             has = prov.hasProps(log.getUsername());
                             if(has)
-                                prov.showMyProps(log.getUsername());
+                                prov.dashBoardProvider(log.getUsername(),user.getProperties(),user.getRate());
                             else
                                 System.out.println("Nothing to show. No properties yet.");
                         }
@@ -195,7 +199,7 @@ public class Main {
                             String prop = sc.next();
                             has = user.hasRevs(prop,log.getUsername());
                             if(has){
-                                user.editReviews(prop,fileR,log.getUsername());
+                                user.editReviews(prop,log.getUsername());
                                 user.reNewFile(fileR);
                             }else {
                                 System.out.println("You don't have a review for this property, so you cant edit.");
@@ -209,11 +213,15 @@ public class Main {
                             String prop = sc.next();
                             has = user.hasRevs(prop, log.getUsername());
                             if(has){
-                                user.deleteRev(prop, fileR,log.getUsername());
+                                user.deleteRev(prop,log.getUsername());
                                 user.reNewFile(fileR);
                             }else {
                                 System.out.println("You don't have a review for this property, so you cant delete.");
                             }
+                        }
+
+                        if (ans.equals("5")){
+                            user.dashboardUser(log.getUsername(),prov.getProps());
                         }
                     }while(!ans.toUpperCase().equals("LOGOUT"));
 
@@ -222,5 +230,6 @@ public class Main {
 
 
         }
+
     }
 }

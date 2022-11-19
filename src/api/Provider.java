@@ -8,7 +8,7 @@ public class Provider {
 
     //private String type;
     private Scanner scanner ;
-    HashMap<Integer,Property> props;
+    public HashMap<Integer,Property> props;
     private ArrayList<String> names;
     Property prop;
     public Provider ()  {
@@ -38,11 +38,13 @@ public class Provider {
             i++;
         }
 
+
     }
 
 
     public void showMyProps(String name){
         int i=0;
+        //System.out.println(names.size());
         for(Map.Entry<Integer,Property> e : props.entrySet()){
             if(names.get(i).equals(name)){
                 System.out.println();
@@ -72,12 +74,6 @@ public class Provider {
         String descr = scanner.nextLine();
 
 
-        //BufferedWriter out = new BufferedWriter((new FileWriter(f,true)));
-        //out.newLine();
-        //out.write(name+"-"+type+"-"+loc+"-"+descr);
-        //out.newLine();
-        //out.write(n);
-        //out.close();
         addProperties(c,name,type,loc,descr,n);
     }
 
@@ -86,7 +82,7 @@ public class Provider {
         System.out.println("Press 1 for adding a new property.");
         System.out.println("Press 2 for editing your properties.");
         System.out.println("Press 3 for deleting the property you want.");
-        System.out.println("Press 4 for showing your properties.");
+        System.out.println("Press 4 for showing your Dashboard.");
         System.out.println("Type LOGOUT, to logout from your account.");
         String answer = scanner.next();
         return answer;
@@ -171,9 +167,50 @@ public class Provider {
 
     }
 
+    public void dashBoardProvider(String name,ArrayList<String> listP,ArrayList<String> listR){
+        int i;
+        double avgTotal,avgProp;
+        int totalReviews = 0,propReviews,sumProp,sumTotal=0;
+        i=0;
+        for(Map.Entry<Integer,Property> e : props.entrySet()){
+            if( names.get(i).equals(name)){
+                propReviews=0;
+                sumProp =0;
+                for (int j =0;j< listP.size();j++){
+                    if(e.getKey() == Integer.parseInt(listP.get(j))){
+                        propReviews++;
+                        sumProp += Integer.parseInt(listR.get(j));
+                        totalReviews++;
+                        sumTotal += Integer.parseInt(listR.get(j));
+                    }
+                }
+                if(propReviews == 0)
+                    avgProp =0;
+                else
+                    avgProp = sumProp/ (double) propReviews;
+                System.out.println();
+                System.out.println("Property "+e.getKey());
+                System.out.println("-----------");
+                System.out.println("Name: "+e.getValue().getName());
+                System.out.println("Type: "+e.getValue().getType());
+                System.out.println("Location: "+e.getValue().getLocation());
+                System.out.println("Description: "+e.getValue().getDescr());
+                System.out.println("Average Rate: "+avgProp+"/5");
+            }
+            i++;
+        }
+        if(totalReviews == 0)
+            avgTotal =0;
+        else
+            avgTotal = sumTotal / (double) totalReviews;
 
+        System.out.println();
+        System.out.println("Total Reviews for "+name+" : "+totalReviews);
+        System.out.println("Average Rate for all properties: "+avgTotal);
 
+    }
 
-
-
+    public HashMap<Integer, Property> getProps() {
+        return props;
+    }
 }
