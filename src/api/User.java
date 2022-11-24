@@ -38,6 +38,14 @@ public class User {
         return rate;
     }
 
+    public ArrayList<String> getUsers() {
+        return users;
+    }
+
+    public ArrayList<String> getRev() {
+        return rev;
+    }
+
     public void addReviews(String r,String p, String u,String g){
         review = new Reviews(r);
         rev.add(r);
@@ -59,7 +67,7 @@ public class User {
         return answer;
     }
 
-    public void newReview(String p,String name) throws IOException {
+    public void newReview(String p,String user) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Tell us about your experience : ");
         String review = sc.nextLine();
@@ -71,25 +79,13 @@ public class User {
         out.newLine();
         out.write(p);
         out.newLine();
-        out.write(name);
+        out.write(user);
         out.newLine();
         out.write(rate);
         out.close();
-        addReviews(review,p,name,rate);
+        addReviews(review,p,user,rate);
     }
 
-    public void showMyReviews(String name){
-        System.out.println("Your reviews are down below.");
-        System.out.println("--------------------");
-        for(int i=0;i<rev.size();i++){
-            if(users.get(i).equals(name)){
-                System.out.println("Review for property "+properties.get(i)+" with rate "+rate.get(i)+"/5 :"+rev.get(i));
-                System.out.println();
-            }
-
-        }
-
-    }
 
     public void editReviews(String p,String name){
         Scanner sc = new Scanner(System.in);
@@ -105,6 +101,41 @@ public class User {
             }
         }
     }
+
+    public void deleteRev(String p,String n){
+        for (int i=0;i< rev.size();i++){
+            if(properties.get(i).equals(p) && users.get(i).equals(n)){
+                rev.remove(i);
+                properties.remove(i);
+                users.remove(i);
+                rate.remove(i);
+            }
+
+        }
+    }
+
+    public void deletePropRev(int p){
+
+        for(int i=0;i<rev.size();i++){
+            if(properties.get(i).equals(Integer.toString(p))){
+                rev.remove(i);
+                properties.remove(i);
+                users.remove(i);
+                rate.remove(i);
+            }
+        }
+    }
+
+
+    public boolean hasRevs(String p,String name){
+        for (int i =0;i<rev.size();i++){
+            if(properties.get(i).equals(p) && users.get(i).equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void reNewFile(File f) throws IOException {
         //int i=0;
@@ -124,21 +155,6 @@ public class User {
 
     }
 
-    public void deleteRev(String p,String n){
-        for (int i=0;i< rev.size();i++){
-            if(properties.get(i).equals(p) && users.get(i).equals(n)){
-                rev.remove(i);
-                properties.remove(i);
-                users.remove(i);
-                rate.remove(i);
-            }
-
-        }
-    }
-
-
-
-
     public void printRevs(){
         for (int i=0;i< rev.size();i++){
             System.out.println();
@@ -148,58 +164,18 @@ public class User {
         }
     }
 
-    public boolean hasRevs(String p,String name){
-        for (int i =0;i<rev.size();i++){
-            if(properties.get(i).equals(p) && users.get(i).equals(name)){
-                return true;
-            }
-        }
-        return false;
-    }
 
-
-    public void deletePropRev(int p){
-
+    public void showMyReviews(String name){
+        System.out.println("Your reviews are down below.");
+        System.out.println("--------------------");
         for(int i=0;i<rev.size();i++){
-            if(properties.get(i).equals(Integer.toString(p))){
-                rev.remove(i);
-                properties.remove(i);
-                users.remove(i);
-                rate.remove(i);
+            if(users.get(i).equals(name)){
+                System.out.println("Review for property "+properties.get(i)+" with rate "+rate.get(i)+"/5 :"+rev.get(i));
+                System.out.println();
             }
-        }
-    }
 
-    public void dashboardUser(String name, HashMap<Integer,Property> mapProps){
-        int sumRev=0,revNum=0;
-        double avgRev;
-        for(Map.Entry<Integer,Property> e : mapProps.entrySet()){
-                for(int i =0;i<rev.size();i++){
-                    if (users.get(i).equals(name) && e.getKey() == Integer.parseInt(properties.get(i))){
-                        revNum++;
-                        sumRev+= Integer.parseInt(rate.get(i));
-                        System.out.println();
-                        System.out.println("Property "+e.getKey());
-                        System.out.println("-----------");
-                        System.out.println("Name: "+e.getValue().getName());
-                        System.out.println("Type: "+e.getValue().getType());
-                        System.out.println("Location: "+e.getValue().getLocation());
-                        System.out.println("Description: "+e.getValue().getDescr());
-                    }
-                }
-        }
-        if(revNum == 0){
-            avgRev =0;
-            System.out.println("No reviews yet.");
-        }
-        else{
-            avgRev = sumRev / (double) revNum;
         }
 
-        System.out.println();
-        System.out.println("Average Rate of properties that you wrote a review: "+avgRev);
-        System.out.println(".......................................");
-        System.out.println();
     }
 
 }

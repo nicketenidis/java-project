@@ -1,11 +1,9 @@
 package api;
+import api.Display;
 
 import java.io.*;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String [] args) throws IOException {
@@ -13,9 +11,10 @@ public class Main {
 
         File fileP = new File("src/api/Properties");
         File fileR = new File("src/api/UserReviews");
-        Scanner input;
+        Scanner input,fromKeyboard;
         Provider prov = new Provider();
         User user = new User();
+        Display display = new Display();
         LogIn log =null;
 
         //ΚΑΤΑΧΩΡΗΣΗ ΚΑΤΑΛΥΜΑΤΩΝ ΚΑΙ ΑΞΙΟΛΟΓΗΣΕΩΝ
@@ -30,34 +29,36 @@ public class Main {
             user.addReviews(review,forProp,fromUser,rate);
         }
 
-
         input = new Scanner(fileP);
         input.useDelimiter("-");
-        String uname,type,loc,descr,who;
-        int count=1;
+        String nameProp,typeProp,locProp,descrProp,whoProp;
+        int countProp=1;
         while(input.hasNextLine()){
-            uname = input.next();
-            type = input.next();
-            loc = input.next();
+            nameProp = input.next();
+            typeProp = input.next();
+            locProp = input.next();
             input.skip("-");
-            descr = input.nextLine();
-            who = input.nextLine();
-            prov.addProperties(count,uname,type,loc,descr,who);
+            descrProp = input.nextLine();
+            whoProp = input.nextLine();
+            prov.addProperties(countProp,nameProp,typeProp,locProp,descrProp,whoProp);
             //prov.printProps();
-            count++;
+            countProp++;
         }
         boolean found = true;
+        fromKeyboard = new Scanner(System.in);
+
+        //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {
             System.out.println("If you already have an account please, press L to log in,else press R to register or EXIT to exit the application");
-            //LOGIN ΔΙΑΔΙΚΑΣΙΑ
+
             Register reg = null;
 
-            Scanner sc = new Scanner(System.in);
+
             String answer;
-            answer = sc.next();
-            boolean is;
-            String name, pass, typeU, firstN, lastN;
-            String isUser;
+            answer = fromKeyboard.next();
+            boolean isUser;
+            String userName, userPass, userType, firstName, lastName;
+            String whatUser;
 
             if(answer.toUpperCase().equals("EXIT"))
                 break;
@@ -68,23 +69,23 @@ public class Main {
                     do {
                         System.out.println("Create your account:");
                         System.out.print("Enter your First Name: ");
-                        firstN = sc.next();
+                        firstName = fromKeyboard.next();
                         System.out.print("Enter your Last Name: ");
-                        lastN = sc.next();
+                        lastName = fromKeyboard.next();
                         System.out.print("Enter your username Name: ");
-                        name = sc.next();
+                        userName = fromKeyboard.next();
                         System.out.print("Enter your password Name: ");
-                        pass = sc.next();
+                        userPass = fromKeyboard.next();
                         System.out.print("Are you just a User or Provider? : ");
-                        typeU = sc.next();
-                        reg = new Register(firstN, lastN, name, pass, typeU);
-                        boolean ver = reg.verifyAcc(name);
+                        userType = fromKeyboard.next();
+                        reg = new Register(firstName, lastName, userName, userPass, userType);
+                        boolean ver = reg.verifyAcc(userName);
                         if (ver) {
                             flag = true;
-                            reg.newAcc(name, pass, typeU);
+                            reg.newAcc(userName, userPass, userType);
                             System.out.println("Perfect! Your account has been created.");
                             System.out.println("If you want to exit the application type EXIT, else press L to log in or R to create a new account");
-                            answer = sc.next();
+                            answer = fromKeyboard.next();
                             if(answer.toUpperCase().equals("EXIT")) {
                                 System.out.println("Thank you for using our application. See you soon " + reg.getUsername());
                                 System.exit(0);
@@ -101,60 +102,62 @@ public class Main {
             if (answer.equals("L")) {
                 do {
                     System.out.print("Username: ");
-                    name = sc.next();
+                    userName = fromKeyboard.next();
                     System.out.print("Password: ");
-                    pass = sc.next();
-                    log = new LogIn(name, pass);
+                    userPass = fromKeyboard.next();
+                    log = new LogIn(userName, userPass);
                     log.addCredits();
 
-                    is = log.accCheck(name, pass);
-                    if (is) {
+                    isUser = log.accCheck(userName, userPass);
+                    if (isUser) {
                         System.out.println("Hi " + log.getUsername());
                     } else {
                         System.out.println("Username and password dont match.Please try again!");
                     }
-                } while (!is);
-                isUser = log.whatUser(name, pass, "user");
-                if (isUser.equals("user")) {
+                } while (!isUser);
+                whatUser = log.whatUser(userName, userPass, "user");
+                if (whatUser.equals("user")) {
                     System.out.println("You are user");
-                } else if (isUser.equals("provider"))
+                } else if (whatUser.equals("provider"))
                     System.out.println("You are provider");
 
-                String ans;
+                String choice,propName;
+                int key;
                 boolean has;
-                if (isUser.equals("provider")) {
-                    //String ans;
+
+                //Οταν ο χρήστης είναι provider
+
+                if (whatUser.equals("provider")) {
                     do {
-                        ans = prov.menuProvider();
+                        choice = prov.menuProvider();
 
 
-                        if (ans.equals("1")) {
-                            prov.newProp(count, new File("src/api/Properties"), log.getUsername());
+                        if (choice.equals("1")) {
+                            prov.newProp(countProp, fileP, log.getUsername());
                             prov.reNewFile(fileP);
-                            count++;
+                            countProp++;
                         }
-                        if (ans.equals("2")) {
+                        if (choice.equals("2")) {
                             has = prov.hasProps(log.getUsername());
                             if (has){
                                 prov.showMyProps(log.getUsername());
                                 System.out.println("Type the number of property above to edit.");
-                                int p = sc.nextInt();
-                                prov.editProps(p, fileP);
+                                key = fromKeyboard.nextInt();
+                                prov.editProps(key, fileP);
                                 prov.reNewFile(fileP);
-                                //prov.showMyProps(log.getUsername());
 
                             }
                             else
                                 System.out.println("No properties to edit.");
                         }
-                        if (ans.equals("3")) {
+                        if (choice.equals("3")) {
                              has = prov.hasProps(log.getUsername());
                             if(has){
                                 prov.showMyProps(log.getUsername());
                                 System.out.println(" Type the number of property above to delete");
-                                int p = sc.nextInt();
-                                prov.deleteProp(p, fileP);
-                                user.deletePropRev(p);
+                                key = fromKeyboard.nextInt();
+                                prov.deleteProp(key, fileP);
+                                user.deletePropRev(key);
                                 prov.reNewFile(fileP);
                                 user.reNewFile(fileR);
 
@@ -162,44 +165,58 @@ public class Main {
                             else
                                 System.out.println("Nothing to show. No properties yet.");
                         }
-                        if (ans.equals("4")) {
+                        if (choice.equals("4")) {
                             has = prov.hasProps(log.getUsername());
-                            if(has)
-                                prov.dashBoardProvider(log.getUsername(),user.getProperties(),user.getRate());
+                            if(has){
+                                display.dashboardProvider(log.getUsername(),user.getProperties(),user.getRate(),prov.getProps(),prov.getNames());
+                                System.out.println("Type the number of property above to see all information, else press 0 to move to the menu.");
+
+                                key = fromKeyboard.nextInt();
+                                if (key != 0) {
+                                    propName = prov.getPropName(key);
+                                    display.displayProperty(propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
+                                }
+
+                            }
                             else
                                 System.out.println("Nothing to show. No properties yet.");
                         }
-                    } while (!ans.toUpperCase().equals("LOGOUT"));
+                    } while (!choice.toUpperCase().equals("LOGOUT"));
                     System.out.println("Thank you for using our app. See you again " + log.getUsername());
 
                 }
-                if(isUser.equals("user")){
+
+                //Οταν ο χρήστης είναι user
+
+                if(whatUser.equals("user")){
                     do{
-                        ans= user.menuUser();
-                        if(ans.equals("1")){
+                        choice= user.menuUser();
+                        if(choice.equals("1")){
                             prov.searchProps();
                         }
-                        if(ans.equals("2")){
+                        if(choice.equals("2")){
                             prov.printProps();
                             System.out.println("For which property you want to add a review?");
-                            String a = sc.next();
-                            has = user.hasRevs(a,log.getUsername());
+                            key = fromKeyboard.nextInt();
+                            propName = prov.getPropName(key);
+                            has = user.hasRevs(propName,log.getUsername());
                             if (has){
                                 System.out.println("You already have a review for this property.Delete it or edit from the Menu below.");
                             }else
                             {
-                                user.newReview(a,log.getUsername());
+                                user.newReview(propName,log.getUsername());
                                 user.reNewFile(fileR);
                             }
 
                         }
-                        if(ans.equals("3")){
-                            user.showMyReviews(log.getUsername());
+                        if(choice.equals("3")){
+                            display.showReviews(log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
                             System.out.println("For which property you want to edit your review?");
-                            String prop = sc.next();
-                            has = user.hasRevs(prop,log.getUsername());
+                            key = fromKeyboard.nextInt();
+                            propName = prov.getPropName(key);
+                            has = user.hasRevs(propName,log.getUsername());
                             if(has){
-                                user.editReviews(prop,log.getUsername());
+                                user.editReviews(propName,log.getUsername());
                                 user.reNewFile(fileR);
                             }else {
                                 System.out.println("You don't have a review for this property, so you cant edit.");
@@ -207,23 +224,31 @@ public class Main {
 
                             //user.printRevs();
                         }
-                        if(ans.equals("4")){
+                        if(choice.equals("4")){
                             System.out.println(" For which property you want to delete your review?");
-                            user.showMyReviews(log.getUsername());
-                            String prop = sc.next();
-                            has = user.hasRevs(prop, log.getUsername());
+                            display.showReviews(log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
+                            key = fromKeyboard.nextInt();
+                            propName = prov.getPropName(key);
+                            has = user.hasRevs(propName, log.getUsername());
                             if(has){
-                                user.deleteRev(prop,log.getUsername());
+                                user.deleteRev(propName,log.getUsername());
                                 user.reNewFile(fileR);
                             }else {
                                 System.out.println("You don't have a review for this property, so you cant delete.");
                             }
                         }
 
-                        if (ans.equals("5")){
-                            user.dashboardUser(log.getUsername(),prov.getProps());
+                        if (choice.equals("5")){
+                            display.dashboardUser(log.getUsername(),prov.getProps(),user.getRate(),user.getUsers(),user.getProperties());
+                            System.out.println("Type the number of property above to see all information, else press 0 to move to the menu.");
+                            key = fromKeyboard.nextInt();
+                            if (key != 0) {
+                                propName = prov.getPropName(key);
+                                display.displayProperty(propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
+                            }
                         }
-                    }while(!ans.toUpperCase().equals("LOGOUT"));
+                    }while(!choice.toUpperCase().equals("LOGOUT"));
+                    System.out.println("Thank you for using our app. See you again " + log.getUsername());
 
                 }
             }
