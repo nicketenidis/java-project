@@ -105,6 +105,7 @@ public class Main {
                     userName = fromKeyboard.next();
                     System.out.print("Password: ");
                     userPass = fromKeyboard.next();
+
                     log = new LogIn(userName, userPass);
                     log.addCredits();
 
@@ -121,7 +122,7 @@ public class Main {
                 } else if (whatUser.equals("provider"))
                     System.out.println("You are provider");
 
-                String choice,propName;
+                String choice,propName,newPropName;
                 int key;
                 boolean has;
 
@@ -133,7 +134,7 @@ public class Main {
 
 
                         if (choice.equals("1")) {
-                            prov.newProp(countProp, fileP, log.getUsername());
+                            prov.newProp(countProp, log.getUsername());
                             prov.reNewFile(fileP);
                             countProp++;
                         }
@@ -143,8 +144,14 @@ public class Main {
                                 prov.showMyProps(log.getUsername());
                                 System.out.println("Type the number of property above to edit.");
                                 key = fromKeyboard.nextInt();
-                                prov.editProps(key, fileP);
+                                propName = prov.getPropName(key);
+                                System.out.println(propName);
+                                prov.editProps(key);
+                                newPropName = prov.getPropName(key);
+                                System.out.println(newPropName);
+                                user.editRevName(propName,newPropName);
                                 prov.reNewFile(fileP);
+                                user.reNewFile(fileR);
 
                             }
                             else
@@ -156,8 +163,9 @@ public class Main {
                                 prov.showMyProps(log.getUsername());
                                 System.out.println(" Type the number of property above to delete");
                                 key = fromKeyboard.nextInt();
-                                prov.deleteProp(key, fileP);
-                                user.deletePropRev(key);
+                                propName = prov.getPropName(key);
+                                prov.deleteProp(key);
+                                user.deletePropRev(propName);
                                 prov.reNewFile(fileP);
                                 user.reNewFile(fileR);
 
@@ -228,8 +236,10 @@ public class Main {
                             System.out.println(" For which property you want to delete your review?");
                             display.showReviews(log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
                             key = fromKeyboard.nextInt();
+
                             propName = prov.getPropName(key);
                             has = user.hasRevs(propName, log.getUsername());
+
                             if(has){
                                 user.deleteRev(propName,log.getUsername());
                                 user.reNewFile(fileR);

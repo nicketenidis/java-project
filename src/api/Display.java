@@ -41,7 +41,7 @@ public class Display {
                 System.out.println("Name: "+e.getValue().getName());
                 System.out.println("Type: "+e.getValue().getType());
                 System.out.println("Location: "+e.getValue().getLocation());
-                //System.out.println("Description: "+e.getValue().getDescr());
+
                 System.out.println("Average Rate: "+avgProp+"/5");
             }
             i++;

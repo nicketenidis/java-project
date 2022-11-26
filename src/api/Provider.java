@@ -7,14 +7,14 @@ import java.util.*;
 public class Provider {
 
     //private String type;
-    private Scanner scanner ;
+   // private Scanner scanner ;
     public HashMap<Integer,Property> props;
     private ArrayList<String> names;
     Property prop;
     public Provider ()  {
         props = new HashMap<>();
         names = new ArrayList<>();
-        scanner = new Scanner(System.in);
+        //scanner = new Scanner(System.in);
     }
 
 
@@ -31,13 +31,14 @@ public class Provider {
     }
 
 
-    public void addProperties(int c, String n, String t, String l, String d, String w){
-        prop = new Property(n,t,l,d);
+    public void addProperties(int c, String nameProp, String typeProp, String locProp, String descrProp, String provName){
+        prop = new Property(nameProp,typeProp,locProp,descrProp);
         props.put(c,prop);
-        names.add(w);
+        names.add(provName);
     }
 
     public String menuProvider(){
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Menu:");
         System.out.println("Press 1 for adding a new property.");
         System.out.println("Press 2 for editing your properties.");
@@ -49,32 +50,59 @@ public class Provider {
 
     }
 
-    public void newProp(int c,File f,String n) throws IOException {
+    public void newProp(int c,String provName) throws IOException {
+        boolean flag ;
+        String nameProp,typeProp,locProp,descrProp;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("The name of property(This field is required!)");
-        String name = scanner.nextLine();
+
+        do{
+            flag=true;
+            System.out.println("The name of property(This field is required!)");
+            nameProp = scanner.nextLine();
+            for(Map.Entry<Integer,Property> e : props.entrySet()){
+                if(e.getValue().getName().equals(nameProp)){
+                    System.out.println("There is already a property with ths name. Try another name.");
+                    flag = false;
+                    break;
+                }
+            }
+        }while(!flag);
+
         System.out.println("The Type of property(This field is required!)");
-        String type = scanner.nextLine();
+        typeProp = scanner.nextLine();
         System.out.println("The Location of property(This field is required!)");
-        String loc = scanner.nextLine();
+        locProp = scanner.nextLine();
         System.out.println("The Description of property(This field is required!)");
-        String descr = scanner.nextLine();
+        descrProp = scanner.nextLine();
 
 
-        addProperties(c,name,type,loc,descr,n);
+        addProperties(c,nameProp,typeProp,locProp,descrProp,provName);
     }
 
-    public void editProps(int property,File f){
+    public void editProps(int property){
+        boolean flag;
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Change name to: ");
-        String name = scanner.nextLine();
+        String nameProp,typeProp,locProp,descrProp;
+        do{
+            flag=true;
+            System.out.print("Change name to: ");
+            nameProp = scanner.nextLine();
+            for(Map.Entry<Integer,Property> e : props.entrySet()){
+                if(e.getValue().getName().equals(nameProp)){
+                    System.out.println("There is already a property with ths name. Try another name.");
+                    flag = false;
+                    break;
+                }
+            }
+        }while(!flag);
+
         System.out.print("Change type to: ");
-        String type = scanner.nextLine();
+        typeProp = scanner.nextLine();
         System.out.print("Enter the new location: ");
-        String loc = scanner.nextLine();
+        locProp = scanner.nextLine();
         System.out.print("Add a description: ");
-        String descr = scanner.nextLine();
-        prop = new Property(name,type,loc,descr);
+        descrProp = scanner.nextLine();
+        prop = new Property(nameProp,typeProp,locProp,descrProp);
 
         for (Map.Entry<Integer,Property> e : props.entrySet()){
             if(e.getKey() == property){
@@ -84,17 +112,17 @@ public class Provider {
         }
     }
 
-    public void deleteProp(int property,File f) {
+    public void deleteProp(int property) {
         props.remove(property);
         names.remove(property-1);
 
     }
 
 
-    public boolean hasProps(String name){
+    public boolean hasProps(String provName){
         int i=0,c=0;
         for(Map.Entry<Integer,Property> e : props.entrySet()){
-            if(names.get(i).equals(name)){
+            if(names.get(i).equals(provName)){
                 c++;
             }
             i++;
@@ -106,7 +134,6 @@ public class Provider {
     }
 
     public void reNewFile(File f) throws IOException {
-        // printProps();
         int i=0;
         BufferedWriter writer = new BufferedWriter(new FileWriter(f));
         for(Map.Entry<Integer,Property> entry : props.entrySet()){
@@ -145,7 +172,6 @@ public class Provider {
 
     public void showMyProps(String name){
         int i=0;
-        //System.out.println(names.size());
         for(Map.Entry<Integer,Property> e : props.entrySet()){
             if(names.get(i).equals(name)){
                 System.out.println();
@@ -163,6 +189,7 @@ public class Provider {
     }
 
     public void searchProps(){
+        Scanner scanner = new Scanner(System.in);
         System.out.println("You can search a property via Name, Type or Location");
         String n=scanner.next();
         int i=0;

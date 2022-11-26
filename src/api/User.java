@@ -26,7 +26,6 @@ public class User {
         users = new ArrayList<>();
         properties = new ArrayList<>();
         rate = new ArrayList<>();
-        //scanner = new Scanner(System.in);
         provider = new Provider();
     }
 
@@ -46,12 +45,12 @@ public class User {
         return rev;
     }
 
-    public void addReviews(String r,String p, String u,String g){
-        review = new Reviews(r);
-        rev.add(r);
-        properties.add(p);
-        users.add(u);
-        rate.add(g);
+    public void addReviews(String userReview,String prop, String user,String userRate){
+        review = new Reviews(userReview);
+        rev.add(userReview);
+        properties.add(prop);
+        users.add(user);
+        rate.add(userRate);
     }
 
     public String menuUser(){
@@ -67,7 +66,7 @@ public class User {
         return answer;
     }
 
-    public void newReview(String p,String user) throws IOException {
+    public void newReview(String property,String user) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Tell us about your experience : ");
         String review = sc.nextLine();
@@ -77,17 +76,17 @@ public class User {
         out.newLine();
         out.write(review);
         out.newLine();
-        out.write(p);
+        out.write(property);
         out.newLine();
         out.write(user);
         out.newLine();
         out.write(rate);
         out.close();
-        addReviews(review,p,user,rate);
+        addReviews(review,property,user,rate);
     }
 
 
-    public void editReviews(String p,String name){
+    public void editReviews(String property,String user){
         Scanner sc = new Scanner(System.in);
         System.out.print("Change your review to: ");
         String newRev = sc.nextLine();
@@ -95,16 +94,25 @@ public class User {
         String newRate = sc.nextLine();
         review = new Reviews(newRev);
         for (int i=0;i<rev.size();i++){
-            if(properties.get(i).equals(p) && users.get(i).equals(name)){
+            if(properties.get(i).equals(property) && users.get(i).equals(user)){
                 rev.set(i,newRev);
                 rate.set(i,newRate);
             }
         }
     }
 
-    public void deleteRev(String p,String n){
+    public void editRevName(String name1,String name2){
+        for(int i =0;i<properties.size();i++){
+            if(properties.get(i).equals(name1)){
+                properties.set(i,name2);
+            }
+        }
+
+    }
+
+    public void deleteRev(String property,String user){
         for (int i=0;i< rev.size();i++){
-            if(properties.get(i).equals(p) && users.get(i).equals(n)){
+            if(properties.get(i).equals(property) && users.get(i).equals(user)){
                 rev.remove(i);
                 properties.remove(i);
                 users.remove(i);
@@ -114,10 +122,10 @@ public class User {
         }
     }
 
-    public void deletePropRev(int p){
+    public void deletePropRev(String property){
 
         for(int i=0;i<rev.size();i++){
-            if(properties.get(i).equals(Integer.toString(p))){
+            if(properties.get(i).equals(property)){
                 rev.remove(i);
                 properties.remove(i);
                 users.remove(i);
@@ -127,9 +135,9 @@ public class User {
     }
 
 
-    public boolean hasRevs(String p,String name){
+    public boolean hasRevs(String property,String user){
         for (int i =0;i<rev.size();i++){
-            if(properties.get(i).equals(p) && users.get(i).equals(name)){
+            if(properties.get(i).equals(property) && users.get(i).equals(user)){
                 return true;
             }
         }
@@ -138,7 +146,6 @@ public class User {
 
 
     public void reNewFile(File f) throws IOException {
-        //int i=0;
         BufferedWriter writer = new BufferedWriter(new FileWriter(f));
         for(int i =0;i< rev.size();i++){
             writer.write(rev.get(i));
