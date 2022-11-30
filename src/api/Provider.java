@@ -6,8 +6,6 @@ import java.util.*;
 
 public class Provider {
 
-    //private String type;
-   // private Scanner scanner ;
     public HashMap<Integer,Property> props;
     private ArrayList<String> names;
     Property prop;
@@ -50,7 +48,7 @@ public class Provider {
 
     }
 
-    public void newProp(int c,String provName) throws IOException {
+    public void newProp(int c,String provName) {
         boolean flag ;
         String nameProp,typeProp,locProp,descrProp;
         Scanner scanner = new Scanner(System.in);
@@ -70,7 +68,7 @@ public class Provider {
 
         System.out.println("The Type of property(This field is required!)");
         typeProp = scanner.nextLine();
-        System.out.println("The Location of property(This field is required!)");
+        System.out.println("The Location of property(This field is required!)[Address,City,Postal Code]");
         locProp = scanner.nextLine();
         System.out.println("The Description of property(This field is required!)");
         descrProp = scanner.nextLine();
@@ -98,7 +96,7 @@ public class Provider {
 
         System.out.print("Change type to: ");
         typeProp = scanner.nextLine();
-        System.out.print("Enter the new location: ");
+        System.out.print("Enter the new location(Address,City,Postal Code): ");
         locProp = scanner.nextLine();
         System.out.print("Add a description: ");
         descrProp = scanner.nextLine();
@@ -127,10 +125,7 @@ public class Provider {
             }
             i++;
         }
-        if(c>0)
-            return true;
-        else
-            return false;
+        return c > 0;
     }
 
     public void reNewFile(File f) throws IOException {

@@ -1,16 +1,11 @@
 package api;
 
-
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.Scanner;
 
 public class User {
-
-   // Scanner scanner;
 
     private ArrayList<String> rate;
 
@@ -67,11 +62,18 @@ public class User {
     }
 
     public void newReview(String property,String user) throws IOException {
+        String review,rate;
         Scanner sc = new Scanner(System.in);
         System.out.println("Tell us about your experience : ");
-        String review = sc.nextLine();
-        System.out.print("Rate the property(up to 5 points) : ");
-        String rate = sc.nextLine();
+        review = sc.nextLine();
+        do{
+            System.out.print("Rate the property(up to 5 points) : ");
+            rate = sc.nextLine();
+            if(Double.parseDouble(rate)>5){
+                System.out.println("This is not a valid rate. Your rate has to be up to 5 points or lower.");
+            }
+        }while(Double.parseDouble(rate)>5);
+
         BufferedWriter out = new BufferedWriter((new FileWriter("src/api/UserReviews",true)));
         out.newLine();
         out.write(review);
@@ -87,15 +89,22 @@ public class User {
 
 
     public void editReviews(String property,String user){
+        String newReview,newRate;
         Scanner sc = new Scanner(System.in);
         System.out.print("Change your review to: ");
-        String newRev = sc.nextLine();
-        System.out.print("Change your rate to (up to 5 points): ");
-        String newRate = sc.nextLine();
-        review = new Reviews(newRev);
+        newReview = sc.nextLine();
+        do{
+            System.out.print("Change your rate to (up to 5 points): ");
+            newRate = sc.nextLine();
+            if(Double.parseDouble(newRate)>5){
+                System.out.println("This is not a valid rate. Your rate has to be up to 5 points or lower.");
+            }
+        }while(Double.parseDouble(newRate)>5);
+
+        review = new Reviews(newReview);
         for (int i=0;i<rev.size();i++){
             if(properties.get(i).equals(property) && users.get(i).equals(user)){
-                rev.set(i,newRev);
+                rev.set(i,newReview);
                 rate.set(i,newRate);
             }
         }

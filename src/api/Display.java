@@ -17,7 +17,8 @@ public class Display {
     public void dashboardProvider(String name, ArrayList<String> listProp, ArrayList<String> listRates, HashMap<Integer,Property> properties,ArrayList<String> names){
         int i;
         double avgTotal,avgProp;
-        int totalReviews = 0,propReviews,sumProp,sumTotal=0;
+        int totalReviews = 0,propReviews;
+        double sumProp,sumTotal=0;
         i=0;
         for(Map.Entry<Integer,Property> e : properties.entrySet()){
             if( names.get(i).equals(name)){
@@ -26,9 +27,9 @@ public class Display {
                 for (int j =0;j< listProp.size();j++){
                     if(e.getValue().getName().equals(listProp.get(j))){
                         propReviews++;
-                        sumProp += Integer.parseInt(listRates.get(j));
+                        sumProp += Double.parseDouble(listRates.get(j));
                         totalReviews++;
-                        sumTotal += Integer.parseInt(listRates.get(j));
+                        sumTotal += Double.parseDouble(listRates.get(j));
                     }
                 }
                 if(propReviews == 0)
@@ -58,13 +59,14 @@ public class Display {
 
 
     public void dashboardUser(String name, HashMap<Integer,Property> properties,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listProps){
-        int sumRev=0,revNum=0;
+        int revNum=0;
+        double sumRev=0;
         double avgRev;
         for(Map.Entry<Integer,Property> e : properties.entrySet()){
             for(int i =0;i<listUsers.size();i++){
                 if (listUsers.get(i).equals(name) && e.getValue().getName().equals(listProps.get(i))){
                     revNum++;
-                    sumRev+= Integer.parseInt(listRates.get(i));
+                    sumRev+= Double.parseDouble(listRates.get(i));
                     System.out.println();
                     System.out.println("Property "+e.getKey());
                     System.out.println("-----------");
@@ -92,8 +94,8 @@ public class Display {
 
 
     public void displayProperty(String property,HashMap<Integer,Property> properties,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listReviews,ArrayList<String> listProp){
-        int revNum=0,sumRev=0;
-        double avg;
+        int revNum=0;
+        double avg,sumRev=0;
 
 
         for(Map.Entry<Integer,Property> e : properties.entrySet() ){
@@ -112,7 +114,7 @@ public class Display {
         for(int i=0;i<listReviews.size();i++){
             if(property .equals(listProp.get(i))){
                 revNum++;
-                sumRev += Integer.parseInt(listRates.get(i));
+                sumRev += Double.parseDouble(listRates.get(i));
             }
         }
         if(revNum==0){

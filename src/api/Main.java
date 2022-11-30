@@ -72,12 +72,18 @@ public class Main {
                         firstName = fromKeyboard.next();
                         System.out.print("Enter your Last Name: ");
                         lastName = fromKeyboard.next();
-                        System.out.print("Enter your username Name: ");
+                        System.out.print("Enter your username: ");
                         userName = fromKeyboard.next();
-                        System.out.print("Enter your password Name: ");
+                        System.out.print("Enter your password: ");
                         userPass = fromKeyboard.next();
-                        System.out.print("Are you just a User or Provider? : ");
-                        userType = fromKeyboard.next();
+                        do{
+                            System.out.print("Are you just a User or Provider? : ");
+                            userType = fromKeyboard.next();
+                            if(!userType.equals("user") && !userType.equals("provider"))
+                                System.out.println("This is not a valid type of user. You can only be user or provider.");
+                        }while(!userType.equals("user") && !userType.equals("provider"));
+
+
                         reg = new Register(firstName, lastName, userName, userPass, userType);
                         boolean ver = reg.verifyAcc(userName);
                         if (ver) {
@@ -113,7 +119,7 @@ public class Main {
                     if (isUser) {
                         System.out.println("Hi " + log.getUsername());
                     } else {
-                        System.out.println("Username and password dont match.Please try again!");
+                        System.out.println("Username and password don't match.Please try again!");
                     }
                 } while (!isUser);
                 whatUser = log.whatUser(userName, userPass, "user");
@@ -230,7 +236,6 @@ public class Main {
                                 System.out.println("You don't have a review for this property, so you cant edit.");
                             }
 
-                            //user.printRevs();
                         }
                         if(choice.equals("4")){
                             System.out.println(" For which property you want to delete your review?");
