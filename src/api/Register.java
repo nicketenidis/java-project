@@ -36,7 +36,6 @@ public class Register {
 
     public boolean verifyAcc(String name){
         scanner.useDelimiter(",");
-        //String name,pass;
         while(scanner.hasNextLine()){
             if(name.equals(scanner.next())){
                 return false;
@@ -60,4 +59,3 @@ public class Register {
 
 
 }
-

@@ -11,5 +11,4 @@ public class Reviews {
     public String getReview(){
         return review;
     }
-
 }

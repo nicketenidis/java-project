@@ -31,37 +31,37 @@ public class LogIn {
 
     public void addCredits(){
         scanner.useDelimiter(",");
-        String name,pass,t;
+        String userName,passWord,type;
         while(scanner.hasNextLine()){
-            name = scanner.next();
+            userName = scanner.next();
             scanner.skip(",");
-            pass = scanner.nextLine();
-            t = scanner.nextLine();
-            addAccount(name,pass,t);
+            passWord = scanner.nextLine();
+            type = scanner.nextLine();
+            addAccount(userName,passWord,type);
         }
 
 
     }
 
-    public void addAccount(String name,String pass, String t){
-        cred.put(name,pass);
+    public void addAccount(String userName,String passWord, String t){
+        cred.put(userName,passWord);
         type.add(t);
     }
 
-    public boolean accCheck(String u,String p){
+    public boolean accCheck(String userName,String passWord){
 
         for(Map.Entry<String,String> entry : cred.entrySet()){
-            if(entry.getKey().equals(u) && entry.getValue().equals(p)) {
+            if(entry.getKey().equals(userName) && entry.getValue().equals(passWord)) {
                 return true;
             }
         }
         return false;
     }
 
-    public String whatUser(String n,String p,String t){
+    public String whatUser(String userName,String passWord,String t){
         int i=0;
         for(Map.Entry<String,String> entry : cred.entrySet()){
-            if(entry.getKey().equals(n) && entry.getValue().equals(p) && type.get(i).equals(t)) {
+            if(entry.getKey().equals(userName) && entry.getValue().equals(passWord) && type.get(i).equals(t)) {
 
                 return "user";
             }
@@ -69,6 +69,7 @@ public class LogIn {
         }
         return "provider";
     }
+
 
 
 
