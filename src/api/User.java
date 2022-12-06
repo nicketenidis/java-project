@@ -178,7 +178,7 @@ public class User {
             System.out.println();
             System.out.println("Review for property "+properties.get(i)+": "+rev.get(i));
             System.out.println("By - "+users.get(i));
-            System.out.println("____________________");
+            System.out.println("__________________");
         }
     }
 
@@ -197,3 +197,4 @@ public class User {
     }
 
 }
+
