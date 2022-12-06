@@ -1,5 +1,6 @@
 package api;
-import api.Display;
+
+import gui.*;
 
 import java.io.*;
 import java.util.Scanner;
@@ -7,6 +8,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String [] args) throws IOException {
+
+        //GUI gui = new GUI();
+
         System.out.println("Hello, Welcome to our AirBnb App:");
 
         File fileP = new File("src/api/Properties");
@@ -46,6 +50,8 @@ public class Main {
         }
         boolean found = true;
         fromKeyboard = new Scanner(System.in);
+
+        GUI gui = new GUI(countProp,fileP);
 
         //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {

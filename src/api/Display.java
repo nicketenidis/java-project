@@ -14,6 +14,8 @@ public class Display {
         provider = new Provider();
     }
 
+
+
     public void dashboardProvider(String name, ArrayList<String> listProp, ArrayList<String> listRates, HashMap<Integer,Property> properties,ArrayList<String> names){
         int i;
         double avgTotal,avgProp;

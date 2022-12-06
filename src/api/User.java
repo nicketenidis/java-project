@@ -16,7 +16,7 @@ public class User {
     Provider provider;
     Reviews review;
 
-    public User(){
+    public User()  {
         rev = new ArrayList<>();
         users = new ArrayList<>();
         properties = new ArrayList<>();
@@ -142,6 +142,8 @@ public class User {
             }
         }
     }
+
+
 
 
     public boolean hasRevs(String property,String user){

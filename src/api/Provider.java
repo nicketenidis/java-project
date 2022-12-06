@@ -17,10 +17,21 @@ public class Provider {
 
 
     public HashMap<Integer, Property> getProps() {
+        System.out.println("mpika");
         return props;
     }
 
+    public int getKeys(int count){
+        System.out.println("MPIKA");
+
+        if(props.containsKey(count))
+            return count;
+        else
+            return 0;
+    }
+
     public ArrayList<String> getNames() {
+        System.out.println("mpika");
         return names;
     }
 
@@ -130,7 +141,7 @@ public class Provider {
 
     public void reNewFile(File f) throws IOException {
         int i=0;
-        BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+        BufferedWriter writer = new BufferedWriter((new FileWriter(f,true)));
         for(Map.Entry<Integer,Property> entry : props.entrySet()){
             writer.write(entry.getValue().getName()+"-"+entry.getValue().getType()+"-"+entry.getValue().getLocation()+"-"+entry.getValue().getDescr());
             writer.newLine();
