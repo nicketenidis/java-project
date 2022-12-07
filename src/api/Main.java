@@ -52,6 +52,8 @@ public class Main {
         fromKeyboard = new Scanner(System.in);
 
         GUI gui = new GUI(countProp,fileP);
+        //gui.setVisible(true);
+        gui.buildFrame(prov.getProps(),countProp,prov.getNames());
 
         //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {

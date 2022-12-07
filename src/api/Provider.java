@@ -5,11 +5,13 @@ import java.util.*;
 
 
 public class Provider {
+    private File fileP;
 
     public HashMap<Integer,Property> props;
     private ArrayList<String> names;
     Property prop;
     public Provider ()  {
+        fileP = new File("src/api/Properties");
         props = new HashMap<>();
         names = new ArrayList<>();
         //scanner = new Scanner(System.in);
@@ -31,7 +33,6 @@ public class Provider {
     }
 
     public ArrayList<String> getNames() {
-        System.out.println("mpika");
         return names;
     }
 
@@ -143,6 +144,7 @@ public class Provider {
         int i=0;
         BufferedWriter writer = new BufferedWriter((new FileWriter(f,true)));
         for(Map.Entry<Integer,Property> entry : props.entrySet()){
+            //writer.newLine();
             writer.write(entry.getValue().getName()+"-"+entry.getValue().getType()+"-"+entry.getValue().getLocation()+"-"+entry.getValue().getDescr());
             writer.newLine();
             writer.write(names.get(i));
