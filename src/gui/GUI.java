@@ -33,10 +33,10 @@ public class GUI implements ActionListener {
     private Provider prov;
     private LogIn log;
     JFrame frame;
-    JPanel panelIntro,loginPanel,regPanel,successPanelUser,successPanelProv,providerPanel,userPanel;
-    JButton loginButton,regButton,signInButton,signUpButton,addUser,editUser,search,deleteUser,dashboardUser,addProv,editProv,dashboardProv,deleteProv,propButton,submit,create;
-    JLabel userLabel,passLabel,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,propLabel,nameProp,typeProp,locProp,descrProp,namePropLabel,typePropLabel,locPropLabel,descrPropLabel;
-    JTextField userText,fnameText,lnameText,typeText,namePropText,typePropText,locPropText,descrPropText;
+    JPanel panelIntro,loginPanel,regPanel,successPanelUser,successPanelProv,providerPanel,userPanel,editPanel;
+    JButton loginButton,regButton,signInButton,signUpButton,addUser,editUser,search,deleteUser,dashboardUser,addProv,editProv,dashboardProv,deleteProv,propButton,submit,create,change,changeProp;
+    JLabel userLabel,passLabel,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,propLabel,nameProp,typeProp,locProp,descrProp,namePropLabel,typePropLabel,locPropLabel,descrPropLabel,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel;
+    JTextField userText,fnameText,lnameText,typeText,namePropText,typePropText,locPropText,descrPropText,editAnsText,changeNameText,changeTypeText,changeLocText,changeDescrText;
     JPasswordField passText;
 
     public GUI(int countProp,File fileP) {
@@ -46,6 +46,7 @@ public class GUI implements ActionListener {
         display = new Display();
 
         prov = new Provider();
+
         map = prov.getProps();
         frame = new JFrame();
         panelIntro = new JPanel();
@@ -55,6 +56,7 @@ public class GUI implements ActionListener {
         successPanelProv = new JPanel();
         providerPanel = new JPanel();
         userPanel = new JPanel();
+        editPanel = new JPanel();
         loginButton = new JButton();
         regButton = new JButton();
         signInButton = new JButton();
@@ -71,6 +73,9 @@ public class GUI implements ActionListener {
         editProv = new JButton();
         deleteProv = new JButton();
         dashboardProv = new JButton();
+        change = new JButton();
+        changeProp = new JButton();
+
         labelIntro1 = new JLabel();
         labelIntro2 = new JLabel();
         userLabel = new JLabel();
@@ -78,6 +83,7 @@ public class GUI implements ActionListener {
         fnameLabel = new JLabel();
         lnameLabel = new JLabel();
         typeLabel = new JLabel();
+        editAnsLabel = new JLabel();
 
 
         successLabelUser = new JLabel();
@@ -87,6 +93,11 @@ public class GUI implements ActionListener {
         typeProp = new JLabel();
         locProp = new JLabel();
         descrProp = new JLabel();
+        changeNameLabel = new JLabel();
+        changeTypeLabel = new JLabel();
+        changeLocLabel = new JLabel();
+        changeDescrLabel = new JLabel();
+
         userText = new JTextField();
         fnameText = new JTextField();
         lnameText = new JTextField();
@@ -96,6 +107,11 @@ public class GUI implements ActionListener {
         typePropText = new JTextField();
         locPropText = new JTextField();
         descrPropText = new JTextField();
+        editAnsText = new JTextField();
+        changeNameText = new JTextField();
+        changeTypeText = new JTextField();
+        changeLocText = new JTextField();
+        changeDescrText = new JTextField();
 
 
         frame.setSize(1000, 800);
@@ -224,7 +240,68 @@ public class GUI implements ActionListener {
 
     }
 
-        public void buildFrame(HashMap<Integer,Property> map, int count, ArrayList<String> listNames) {
+        public void buildFrame(HashMap<Integer,Property> map, int count, ArrayList<String> listNames) throws IOException {
+
+        changeProp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                providerPanel.setVisible(false);
+                editPanel.setVisible(false);
+                successPanelProv.setVisible(true);
+                try {
+                    prov.editGui(changeNameText.getText(),changeTypeText.getText(),changeLocText.getText(),changeDescrText.getText(),Integer.parseInt(editAnsText.getText()),fileP);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
+            }
+        });
+
+        change.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editPanel.setLayout(null);
+                providerPanel.setVisible(false);
+                frame.add(editPanel);
+                editPanel.add(changeNameLabel);
+                editPanel.add(changeNameText);
+                editPanel.add(changeTypeLabel);
+                editPanel.add(changeTypeText);
+                editPanel.add(changeLocLabel);
+                editPanel.add(changeLocText);
+                editPanel.add(changeDescrLabel);
+                editPanel.add(changeDescrText);
+                editPanel.add(changeProp);
+
+                changeNameLabel.setText("Change name to:");
+                changeNameLabel.setBounds(450,100,200,40);
+                changeNameText.setBounds(400,150,200,40);
+                changeTypeLabel.setText("Change Type to:");
+                changeTypeLabel.setBounds(450,200,200,40);
+                changeTypeText.setBounds(400,250,200,40);
+                changeLocLabel.setText("Change Location to:");
+                changeLocLabel.setBounds(450,300,200,40);
+                changeLocText.setBounds(400,350,200,40);
+                changeDescrLabel.setText("Change the description:");
+                changeDescrLabel.setBounds(450,400,200,40);
+                changeDescrText.setBounds(400,450,200,40);
+                changeProp.setText("Done");
+                changeProp.setBounds(420,500,150,40);
+
+                changeNameLabel.setVisible(true);
+                changeNameText.setVisible(true);
+                changeTypeLabel.setVisible(true);
+                changeTypeText.setVisible(true);
+                changeLocLabel.setVisible(true);
+                changeLocText.setVisible(true);
+                changeDescrLabel.setVisible(true);
+                changeDescrText.setVisible(true);
+                changeProp.setVisible(true);
+
+
+            }
+        });
 
 
         editProv.addActionListener(new ActionListener() {
@@ -237,7 +314,11 @@ public class GUI implements ActionListener {
                 JLabel[] descrPropLabel = new JLabel[countProp];
                 successPanelProv.setVisible(false);
                 providerPanel.setLayout(null);
+                providerPanel.add(editAnsLabel);
+                providerPanel.add(editAnsText);
+                providerPanel.add(change);
                 frame.add(providerPanel);
+
                 int width,height,widthN,widthT,widthL,widthD,heightP,temp=0;
                 width=0;
                 widthN =0;
@@ -269,13 +350,6 @@ public class GUI implements ActionListener {
                             temp++;
                             heightP=height+20;
                         }
-                        if(widthN ==1000){
-                            // widthN=0;
-                            // widthL=0;
-                            // widthD=0;
-                            // widthT=0;
-                            //heightP +=20;
-                        }
                         propLabel[i].setBounds(width,height,100,20);
                         namePropLabel[i].setBounds(widthN,heightP,150,20);
                         heightP+=20;
@@ -305,6 +379,14 @@ public class GUI implements ActionListener {
 
                     }
                     i++;
+                    editAnsLabel.setText("Type the number of property you want to edit: ");
+                    editAnsLabel.setBounds(50,700,400,30);
+                    editAnsText.setBounds(400,700,100,30);
+                    change.setText("Change");
+                    change.setBounds(520,700,100,30);
+                    change.setVisible(true);
+                    editAnsText.setVisible(true);
+                    editAnsLabel.setVisible(true);
 
 
                 }

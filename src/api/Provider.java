@@ -122,6 +122,26 @@ public class Provider {
         }
     }
 
+    public void editGui(String nameProp,String typeProp,String locProp,String descrProp,int property,File f) throws IOException {
+        prop = new Property(nameProp,typeProp,locProp,descrProp);
+        for(Map.Entry<Integer,Property> entry : props.entrySet()){
+            if(property == entry.getKey()){
+                props.replace(property,entry.getValue(),prop);
+            }
+        }
+       PrintWriter writer = new PrintWriter(new FileWriter(f));
+        int i=0;
+        for(Map.Entry<Integer,Property> entry : props.entrySet()){
+            if(property == entry.getKey()){
+                props.replace(property,entry.getValue(),prop);
+            }
+        }
+
+
+
+    }
+
+
     public void deleteProp(int property) {
         props.remove(property);
         names.remove(property-1);
@@ -142,7 +162,7 @@ public class Provider {
 
     public void reNewFile(File f) throws IOException {
         int i=0;
-        BufferedWriter writer = new BufferedWriter((new FileWriter(f,true)));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(f));
         for(Map.Entry<Integer,Property> entry : props.entrySet()){
             //writer.newLine();
             writer.write(entry.getValue().getName()+"-"+entry.getValue().getType()+"-"+entry.getValue().getLocation()+"-"+entry.getValue().getDescr());
