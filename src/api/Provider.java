@@ -19,12 +19,11 @@ public class Provider {
 
 
     public HashMap<Integer, Property> getProps() {
-        System.out.println("mpika");
         return props;
     }
 
     public int getKeys(int count){
-        System.out.println("MPIKA");
+
 
         if(props.containsKey(count))
             return count;
@@ -122,25 +121,13 @@ public class Provider {
         }
     }
 
-    public void editGui(String nameProp,String typeProp,String locProp,String descrProp,int property,File f) throws IOException {
+    public void editGUI(String nameProp,String typeProp,String locProp,String descrProp,String property){
+        System.out.println("mpika");
         prop = new Property(nameProp,typeProp,locProp,descrProp);
-        for(Map.Entry<Integer,Property> entry : props.entrySet()){
-            if(property == entry.getKey()){
-                props.replace(property,entry.getValue(),prop);
-            }
-        }
-       PrintWriter writer = new PrintWriter(new FileWriter(f));
-        int i=0;
-        for(Map.Entry<Integer,Property> entry : props.entrySet()){
-            if(property == entry.getKey()){
-                props.replace(property,entry.getValue(),prop);
-            }
-        }
-
-
+        props.replace(Integer.parseInt(property),prop);
+        System.out.println(prop.getName());
 
     }
-
 
     public void deleteProp(int property) {
         props.remove(property);
