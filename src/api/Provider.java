@@ -6,19 +6,26 @@ import java.util.*;
 
 public class Provider {
 
+
     public HashMap<Integer,Property> props;
     private ArrayList<String> names;
     Property prop;
     public Provider ()  {
         props = new HashMap<>();
         names = new ArrayList<>();
-        //scanner = new Scanner(System.in);
+
+    }
+
+    public int getSize(){
+        return props.size();
     }
 
 
     public HashMap<Integer, Property> getProps() {
         return props;
     }
+
+
 
     public ArrayList<String> getNames() {
         return names;
@@ -110,6 +117,12 @@ public class Provider {
         }
     }
 
+    public void editGUI(String nameProp,String typeProp,String locProp,String descrProp,String property){
+        prop = new Property(nameProp,typeProp,locProp,descrProp);
+        props.replace(Integer.parseInt(property),prop);
+
+    }
+
     public void deleteProp(int property) {
         props.remove(property);
         names.remove(property-1);
@@ -132,6 +145,7 @@ public class Provider {
         int i=0;
         BufferedWriter writer = new BufferedWriter(new FileWriter(f));
         for(Map.Entry<Integer,Property> entry : props.entrySet()){
+            //writer.newLine();
             writer.write(entry.getValue().getName()+"-"+entry.getValue().getType()+"-"+entry.getValue().getLocation()+"-"+entry.getValue().getDescr());
             writer.newLine();
             writer.write(names.get(i));
@@ -197,7 +211,7 @@ public class Provider {
                 System.out.println("Type: "+entry.getValue().getType());
                 System.out.println("Location: "+entry.getValue().getLocation());
                 System.out.println("Description: "+entry.getValue().getDescr());
-                System.out.println("________________________");
+                System.out.println("______________________");
                 i++;
             }
         }

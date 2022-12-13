@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args) throws IOException {
 
-        GUI gui = new GUI();
+        //GUI gui = new GUI();
 
         System.out.println("Hello, Welcome to our AirBnb App:");
 
@@ -45,11 +45,14 @@ public class Main {
             descrProp = input.nextLine();
             whoProp = input.nextLine();
             prov.addProperties(countProp,nameProp,typeProp,locProp,descrProp,whoProp);
-            //prov.printProps();
             countProp++;
         }
         boolean found = true;
         fromKeyboard = new Scanner(System.in);
+
+        GUI gui = new GUI();
+        gui.Initialize();
+        gui.Intro();
 
         //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {
