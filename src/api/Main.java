@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args) throws IOException {
 
-        //GUI gui = new GUI();
 
         System.out.println("Hello, Welcome to our AirBnb App:");
 
@@ -45,15 +44,14 @@ public class Main {
             descrProp = input.nextLine();
             whoProp = input.nextLine();
             prov.addProperties(countProp,nameProp,typeProp,locProp,descrProp,whoProp);
-            //prov.printProps();
             countProp++;
         }
         boolean found = true;
         fromKeyboard = new Scanner(System.in);
 
-        GUI gui = new GUI(countProp,fileP);
+        GUI gui = new GUI();
+        gui.Initialize();
         gui.Intro();
-        //gui.buildFrame(prov.getProps(),countProp,prov.getNames());
 
         //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {
@@ -182,6 +180,20 @@ public class Main {
                                 user.deletePropRev(propName);
                                 prov.reNewFile(fileP);
                                 user.reNewFile(fileR);
+                                input = new Scanner(fileP);
+                                input.useDelimiter("-");
+                                String name,type,loc,descr,who;
+                                int count=1;
+                                while(input.hasNextLine()){
+                                    name = input.next();
+                                    type = input.next();
+                                    loc = input.next();
+                                    input.skip("-");
+                                    descr = input.nextLine();
+                                    who = input.nextLine();
+                                    prov.addProperties(count,name,type,loc,descr,who);
+                                    count++;
+                                }
 
                             }
                             else

@@ -5,16 +5,19 @@ import java.util.*;
 
 
 public class Provider {
-    private File fileP;
+
 
     public HashMap<Integer,Property> props;
     private ArrayList<String> names;
     Property prop;
     public Provider ()  {
-        fileP = new File("src/api/Properties");
         props = new HashMap<>();
         names = new ArrayList<>();
-        //scanner = new Scanner(System.in);
+
+    }
+
+    public int getSize(){
+        return props.size();
     }
 
 
@@ -22,14 +25,7 @@ public class Provider {
         return props;
     }
 
-    public int getKeys(int count){
 
-
-        if(props.containsKey(count))
-            return count;
-        else
-            return 0;
-    }
 
     public ArrayList<String> getNames() {
         return names;
@@ -122,10 +118,8 @@ public class Provider {
     }
 
     public void editGUI(String nameProp,String typeProp,String locProp,String descrProp,String property){
-        System.out.println("mpika");
         prop = new Property(nameProp,typeProp,locProp,descrProp);
         props.replace(Integer.parseInt(property),prop);
-        System.out.println(prop.getName());
 
     }
 
