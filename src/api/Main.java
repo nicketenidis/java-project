@@ -170,7 +170,7 @@ public class Main {
                                 System.out.println("No properties to edit.");
                         }
                         if (choice.equals("3")) {
-                             has = prov.hasProps(log.getUsername());
+                            has = prov.hasProps(log.getUsername());
                             if(has){
                                 prov.showMyProps(log.getUsername());
                                 System.out.println(" Type the number of property above to delete");

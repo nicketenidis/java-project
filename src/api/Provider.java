@@ -211,7 +211,7 @@ public class Provider {
                 System.out.println("Type: "+entry.getValue().getType());
                 System.out.println("Location: "+entry.getValue().getLocation());
                 System.out.println("Description: "+entry.getValue().getDescr());
-                System.out.println("________________________");
+                System.out.println("______________________");
                 i++;
             }
         }
