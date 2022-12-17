@@ -18,11 +18,12 @@ import javax.swing.*;
 
 public class GUI implements ActionListener {
 
-    ArrayList<JLabel> propLabel ;
-    ArrayList<JLabel> namePropLabel ;
-    ArrayList<JLabel> typePropLabel ;
-    ArrayList<JLabel> locPropLabel ;
-    ArrayList<JLabel> descrPropLabel ;
+    ArrayList<JLabel> namePropLabel;
+    ArrayList<JLabel> typePropLabel;
+    ArrayList<JLabel> locPropLabel;
+    ArrayList<JLabel> descrPropLabel;
+    ArrayList<JLabel> propLabel;
+
 
     private int count;
     File fileP;
@@ -40,11 +41,13 @@ public class GUI implements ActionListener {
 
     public GUI() {
 
-        propLabel = new ArrayList<>();
-         namePropLabel = new ArrayList<>();
-         typePropLabel = new ArrayList<>();
-         locPropLabel = new ArrayList<>();
+        namePropLabel = new ArrayList<>();
+        typePropLabel = new ArrayList<>();
+        locPropLabel = new ArrayList<>();
         descrPropLabel = new ArrayList<>();
+        propLabel = new ArrayList<>();
+
+
         count=1;
 
         fileP = new File("src/api/Properties");
@@ -284,17 +287,104 @@ public class GUI implements ActionListener {
                 try {
 
 
-                    provider.reNewFile(fileP);
+                    provider.reNewFile2(fileP);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                //count= provider.getProps().size();
                 count++;
-                //System.out.println(count);
-                //frame.remove(addProvPanel);
                 addProvPanel.setVisible(false);
                 successPanelProv.setVisible(true);
-                //loggedIn(type);
+            }
+        });
+
+        deleteButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deletePanel.setVisible(false);
+
+                System.out.println(namePropLabel.get(Integer.parseInt(deleteAnsText.getText())-1));
+                namePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+
+                typePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                locPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                descrPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                propLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                provider.deleteProp(Integer.parseInt(deleteAnsText.getText()));
+                try {
+                    provider.reNewFile2(fileP);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                frame.remove(deletePanel);
+                namePropLabel.removeAll(namePropLabel);
+                typePropLabel.removeAll(typePropLabel);
+                locPropLabel.removeAll(locPropLabel);
+                descrPropLabel.removeAll(descrPropLabel);
+                propLabel.removeAll(propLabel);
+
+                deletePanel.removeAll();
+                successPanelProv.setVisible(true);
+
+            }
+
+
+        });
+        deleteProv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(provider.hasProps(log.getUsername())){
+                    successPanelProv.setVisible(false);
+                    addProvPanel.setVisible(false);
+                    editPanel.setVisible(false);
+
+                    deletePropertySession();
+                }else{
+                    successPanelProv.add(failedDelete);
+                    failedDelete.setText("You don't have properties to delete.");
+                    failedDelete.setBounds(380,350,250,40);
+                    failedDelete.setForeground(Color.red);
+                    failedDelete.setVisible(true);
+                    failedEdit.setVisible(false);
+                }
+
+            }
+        });
+        editProv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(provider.hasProps(log.getUsername())){
+                    successPanelProv.setVisible(false);
+                    addProvPanel.setVisible(false);
+                    failedEdit.setVisible(false);
+                    editPropertySession();
+                }else{
+                    successPanelProv.add(failedEdit);
+                    failedEdit.setText("You don't have properties to edit.");
+                    failedEdit.setBounds(380,350,250,40);
+                    failedEdit.setForeground(Color.red);
+                    failedDelete.setVisible(false);
+                    failedEdit.setVisible(true);
+
+                }
+
+
+
+            }
+        });
+        create.setBounds(400, 500, 150, 30);
+        create.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    reg = new Register(fnameText.getText(), lnameText.getText(), uText.getText(), pText.getText(), typeText.getText());
+                    reg.newAcc(uText.getText(), pText.getText(), typeText.getText());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                regPanel.setVisible(false);
+                loginPanel.setVisible(true);
+                loginSession();
+
             }
         });
 
@@ -421,22 +511,7 @@ public class GUI implements ActionListener {
         typeText.setBounds(450, 400, 100, 20);
 
 
-        create.setBounds(400, 500, 150, 30);
-        create.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    reg = new Register(fnameText.getText(), lnameText.getText(), uText.getText(), pText.getText(), typeText.getText());
-                    reg.newAcc(uText.getText(), pText.getText(), typeText.getText());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                regPanel.setVisible(false);
-                loginPanel.setVisible(true);
-                loginSession();
 
-            }
-        });
 
 
         create.setVisible(true);
@@ -494,53 +569,6 @@ public class GUI implements ActionListener {
             successLabelProv.setText("Hi " + log.getUsername() + ". " + "You are " + type);
         }
 
-
-        editProv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(provider.hasProps(log.getUsername())){
-                    successPanelProv.setVisible(false);
-                    addProvPanel.setVisible(false);
-                    failedEdit.setVisible(false);
-                    editPropertySession();
-                }else{
-                    successPanelProv.add(failedEdit);
-                    failedEdit.setText("You don't have properties to edit.");
-                    failedEdit.setBounds(380,350,250,40);
-                    failedEdit.setForeground(Color.red);
-                    failedDelete.setVisible(false);
-                    failedEdit.setVisible(true);
-
-                }
-
-
-
-            }
-        });
-        deleteProv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(provider.hasProps(log.getUsername())){
-                    successPanelProv.setVisible(false);
-                    addProvPanel.setVisible(false);
-                    editPanel.setVisible(false);
-
-                    deletePropertySession();
-                }else{
-                    successPanelProv.add(failedDelete);
-                    failedDelete.setText("You don't have properties to delete.");
-                    failedDelete.setBounds(380,350,250,40);
-                    failedDelete.setForeground(Color.red);
-                    failedDelete.setVisible(true);
-                    failedEdit.setVisible(false);
-                }
-
-            }
-        });
-
-
-
-
     }
 
     public void deletePropertySession(){
@@ -548,9 +576,6 @@ public class GUI implements ActionListener {
         deletePanel.setLayout(null);
         deletePanel.setVisible(true);
         deleteAnsText.setText(null);
-
-
-
 
 
         int width,height,widthN,widthT,widthL,widthD,heightP,temp=0;
@@ -561,66 +586,69 @@ public class GUI implements ActionListener {
         widthL =0;
         height = 0;
         heightP=20;
-        int i=0;
-        for(Map.Entry<Integer,Property> entry : provider.getProps().entrySet()){
+        int c=1;
+
+        for(int i=0;i< provider.getSize2();i++){
+
             JLabel tempProp = new JLabel();
             JLabel tempName = new JLabel();
             JLabel tempType = new JLabel();
             JLabel tempLoc = new JLabel();
             JLabel tempDescr = new JLabel();
-            //propLabel[i] = new JLabel();
-           // namePropLabel[i] = new JLabel();
-           // typePropLabel[i] = new JLabel();
-           // locPropLabel[i] = new JLabel();
-            //descrPropLabel[i] = new JLabel();
-            //
 
-                tempName.setText("Name: "+entry.getValue().getName());
-                namePropLabel.add(tempName);
-                tempType.setText("Type: "+entry.getValue().getType());
-                typePropLabel.add(tempType);
-                tempLoc.setText("Location: "+entry.getValue().getLocation());
-                locPropLabel.add(tempLoc);
-                tempDescr.setText("Description: "+entry.getValue().getDescr());
-                descrPropLabel.add(tempDescr);
-                tempProp.setText("Property "+String.valueOf(entry.getKey()));
-                propLabel.add(tempProp);
+            tempName.setText("Name: "+provider.getProperties().get(i).getName());
+            namePropLabel.add(tempName);
+            tempType.setText("Type: "+provider.getProperties().get(i).getType());
+            typePropLabel.add(tempType);
+            tempLoc.setText("Location: "+provider.getProperties().get(i).getLocation());
+            locPropLabel.add(tempLoc);
+            tempDescr.setText("Description: "+provider.getProperties().get(i).getDescr());
+            descrPropLabel.add(tempDescr);
+            tempProp.setText("Property "+(i+1));
+            propLabel.add(tempProp);
+            System.out.println(tempProp.getText()+"--"+tempName.getText());
+            System.out.println(propLabel.get(i).getText()+"--"+namePropLabel.get(i).getText());
+            //System.out.println(propLabel.get(i).getText()+"---"+namePropLabel.get(i).getText());
 
-                if(width==1000){
-                    width=0;
-                    widthN=0;
-                    widthL=0;
-                    widthD=0;
-                    widthT=0;
-                    height+=160;
-                    temp++;
-                    heightP=height+20;
-                }
+
+            if(width==1000){
+                width=0;
+                widthN=0;
+                widthL=0;
+                widthD=0;
+                widthT=0;
+                height+=160;
+                temp++;
+                heightP=height+20;
+            }
+
+
             if(provider.getNames().get(i).equals(log.getUsername())){
-                propLabel.get(i).setBounds(width,height,100,20);
-                namePropLabel.get(i).setBounds(widthN,heightP,150,20);
-                heightP+=20;
-                typePropLabel.get(i).setBounds(widthT,heightP,150,20);
-                heightP+=20;
-                locPropLabel.get(i).setBounds(widthL,heightP,150,20);
-                heightP+=20;
-                descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
-                heightP =temp*height+20;
-                width +=200;
-                widthN +=200;
-                widthT +=200;
-                widthL +=200;
-                widthD +=200;
-                deletePanel.add(propLabel.get(i));
-                deletePanel.add(namePropLabel.get(i));
-                deletePanel.add(typePropLabel.get(i));
-                deletePanel.add(locPropLabel.get(i));
-                deletePanel.add(descrPropLabel.get(i));
-                propLabel.get(i).setVisible(true);
-                namePropLabel.get(i).setVisible(true);
-                typePropLabel.get(i).setVisible(true);
-                locPropLabel.get(i).setVisible(true);
-                descrPropLabel.get(i).setVisible(true);
+
+                    propLabel.get(i).setBounds(width,height,100,20);
+                    namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                    heightP+=20;
+                    typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                    heightP+=20;
+                    locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                    heightP+=20;
+                    descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
+                    heightP =temp*height+20;
+                    width +=200;
+                    widthN +=200;
+                    widthT +=200;
+                    widthL +=200;
+                    widthD +=200;
+                    deletePanel.add(propLabel.get(i));
+                    deletePanel.add(namePropLabel.get(i));
+                    deletePanel.add(typePropLabel.get(i));
+                    deletePanel.add(locPropLabel.get(i));
+                    deletePanel.add(descrPropLabel.get(i));
+                    propLabel.get(i).setVisible(true);
+                    namePropLabel.get(i).setVisible(true);
+                    typePropLabel.get(i).setVisible(true);
+                    locPropLabel.get(i).setVisible(true);
+                    descrPropLabel.get(i).setVisible(true);
 
 
             }
@@ -628,7 +656,7 @@ public class GUI implements ActionListener {
             deletePanel.add(deleteAnsLabel);
             deletePanel.add(deleteAnsText);
             deletePanel.add(deleteButton1);
-            i++;
+
             deleteAnsLabel.setText("Type the number of property you want to delete: ");
             deleteAnsLabel.setBounds(50,700,400,30);
             deleteAnsText.setBounds(400,700,100,30);
@@ -637,65 +665,10 @@ public class GUI implements ActionListener {
             deleteButton1.setVisible(true);
             deleteAnsText.setVisible(true);
             deleteAnsLabel.setVisible(true);
+            c++;
 
         }
-        deleteButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deletePanel.setVisible(false);
-                //if(namePropLabel.size() == Integer.parseInt(deleteAnsText.getText()))
-                namePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-                typePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-                locPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-                descrPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-                propLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-                provider.deleteProp(Integer.parseInt(deleteAnsText.getText()));
-                /*
-                try {
-                    provider.reNewFile(fileP);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-                try {
-                    Initialize();
-                } catch (FileNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }*/
-                for(int i=0;i< namePropLabel.size();i++){
-                    System.out.println(namePropLabel.get(i).getText());
-                }
-                //namePropLabel.removeAll(namePropLabel);
-                // typePropLabel.removeAll(typePropLabel);
-                //locPropLabel.removeAll(locPropLabel);
-                // descrPropLabel.removeAll(descrPropLabel);
-                // propLabel.removeAll(propLabel);
-                System.out.println(namePropLabel.size());
-                // for(int i=0;i<propLabel.size();i++){
-                //  if(log.getUsername().equals(provider.getNames().get(i))){
-                //     deletePanel.remove(namePropLabel.get(i));
-                //      deletePanel.remove(typePropLabel.get(i));
-                //       deletePanel.remove(locPropLabel.get(i));
-                //       deletePanel.remove(descrPropLabel.get(i));
-                //     deletePanel.remove(propLabel.get(i));
-
-
-                // }
-                // }
-                //deletePanel.removeAll();
-                successPanelProv.setVisible(true);
-
-            }
-
-
-        });
-
-
-
-
-
     }
-
 
 
     public void editPropertySession(){
@@ -708,11 +681,11 @@ public class GUI implements ActionListener {
         changeDescrText.setText(null);
         editAnsText.setText(null);
 
-        JLabel[] propLabel = new JLabel[provider.getSize()];
-        JLabel[] namePropLabel = new JLabel[provider.getSize()];
-        JLabel[] typePropLabel = new JLabel[provider.getSize()];
-        JLabel[] locPropLabel = new JLabel[provider.getSize()];
-        JLabel[] descrPropLabel = new JLabel[provider.getSize()];
+        JLabel[] propLabel = new JLabel[provider.getSize2()];
+        JLabel[] namePropLabel = new JLabel[provider.getSize2()];
+        JLabel[] typePropLabel = new JLabel[provider.getSize2()];
+        JLabel[] locPropLabel = new JLabel[provider.getSize2()];
+        JLabel[] descrPropLabel = new JLabel[provider.getSize2()];
 
         System.out.println(propLabel.length);
 
@@ -724,8 +697,7 @@ public class GUI implements ActionListener {
         widthL =0;
         height = 0;
         heightP=20;
-        int i=0;
-        for(Map.Entry<Integer,Property> entry : provider.getProps().entrySet()){
+        for(int i=0;i<provider.getSize2();i++){
             propLabel[i] = new JLabel();
             namePropLabel[i] = new JLabel();
             typePropLabel[i] = new JLabel();
@@ -733,11 +705,11 @@ public class GUI implements ActionListener {
             descrPropLabel[i] = new JLabel();
 
             if(provider.getNames().get(i).equals(log.getUsername())){
-                namePropLabel[i].setText("Name: "+entry.getValue().getName());
-                typePropLabel[i].setText("Type: "+entry.getValue().getType());
-                locPropLabel[i].setText("Location: "+entry.getValue().getLocation());
-                descrPropLabel[i].setText("Description: "+entry.getValue().getDescr());
-                propLabel[i].setText("Property "+String.valueOf(entry.getKey()));
+                namePropLabel[i].setText("Name: "+provider.getProperties().get(i).getName());
+                typePropLabel[i].setText("Type: "+provider.getProperties().get(i).getType());
+                locPropLabel[i].setText("Location: "+provider.getProperties().get(i).getLocation());
+                descrPropLabel[i].setText("Description: "+provider.getProperties().get(i).getDescr());
+                propLabel[i].setText("Property "+String.valueOf(i+1));
                 if(width==1000){
                     width=0;
                     widthN=0;
@@ -780,7 +752,6 @@ public class GUI implements ActionListener {
             editPanel.add(editAnsLabel);
             editPanel.add(editAnsText);
             editPanel.add(change);
-            i++;
             editAnsLabel.setText("Type the number of property you want to edit: ");
             editAnsLabel.setBounds(50,700,400,30);
             editAnsText.setBounds(400,700,100,30);
@@ -804,7 +775,7 @@ public class GUI implements ActionListener {
 
 
                 try {
-                    provider.reNewFile(fileP);
+                    provider.reNewFile2(fileP);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

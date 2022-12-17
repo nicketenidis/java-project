@@ -49,9 +49,9 @@ public class Main {
         boolean found = true;
         fromKeyboard = new Scanner(System.in);
 
-        //GUI gui = new GUI();
-        //gui.Initialize();
-        //gui.Intro();
+        GUI gui = new GUI();
+        gui.Initialize();
+        gui.Intro();
 
         //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {

@@ -24,6 +24,8 @@ public class Provider {
         return props.size();
     }
 
+    public int getSize2(){return properties.size();}
+
 
     public LinkedHashMap<Integer, Property> getProps() {
         return props;
@@ -187,7 +189,8 @@ public class Provider {
 
     public void editGUI(String nameProp,String typeProp,String locProp,String descrProp,String property){
         prop = new Property(nameProp,typeProp,locProp,descrProp);
-        props.replace(Integer.parseInt(property),prop);
+        //props.replace(Integer.parseInt(property),prop);
+        properties.set(Integer.parseInt(property)-1,prop);
 
     }
 
