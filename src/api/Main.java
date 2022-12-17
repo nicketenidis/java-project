@@ -49,9 +49,9 @@ public class Main {
         boolean found = true;
         fromKeyboard = new Scanner(System.in);
 
-        GUI gui = new GUI();
-        gui.Initialize();
-        gui.Intro();
+        //GUI gui = new GUI();
+        //gui.Initialize();
+        //gui.Intro();
 
         //ΔΙΑΔΙΚΑΣΙΑ ΣΥΝΔΕΣΗΣ/ΕΓΓΡΑΦΗΣ
         while(found) {
@@ -146,23 +146,23 @@ public class Main {
 
 
                         if (choice.equals("1")) {
-                            prov.newProp(countProp, log.getUsername());
-                            prov.reNewFile(fileP);
+                            prov.newProp2(countProp, log.getUsername());
+                            prov.reNewFile2(fileP);
                             countProp++;
                         }
                         if (choice.equals("2")) {
                             has = prov.hasProps(log.getUsername());
                             if (has){
-                                prov.showMyProps(log.getUsername());
+                                prov.showMyProps2(log.getUsername());
                                 System.out.println("Type the number of property above to edit.");
                                 key = fromKeyboard.nextInt();
-                                propName = prov.getPropName(key);
+                                propName = prov.getPropName2(key);
                                 System.out.println(propName);
-                                prov.editProps(key);
-                                newPropName = prov.getPropName(key);
+                                prov.editProps2(key);
+                                newPropName = prov.getPropName2(key);
                                 System.out.println(newPropName);
                                 user.editRevName(propName,newPropName);
-                                prov.reNewFile(fileP);
+                                prov.reNewFile2(fileP);
                                 user.reNewFile(fileR);
 
                             }
@@ -172,15 +172,16 @@ public class Main {
                         if (choice.equals("3")) {
                             has = prov.hasProps(log.getUsername());
                             if(has){
-                                prov.showMyProps(log.getUsername());
+                                prov.showMyProps2(log.getUsername());
                                 System.out.println(" Type the number of property above to delete");
                                 key = fromKeyboard.nextInt();
-                                propName = prov.getPropName(key);
+                                propName = prov.getPropName2(key);
                                 prov.deleteProp(key);
                                 user.deletePropRev(propName);
-                                prov.reNewFile(fileP);
+
+                                prov.reNewFile2(fileP);
                                 user.reNewFile(fileR);
-                                input = new Scanner(fileP);
+                               /* input = new Scanner(fileP);
                                 input.useDelimiter("-");
                                 String name,type,loc,descr,who;
                                 int count=1;
@@ -193,22 +194,25 @@ public class Main {
                                     who = input.nextLine();
                                     prov.addProperties(count,name,type,loc,descr,who);
                                     count++;
-                                }
+                                }*/
+
+
+
 
                             }
                             else
-                                System.out.println("Nothing to show. No properties yet.");
+                                System.out.println("No properties to delete.");
                         }
                         if (choice.equals("4")) {
                             has = prov.hasProps(log.getUsername());
                             if(has){
-                                display.dashboardProvider(log.getUsername(),user.getProperties(),user.getRate(),prov.getProps(),prov.getNames());
+                                display.dashboardProvider(prov.getProperties(),log.getUsername(),user.getProperties(),user.getRate(),prov.getProps(),prov.getNames());
                                 System.out.println("Type the number of property above to see all information, else press 0 to move to the menu.");
 
                                 key = fromKeyboard.nextInt();
                                 if (key != 0) {
-                                    propName = prov.getPropName(key);
-                                    display.displayProperty(propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
+                                    propName = prov.getPropName2(key);
+                                    display.displayProperty(prov.getProperties(),propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
                                 }
 
                             }
@@ -229,10 +233,10 @@ public class Main {
                             prov.searchProps();
                         }
                         if(choice.equals("2")){
-                            prov.printProps();
+                            prov.printProps2();
                             System.out.println("For which property you want to add a review?");
                             key = fromKeyboard.nextInt();
-                            propName = prov.getPropName(key);
+                            propName = prov.getPropName2(key);
                             has = user.hasRevs(propName,log.getUsername());
                             if (has){
                                 System.out.println("You already have a review for this property.Delete it or edit from the Menu below.");
@@ -244,10 +248,10 @@ public class Main {
 
                         }
                         if(choice.equals("3")){
-                            display.showReviews(log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
+                            display.showReviews(prov.getProperties(),log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
                             System.out.println("For which property you want to edit your review?");
                             key = fromKeyboard.nextInt();
-                            propName = prov.getPropName(key);
+                            propName = prov.getPropName2(key);
                             has = user.hasRevs(propName,log.getUsername());
                             if(has){
                                 user.editReviews(propName,log.getUsername());
@@ -259,10 +263,10 @@ public class Main {
                         }
                         if(choice.equals("4")){
                             System.out.println(" For which property you want to delete your review?");
-                            display.showReviews(log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
+                            display.showReviews(prov.getProperties(),log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
                             key = fromKeyboard.nextInt();
 
-                            propName = prov.getPropName(key);
+                            propName = prov.getPropName2(key);
                             has = user.hasRevs(propName, log.getUsername());
 
                             if(has){
@@ -274,12 +278,12 @@ public class Main {
                         }
 
                         if (choice.equals("5")){
-                            display.dashboardUser(log.getUsername(),prov.getProps(),user.getRate(),user.getUsers(),user.getProperties());
+                            display.dashboardUser(prov.getProperties(),log.getUsername(),prov.getProps(),user.getRate(),user.getUsers(),user.getProperties());
                             System.out.println("Type the number of property above to see all information, else press 0 to move to the menu.");
                             key = fromKeyboard.nextInt();
                             if (key != 0) {
-                                propName = prov.getPropName(key);
-                                display.displayProperty(propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
+                                propName = prov.getPropName2(key);
+                                display.displayProperty(prov.getProperties(),propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
                             }
                         }
                     }while(!choice.toUpperCase().equals("LOGOUT"));

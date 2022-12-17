@@ -110,10 +110,10 @@ public class User {
         }
     }
 
-    public void editRevName(String name1,String name2){
+    public void editRevName(String prop1,String prop2){
         for(int i =0;i<properties.size();i++){
-            if(properties.get(i).equals(name1)){
-                properties.set(i,name2);
+            if(properties.get(i).equals(prop1)){
+                properties.set(i,prop2);
             }
         }
 

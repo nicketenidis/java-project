@@ -18,6 +18,12 @@ import javax.swing.*;
 
 public class GUI implements ActionListener {
 
+    ArrayList<JLabel> propLabel ;
+    ArrayList<JLabel> namePropLabel ;
+    ArrayList<JLabel> typePropLabel ;
+    ArrayList<JLabel> locPropLabel ;
+    ArrayList<JLabel> descrPropLabel ;
+
     private int count;
     File fileP;
 
@@ -28,11 +34,17 @@ public class GUI implements ActionListener {
     JFrame frame;
     JPanel panelIntro,loginPanel,regPanel,successPanelUser,successPanelProv,addProvPanel,userPanel,editPanel,changePanel,deletePanel;
     JButton skata,loginButton,regButton,signInButton,signUpButton,addUser,editUser,search,deleteUser,dashboardUser,addProv,editProv,dashboardProv,deleteProv,propButton,submit,create,change,changeProp,deleteButton1;
-    JLabel uLabel,pLabel,userLabel,passLabel,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,propLabel,nameProp,typeProp,locProp,descrProp,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel,deleteAnsLabel;
+    JLabel uLabel,pLabel,userLabel,passLabel,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,nameProp,typeProp,locProp,descrProp,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel,deleteAnsLabel,failedEdit,failedDelete;
     JTextField uText,userText,fnameText,lnameText,typeText,namePropText,typePropText,locPropText,descrPropText,editAnsText,changeNameText,changeTypeText,changeLocText,changeDescrText,deleteAnsText;
     JPasswordField passText,pText;
 
     public GUI() {
+
+        propLabel = new ArrayList<>();
+         namePropLabel = new ArrayList<>();
+         typePropLabel = new ArrayList<>();
+         locPropLabel = new ArrayList<>();
+        descrPropLabel = new ArrayList<>();
         count=1;
 
         fileP = new File("src/api/Properties");
@@ -90,6 +102,8 @@ public class GUI implements ActionListener {
         uLabel = new JLabel();
         pLabel = new JLabel();
         deleteAnsLabel = new JLabel();
+        failedEdit = new JLabel();
+        failedDelete = new JLabel();
 
         fnameText = new JTextField();
         lnameText = new JTextField();
@@ -245,16 +259,28 @@ public class GUI implements ActionListener {
 
             }
         });
+        addProv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                successPanelProv.setVisible(false);
+
+                addProvPanel.setVisible(true);
+
+                addProv.setSelected(false);
+                failedEdit.setVisible(false);
+                failedDelete.setVisible(false);
+
+
+                addPropertySession();
+            }
+        });
 
         submit.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
-
-                //System.out.println(count);
                 provider.addProperties(provider.getSize()+1, namePropText.getText(),typePropText.getText(),locPropText.getText(),descrPropText.getText(),log.getUsername());
-                // System.out.println(count);
                 try {
 
 
@@ -271,6 +297,7 @@ public class GUI implements ActionListener {
                 //loggedIn(type);
             }
         });
+
 
 
     }
@@ -467,41 +494,52 @@ public class GUI implements ActionListener {
             successLabelProv.setText("Hi " + log.getUsername() + ". " + "You are " + type);
         }
 
-        addProv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                successPanelProv.setVisible(false);
-
-                addProvPanel.setVisible(true);
-
-                addProv.setSelected(false);
-
-                addPropertySession(type);
-            }
-        });
         editProv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(provider.hasProps(log.getUsername())){
+                    successPanelProv.setVisible(false);
+                    addProvPanel.setVisible(false);
+                    failedEdit.setVisible(false);
+                    editPropertySession();
+                }else{
+                    successPanelProv.add(failedEdit);
+                    failedEdit.setText("You don't have properties to edit.");
+                    failedEdit.setBounds(380,350,250,40);
+                    failedEdit.setForeground(Color.red);
+                    failedDelete.setVisible(false);
+                    failedEdit.setVisible(true);
 
-                successPanelProv.setVisible(false);
-                addProvPanel.setVisible(false);
+                }
 
-                editPropertySession();
+
 
             }
         });
-
         deleteProv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                successPanelProv.setVisible(false);
-                addProvPanel.setVisible(false);
-                editPanel.setVisible(false);
+                if(provider.hasProps(log.getUsername())){
+                    successPanelProv.setVisible(false);
+                    addProvPanel.setVisible(false);
+                    editPanel.setVisible(false);
 
-                deletePropertySession();
+                    deletePropertySession();
+                }else{
+                    successPanelProv.add(failedDelete);
+                    failedDelete.setText("You don't have properties to delete.");
+                    failedDelete.setBounds(380,350,250,40);
+                    failedDelete.setForeground(Color.red);
+                    failedDelete.setVisible(true);
+                    failedEdit.setVisible(false);
+                }
+
             }
         });
+
+
+
 
     }
 
@@ -511,12 +549,8 @@ public class GUI implements ActionListener {
         deletePanel.setVisible(true);
         deleteAnsText.setText(null);
 
-        JLabel[] propLabel = new JLabel[provider.getSize()];
-        JLabel[] namePropLabel = new JLabel[provider.getSize()];
-        JLabel[] typePropLabel = new JLabel[provider.getSize()];
-        JLabel[] locPropLabel = new JLabel[provider.getSize()];
-        JLabel[] descrPropLabel = new JLabel[provider.getSize()];
-        //System.out.println(provider.getSize());
+
+
 
 
         int width,height,widthN,widthT,widthL,widthD,heightP,temp=0;
@@ -529,19 +563,29 @@ public class GUI implements ActionListener {
         heightP=20;
         int i=0;
         for(Map.Entry<Integer,Property> entry : provider.getProps().entrySet()){
-            propLabel[i] = new JLabel();
-            namePropLabel[i] = new JLabel();
-            typePropLabel[i] = new JLabel();
-            locPropLabel[i] = new JLabel();
-            descrPropLabel[i] = new JLabel();
+            JLabel tempProp = new JLabel();
+            JLabel tempName = new JLabel();
+            JLabel tempType = new JLabel();
+            JLabel tempLoc = new JLabel();
+            JLabel tempDescr = new JLabel();
+            //propLabel[i] = new JLabel();
+           // namePropLabel[i] = new JLabel();
+           // typePropLabel[i] = new JLabel();
+           // locPropLabel[i] = new JLabel();
+            //descrPropLabel[i] = new JLabel();
+            //
 
-            //if(provider.getNames().get(i).equals(log.getUsername())){
-                namePropLabel[i].setText("Name: "+entry.getValue().getName());
-                typePropLabel[i].setText("Type: "+entry.getValue().getType());
-                locPropLabel[i].setText("Location: "+entry.getValue().getLocation());
-                descrPropLabel[i].setText("Description: "+entry.getValue().getDescr());
-                propLabel[i].setText("Property "+String.valueOf(entry.getKey()));
-            if(provider.getNames().get(i).equals(log.getUsername())){
+                tempName.setText("Name: "+entry.getValue().getName());
+                namePropLabel.add(tempName);
+                tempType.setText("Type: "+entry.getValue().getType());
+                typePropLabel.add(tempType);
+                tempLoc.setText("Location: "+entry.getValue().getLocation());
+                locPropLabel.add(tempLoc);
+                tempDescr.setText("Description: "+entry.getValue().getDescr());
+                descrPropLabel.add(tempDescr);
+                tempProp.setText("Property "+String.valueOf(entry.getKey()));
+                propLabel.add(tempProp);
+
                 if(width==1000){
                     width=0;
                     widthN=0;
@@ -552,31 +596,31 @@ public class GUI implements ActionListener {
                     temp++;
                     heightP=height+20;
                 }
-                propLabel[i].setBounds(width,height,100,20);
-                namePropLabel[i].setBounds(widthN,heightP,150,20);
+            if(provider.getNames().get(i).equals(log.getUsername())){
+                propLabel.get(i).setBounds(width,height,100,20);
+                namePropLabel.get(i).setBounds(widthN,heightP,150,20);
                 heightP+=20;
-                typePropLabel[i].setBounds(widthT,heightP,150,20);
+                typePropLabel.get(i).setBounds(widthT,heightP,150,20);
                 heightP+=20;
-                locPropLabel[i].setBounds(widthL,heightP,150,20);
+                locPropLabel.get(i).setBounds(widthL,heightP,150,20);
                 heightP+=20;
-                descrPropLabel[i].setBounds(widthD,heightP,150,20);
+                descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
                 heightP =temp*height+20;
                 width +=200;
                 widthN +=200;
                 widthT +=200;
                 widthL +=200;
                 widthD +=200;
-                deletePanel.add(propLabel[i]);
-                deletePanel.add(namePropLabel[i]);
-                deletePanel.add(typePropLabel[i]);
-                deletePanel.add(locPropLabel[i]);
-                deletePanel.add(descrPropLabel[i]);
-                propLabel[i].setVisible(true);
-                namePropLabel[i].setVisible(true);
-                typePropLabel[i].setVisible(true);
-                locPropLabel[i].setVisible(true);
-                descrPropLabel[i].setVisible(true);
-                //propLabel[i].revalidate();
+                deletePanel.add(propLabel.get(i));
+                deletePanel.add(namePropLabel.get(i));
+                deletePanel.add(typePropLabel.get(i));
+                deletePanel.add(locPropLabel.get(i));
+                deletePanel.add(descrPropLabel.get(i));
+                propLabel.get(i).setVisible(true);
+                namePropLabel.get(i).setVisible(true);
+                typePropLabel.get(i).setVisible(true);
+                locPropLabel.get(i).setVisible(true);
+                descrPropLabel.get(i).setVisible(true);
 
 
             }
@@ -595,74 +639,60 @@ public class GUI implements ActionListener {
             deleteAnsLabel.setVisible(true);
 
         }
-        System.out.println(i);
-
         deleteButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deletePanel.setVisible(false);
-                System.out.println(namePropLabel.length);
-
-                JLabel tempName =  namePropLabel[Integer.parseInt(deleteAnsText.getText())-1];
-                JLabel tempType =  typePropLabel[Integer.parseInt(deleteAnsText.getText())-1];
-                JLabel tempLoc =  locPropLabel[Integer.parseInt(deleteAnsText.getText())-1];
-                JLabel tempDescr =  descrPropLabel[Integer.parseInt(deleteAnsText.getText())-1];
-                JLabel tempProp =  propLabel[Integer.parseInt(deleteAnsText.getText())-1];
-                for(int i=Integer.parseInt(deleteAnsText.getText())-1;i<namePropLabel.length-1;i++){
-                    namePropLabel[i]=namePropLabel[i+1];
-                    typePropLabel[i]=typePropLabel[i+1];
-                    locPropLabel[i]=locPropLabel[i+1];
-                    descrPropLabel[i]=descrPropLabel[i+1];
-                    propLabel[i]=propLabel[i+1];
-
-                }
-                namePropLabel[namePropLabel.length-1]=tempName;
-                typePropLabel[namePropLabel.length-1]=tempType;
-                locPropLabel[namePropLabel.length-1]=tempLoc;
-                descrPropLabel[namePropLabel.length-1]=tempDescr;
-                propLabel[namePropLabel.length-1]=tempProp;
-
-                //deletePanel.revalidate();
-                //editPanel.revalidate();
-                for(int i=0;i<namePropLabel.length;i++){
-                    if(log.getUsername().equals(provider.getNames().get(i))){
-                        deletePanel.remove(namePropLabel[i]);
-                        deletePanel.remove(typePropLabel[i]);
-                        deletePanel.remove(locPropLabel[i]);
-                        deletePanel.remove(descrPropLabel[i]);
-                        deletePanel.remove(propLabel[i]);
-                        editPanel.remove(namePropLabel[i]);
-                        editPanel.remove(typePropLabel[i]);
-                        editPanel.remove(locPropLabel[i]);
-                        editPanel.remove(descrPropLabel[i]);
-                        editPanel.remove(propLabel[i]);
-                    }
-
-                    //System.out.println(namePropLabel[i].getText());
-                }
-
-
-
-
+                //if(namePropLabel.size() == Integer.parseInt(deleteAnsText.getText()))
+                namePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                typePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                locPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                descrPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                propLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
                 provider.deleteProp(Integer.parseInt(deleteAnsText.getText()));
+                /*
                 try {
                     provider.reNewFile(fileP);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+
                 try {
                     Initialize();
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
+                }*/
+                for(int i=0;i< namePropLabel.size();i++){
+                    System.out.println(namePropLabel.get(i).getText());
                 }
+                //namePropLabel.removeAll(namePropLabel);
+                // typePropLabel.removeAll(typePropLabel);
+                //locPropLabel.removeAll(locPropLabel);
+                // descrPropLabel.removeAll(descrPropLabel);
+                // propLabel.removeAll(propLabel);
+                System.out.println(namePropLabel.size());
+                // for(int i=0;i<propLabel.size();i++){
+                //  if(log.getUsername().equals(provider.getNames().get(i))){
+                //     deletePanel.remove(namePropLabel.get(i));
+                //      deletePanel.remove(typePropLabel.get(i));
+                //       deletePanel.remove(locPropLabel.get(i));
+                //       deletePanel.remove(descrPropLabel.get(i));
+                //     deletePanel.remove(propLabel.get(i));
 
 
+                // }
+                // }
+                //deletePanel.removeAll();
                 successPanelProv.setVisible(true);
 
             }
 
 
         });
+
+
+
+
 
     }
 
@@ -832,7 +862,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void addPropertySession(String type){
+    public void addPropertySession(){
         frame.add(addProvPanel);
         addProvPanel.setLayout(null);
 
@@ -880,7 +910,6 @@ public class GUI implements ActionListener {
         submit.setText("Submit");
         submit.setBounds(400,500,100,30);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
