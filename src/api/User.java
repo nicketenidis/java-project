@@ -110,6 +110,13 @@ public class User {
         }
     }
 
+    public void editRevGUI(String newReview,String newRate,int property){
+        review = new Reviews(newReview);
+        for(int i=0;i<rev.size();i++){
+            //if(properties.get(i))
+        }
+    }
+
     public void editRevName(String prop1,String prop2){
         for(int i =0;i<properties.size();i++){
             if(properties.get(i).equals(prop1)){
