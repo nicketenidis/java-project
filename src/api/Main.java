@@ -10,7 +10,7 @@ public class Main {
     public static void main(String [] args) throws IOException {
 
 
-        System.out.println("Hello, Welcome to our AirBnb App:");
+        System.out.println("Hello, Welcome to My Reviews App:");
 
         File fileP = new File("src/api/Properties");
         File fileR = new File("src/api/UserReviews");
@@ -43,7 +43,7 @@ public class Main {
             input.skip("-");
             descrProp = input.nextLine();
             whoProp = input.nextLine();
-            prov.addProperties(countProp,nameProp,typeProp,locProp,descrProp,whoProp);
+            prov.addProperties(nameProp,typeProp,locProp,descrProp,whoProp);
             countProp++;
         }
         boolean found = true;
@@ -146,7 +146,7 @@ public class Main {
 
 
                         if (choice.equals("1")) {
-                            prov.newProp2(countProp, log.getUsername());
+                            prov.newProp2(log.getUsername());
                             prov.reNewFile2(fileP);
                             countProp++;
                         }
@@ -181,20 +181,6 @@ public class Main {
 
                                 prov.reNewFile2(fileP);
                                 user.reNewFile(fileR);
-                               /* input = new Scanner(fileP);
-                                input.useDelimiter("-");
-                                String name,type,loc,descr,who;
-                                int count=1;
-                                while(input.hasNextLine()){
-                                    name = input.next();
-                                    type = input.next();
-                                    loc = input.next();
-                                    input.skip("-");
-                                    descr = input.nextLine();
-                                    who = input.nextLine();
-                                    prov.addProperties(count,name,type,loc,descr,who);
-                                    count++;
-                                }*/
 
 
 
@@ -206,13 +192,13 @@ public class Main {
                         if (choice.equals("4")) {
                             has = prov.hasProps(log.getUsername());
                             if(has){
-                                display.dashboardProvider(prov.getProperties(),log.getUsername(),user.getProperties(),user.getRate(),prov.getProps(),prov.getNames());
+                                display.dashboardProvider(prov.getProperties(),log.getUsername(),user.getProperties(),user.getRate(),prov.getNames());
                                 System.out.println("Type the number of property above to see all information, else press 0 to move to the menu.");
 
                                 key = fromKeyboard.nextInt();
                                 if (key != 0) {
                                     propName = prov.getPropName2(key);
-                                    display.displayProperty(prov.getProperties(),propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
+                                    display.displayProperty(prov.getProperties(),propName,user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
                                 }
 
                             }
@@ -230,7 +216,7 @@ public class Main {
                     do{
                         choice= user.menuUser();
                         if(choice.equals("1")){
-                            prov.searchProps();
+                            prov.searchProps2();
                         }
                         if(choice.equals("2")){
                             prov.printProps2();
@@ -248,7 +234,7 @@ public class Main {
 
                         }
                         if(choice.equals("3")){
-                            display.showReviews(prov.getProperties(),log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
+                            display.showReviews(prov.getProperties(),log.getUsername(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
                             System.out.println("For which property you want to edit your review?");
                             key = fromKeyboard.nextInt();
                             propName = prov.getPropName2(key);
@@ -263,7 +249,7 @@ public class Main {
                         }
                         if(choice.equals("4")){
                             System.out.println(" For which property you want to delete your review?");
-                            display.showReviews(prov.getProperties(),log.getUsername(),prov.getProps(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
+                            display.showReviews(prov.getProperties(),log.getUsername(),user.getProperties(),user.getUsers(),user.getRate(),user.getRev());
                             key = fromKeyboard.nextInt();
 
                             propName = prov.getPropName2(key);
@@ -278,12 +264,12 @@ public class Main {
                         }
 
                         if (choice.equals("5")){
-                            display.dashboardUser(prov.getProperties(),log.getUsername(),prov.getProps(),user.getRate(),user.getUsers(),user.getProperties());
+                            display.dashboardUser(prov.getProperties(),log.getUsername(),user.getRate(),user.getUsers(),user.getProperties());
                             System.out.println("Type the number of property above to see all information, else press 0 to move to the menu.");
                             key = fromKeyboard.nextInt();
                             if (key != 0) {
                                 propName = prov.getPropName2(key);
-                                display.displayProperty(prov.getProperties(),propName,prov.getProps(),user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
+                                display.displayProperty(prov.getProperties(),propName,user.getRate(),user.getUsers(),user.getRev(),user.getProperties());
                             }
                         }
                     }while(!choice.toUpperCase().equals("LOGOUT"));

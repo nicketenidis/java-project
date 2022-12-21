@@ -14,8 +14,7 @@ public class Display {
 
 
 
-    public void dashboardProvider(ArrayList<Property> props,String name, ArrayList<String> listProp, ArrayList<String> listRates, LinkedHashMap<Integer,Property> properties, ArrayList<String> names){
-        //int i;
+    public void dashboardProvider(ArrayList<Property> props,String name, ArrayList<String> listProp, ArrayList<String> listRates, ArrayList<String> names){
         double avgTotal,avgProp;
         int totalReviews = 0,propReviews;
         double sumProp,sumTotal=0;
@@ -58,7 +57,8 @@ public class Display {
     }
 
 
-    public void dashboardUser(ArrayList<Property> props,String name, LinkedHashMap<Integer,Property> properties,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listProps){
+
+    public void dashboardUser(ArrayList<Property> props,String name,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listProps){
         int revNum=0;
         double sumRev=0;
         double avgRev;
@@ -93,7 +93,7 @@ public class Display {
     }
 
 
-    public void displayProperty(ArrayList<Property> props,String property,LinkedHashMap<Integer,Property> properties,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listReviews,ArrayList<String> listProp){
+    public void displayProperty(ArrayList<Property> props,String property,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listReviews,ArrayList<String> listProp){
         int revNum=0;
         double avg,sumRev=0;
 
@@ -136,7 +136,7 @@ public class Display {
 
     }
 
-    public void showReviews(ArrayList<Property> props,String name,LinkedHashMap<Integer,Property> mapProps,ArrayList<String> listProps,ArrayList<String> listUsers,ArrayList<String> listRates,ArrayList<String> listReviews){
+    public void showReviews(ArrayList<Property> props,String name,ArrayList<String> listProps,ArrayList<String> listUsers,ArrayList<String> listRates,ArrayList<String> listReviews){
         System.out.println("Your reviews are down below.");
         System.out.println("--------------------");
         for (int j=0;j<props.size();j++){
