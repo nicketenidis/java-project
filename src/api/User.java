@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class User {
 
-    private ArrayList<String> rate;
+    ArrayList<String> rate;
 
-    private ArrayList<String> rev;
-    private ArrayList<String> users;
-    private ArrayList<String> properties;
+    ArrayList<String> rev;
+    ArrayList<String> users;
+    ArrayList<String> properties;
 
     Provider provider;
     Reviews review;
@@ -57,8 +57,7 @@ public class User {
         System.out.println("Press 4 for deleting a review.");
         System.out.println("Press 5 for showing your Dashboard.");
         System.out.println("Type LOGOUT, to logout from your account.");
-        String answer = sc.next();
-        return answer;
+        return sc.next();
     }
 
     public void newReview(String property,String user) throws IOException {
@@ -110,10 +109,20 @@ public class User {
         }
     }
 
-    public void editRevName(String name1,String name2){
+    public void editRevGUI(String newReview,String newRate,String property,String user){
+        review = new Reviews(newReview);
+        for (int i=0;i<rev.size();i++){
+            if(properties.get(i).equals(property) && users.get(i).equals(user)){
+                rev.set(i,newReview);
+                rate.set(i,newRate);
+            }
+        }
+    }
+
+    public void editRevName(String prop1,String prop2){
         for(int i =0;i<properties.size();i++){
-            if(properties.get(i).equals(name1)){
-                properties.set(i,name2);
+            if(properties.get(i).equals(prop1)){
+                properties.set(i,prop2);
             }
         }
 
@@ -131,21 +140,30 @@ public class User {
         }
     }
 
-    public void deletePropRev(String property){
-
-        for(int i=0;i<rev.size();i++){
-            if(properties.get(i).equals(property)){
+    public void deletePropRev(String property) {
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).equals(property)) {
                 rev.remove(i);
                 properties.remove(i);
                 users.remove(i);
                 rate.remove(i);
+                i=0;
             }
         }
+
     }
 
 
 
-
+    public boolean hasGenRevs(String name){
+        int c=0;
+        for (int i=0;i< users.size();i++){
+            if(name.equals(users.get(i))){
+                c++;
+            }
+        }
+        return c>0;
+    }
     public boolean hasRevs(String property,String user){
         for (int i =0;i<rev.size();i++){
             if(properties.get(i).equals(property) && users.get(i).equals(user)){
@@ -178,7 +196,7 @@ public class User {
             System.out.println();
             System.out.println("Review for property "+properties.get(i)+": "+rev.get(i));
             System.out.println("By - "+users.get(i));
-            System.out.println("__________________");
+            System.out.println("________________");
         }
     }
 
@@ -197,4 +215,3 @@ public class User {
     }
 
 }
-
