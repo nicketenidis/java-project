@@ -140,16 +140,17 @@ public class User {
         }
     }
 
-    public void deletePropRev(String property){
-
-        for(int i=0;i<rev.size();i++){
-            if(properties.get(i).equals(property)){
+    public void deletePropRev(String property) {
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).equals(property)) {
                 rev.remove(i);
                 properties.remove(i);
                 users.remove(i);
                 rate.remove(i);
+                i=0;
             }
         }
+
     }
 
 
