@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class User {
 
-     ArrayList<String> rate;
+    ArrayList<String> rate;
 
-     ArrayList<String> rev;
-     ArrayList<String> users;
-     ArrayList<String> properties;
+    ArrayList<String> rev;
+    ArrayList<String> users;
+    ArrayList<String> properties;
 
     Provider provider;
     Reviews review;
@@ -196,7 +196,7 @@ public class User {
             System.out.println();
             System.out.println("Review for property "+properties.get(i)+": "+rev.get(i));
             System.out.println("By - "+users.get(i));
-            System.out.println("__________________");
+            System.out.println("________________");
         }
     }
 
@@ -215,4 +215,3 @@ public class User {
     }
 
 }
-

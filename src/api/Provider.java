@@ -38,9 +38,9 @@ public class Provider {
 
     public void addProperties( String nameProp, String typeProp, String locProp, String descrProp, String provName){
 
-            prop = new Property(nameProp,typeProp,locProp,descrProp);
-            properties.add(prop);
-            names.add(provName);
+        prop = new Property(nameProp,typeProp,locProp,descrProp);
+        properties.add(prop);
+        names.add(provName);
 
     }
 
@@ -201,7 +201,7 @@ public class Provider {
                 System.out.println("Type: "+properties.get(i).getType());
                 System.out.println("Location: "+properties.get(i).getLocation());
                 System.out.println("Description: "+properties.get(i).getDescr());
-                System.out.println("______________________");
+                System.out.println("____________________");
                 c++;
 
             }
@@ -218,4 +218,11 @@ public class Provider {
 
 
 }
+
+
+
+
+
+
+
 
