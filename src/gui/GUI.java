@@ -48,7 +48,7 @@ public class GUI implements ActionListener {
 
     JPanel panelIntro,loginPanel,regPanel,successPanelUser,successPanelProv,addProvPanel,userPanel,editPanel,changePanel,deletePanel,addUserPanel,addRevPanel,editUserPanel,editRevPanel,deleteUserPanel,dashboardProv1,dashboardProv2,dashboardUser1,dashboardUser2,searchPanel,successSearchPanel;
     JButton loginButton,regButton,signInButton,logout,addUser,editUser,search,deleteUser,dashboardUser,addProv,editProv,dashboardProv,deleteProv,propButton,submit,create,change,changeProp,deleteButton1,addRevButton,addAnsButton,editRevButton1,editRevButton2,deleteRevButton,viewPropProv,menuProv,menuUser,viewPropUser,searchButton;
-    JLabel uLabel,pLabel,userLabel,passLabel,failedReg1,failedReg2,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,nameProp,typeProp,locProp,descrProp,failedAdd,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel,deleteAnsLabel,failedEdit,failedDelete,addRevLabel,addAnsLabel,rateLabel,editRevLabel1,editRevLabel2,editRateLabel,revsLabel,deleteRevLabel,viewLabelProv,viewLabelUser,viewAvgRate,searchLabel,successSearchLabel,selectPropLabel;
+    JLabel uLabel,pLabel,userLabel,passLabel,failedReg1,failedReg2,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,nameProp,typeProp,locProp,descrProp,failedAdd,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel,deleteAnsLabel,failedEdit,failedDelete,addRevLabel,addAnsLabel,rateLabel,editRevLabel1,editRevLabel2,editRateLabel,revsLabel,deleteRevLabel,viewLabelProv,viewLabelUser,viewAvgRate,searchLabel,successSearchLabel,selectPropLabel,failedEdit1,failedMax,failedDashProv,failed2Rev,failedEditRev,failedDeleteRev,failedDashRev,failedProp,failedDashUser,failedEditUser,failedDeleteUser;
     JTextField uText,userText,fnameText,lnameText,typeText,namePropText,typePropText,locPropText,descrPropText,editAnsText,changeNameText,changeTypeText,changeLocText,changeDescrText,deleteAnsText,addRevText,addAnsText,rateText,editRevText1,editRevText2,editRateText,deleteRevText,viewProvText,viewUserText,searchText,successSearchText;
     JPasswordField passText,pText;
 
@@ -169,6 +169,17 @@ public class GUI implements ActionListener {
         searchLabel = new JLabel();
         successSearchLabel = new JLabel();
         selectPropLabel = new JLabel();
+        failedEdit1 = new JLabel();
+        failedMax = new JLabel();
+        failedDashProv = new JLabel();
+        failedEditRev = new JLabel();
+        failedDashRev = new JLabel();
+        failedDeleteRev = new JLabel();
+        failed2Rev = new JLabel();
+        failedProp = new JLabel();
+        failedDeleteUser = new JLabel();
+        failedEditUser = new JLabel();
+        failedDashUser = new JLabel();
 
         fnameText = new JTextField();
         lnameText = new JTextField();
@@ -283,18 +294,42 @@ public class GUI implements ActionListener {
         editUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                successPanelUser.setVisible(false);
-                editUserPanel.setVisible(true);
-                editReviewSession();
+                successPanelUser.add(failedEditUser);
+                failedEditUser.setText("You haven't reviewed any property to edit.");
+                failedEditUser.setBounds(350,400,250,30);
+                failedEditUser.setForeground(Color.red);
+                if(!user.hasGenRevs(log.getUsername())){
+                    failedEditUser.setVisible(true);
+                    failedDeleteUser.setVisible(false);
+                    failedDashUser.setVisible(false);
+
+                }else{
+                    failedEditUser.setVisible(false);
+                    failedDeleteUser.setVisible(false);
+                    failedDashUser.setVisible(false);
+                    successPanelUser.setVisible(false);
+                    editUserPanel.setVisible(true);
+                    editReviewSession();
+                }
+
             }
         });
         deleteUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean has = user.hasGenRevs(log.getUsername());
+                successPanelUser.add(failedDeleteUser);
+                failedDeleteUser.setText("You haven't reviewed any property to delete.");
+                failedDeleteUser.setBounds(350,400,250,30);
+                failedDeleteUser.setForeground(Color.red);
                 if(!has){
-                    System.out.println("You have not reviewed a property yet.");
+                    failedDeleteUser.setVisible(true);
+                    failedDashUser.setVisible(false);
+                    failedEditUser.setVisible(false);
                 }else {
+                    failedDeleteUser.setVisible(false);
+                    failedDashUser.setVisible(false);
+                    failedEditUser.setVisible(false);
                     successPanelUser.setVisible(false);
                     deleteUserPanel.setVisible(true);
                     deleteReviewSession();
@@ -305,6 +340,9 @@ public class GUI implements ActionListener {
         addUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                failedDashUser.setVisible(false);
+                failedEditUser.setVisible(false);
+                failedDeleteUser.setVisible(false);
                 successPanelUser.setVisible(false);
                 addUserPanel.setVisible(true);
                 addReviewSession();
@@ -389,6 +427,7 @@ public class GUI implements ActionListener {
                 addProvPanel.setVisible(true);
 
                 addProv.setSelected(false);
+                failedDashProv.setVisible(false);
                 failedEdit.setVisible(false);
                 failedDelete.setVisible(false);
 
@@ -480,6 +519,7 @@ public class GUI implements ActionListener {
                     failedDelete.setText("You don't have properties to delete.");
                     failedDelete.setBounds(380,350,250,40);
                     failedDelete.setForeground(Color.red);
+                    failedDashProv.setVisible(false);
                     failedDelete.setVisible(true);
                     failedEdit.setVisible(false);
                 }
@@ -500,6 +540,7 @@ public class GUI implements ActionListener {
                     failedEdit.setBounds(380,350,250,40);
                     failedEdit.setForeground(Color.red);
                     failedDelete.setVisible(false);
+                    failedDashProv.setVisible(false);
                     failedEdit.setVisible(true);
 
                 }
@@ -554,23 +595,40 @@ public class GUI implements ActionListener {
         addAnsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addUserPanel.add(failed2Rev);
+                addUserPanel.add(failedProp);
+                failedProp.setText("Invalid Property number");
+                failedProp.setForeground(Color.red);
+                failedProp.setBounds(700,700,250,30);
+                failed2Rev.setText("You already have review for this property");
+                failed2Rev.setForeground(Color.red);
+                failed2Rev.setBounds(350,730,350,30);
                 String propName;
-                if(addAnsText.getText().equals("")){
-                    propName = provider.getPropName2(Integer.parseInt(successSearchText.getText()));
-                }else{
-                    propName = provider.getPropName2(Integer.parseInt(addAnsText.getText()));
-                }
+                if(Integer.parseInt(addAnsText.getText()) > provider.getSize2()){
+                    failedProp.setVisible(true);
+                    failed2Rev.setVisible(false);
+                }else {
+                    if (addAnsText.getText().equals("")) {
+                        propName = provider.getPropName2(Integer.parseInt(successSearchText.getText()));
+                    } else {
+                        propName = provider.getPropName2(Integer.parseInt(addAnsText.getText()));
+                    }
 
-                boolean has = user.hasRevs(propName,log.getUsername());
+                    boolean has = user.hasRevs(propName, log.getUsername());
 
-                if (has){
-                    System.out.println("You already have a review for this property.Delete it or edit from the Menu below.");
-                }else{
-                    frame.add(addRevPanel);
-                    successSearchPanel.setVisible(false);
+                    if (has) {
+                        failed2Rev.setVisible(true);
+                        failedProp.setVisible(false);
+                        // System.out.println("You already have a review for this property.Delete it or edit from the Menu below.");
+                    } else {
+                        frame.add(addRevPanel);
+                        successSearchPanel.setVisible(false);
 
-                    addUserPanel.setVisible(false);
-                    addRevPanel.setVisible(true);
+                        addUserPanel.setVisible(false);
+                        addRevPanel.setVisible(true);
+                        failed2Rev.setVisible(false);
+                        failedProp.setVisible(false);
+                    }
                 }
 
 
@@ -579,16 +637,31 @@ public class GUI implements ActionListener {
         editRevButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                editUserPanel.add(failedEditRev);
+                editUserPanel.add(failedProp);
+                failedProp.setText("Invalid Property Number");
+                failedProp.setBounds(700,700,250,30);
+                failedProp.setForeground(Color.red);
+                failedEditRev.setText("You don't have review for this property");
+                failedEditRev.setForeground(Color.RED);
+                failedEditRev.setBounds(350,730,300,30);
                 String propName;
                 if(Integer.parseInt(editRevText1.getText()) > provider.getSize2()){
-                    System.out.println("Invalid Property Number");
+                    failedProp.setVisible(true);
+                    failedEditRev.setVisible(false);
+                    //System.out.println("Invalid Property Number");
                 }else{
                     propName = provider.getPropName2(Integer.parseInt(editRevText1.getText()));
                     boolean has = user.hasRevs(propName,log.getUsername());
                     if(!has){
-                        System.out.println("You dont have review for this property");
+                        failedEditRev.setVisible(true);
+                        failedProp.setVisible(false);
+
                     }else {
                         frame.add(editRevPanel);
+                        failedEditRev.setVisible(false);
+                        failedProp.setVisible(false);
                         editUserPanel.setVisible(false);
                         editRevPanel.setVisible(true);
                     }
@@ -629,57 +702,88 @@ public class GUI implements ActionListener {
         deleteRevButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // System.out.println("mpika");
-                for(int i=0;i<propRevLabel.size();i++){
-                    if(reviewLabel.get(i).getText().equals("Your review for property "+deleteRevText.getText()+" "+namePropRevLabel.get(i).getText()+" with rate "+rateRevLabel.get(i).getText()+"/5 : "+stringRevLabel.get(i).getText())){
-                        //System.out.println(namePropRevLabel.get(i).getText());
-                        //user.editRevGUI(editRevText2.getText(),editRateText.getText(),namePropRevLabel.get(i).getText(),log.getUsername());
-                        user.deleteRev(namePropRevLabel.get(i).getText(),log.getUsername());
+                // System.out.println("mpika");
+                deleteUserPanel.add(failedProp);
+                deleteUserPanel.add(failedDeleteRev);
+                failedProp.setText("Invalid Property Number");
+                failedProp.setForeground(Color.red);
+                failedProp.setBounds(700, 700, 250, 30);
+                failedDeleteRev.setText("You don't have review for this property");
+                failedDeleteRev.setForeground(Color.red);
+                failedDeleteRev.setBounds(350, 730, 250, 30);
+                if (Integer.parseInt(deleteRevText.getText()) > provider.getSize2()) {
+                    failedProp.setVisible(true);
+                    failedDeleteRev.setVisible(false);
+                } else {
+                    String propName = provider.getPropName2(Integer.parseInt(deleteRevText.getText()));
+                    boolean has = user.hasRevs(propName, log.getUsername());
+                    if (!has) {
+                        failedDeleteRev.setVisible(true);
+                        failedProp.setVisible(false);
+                    } else {
+                        failedDeleteRev.setVisible(false);
+                        failedProp.setVisible(false);
+                        for (int i = 0; i < propRevLabel.size(); i++) {
+                            if (reviewLabel.get(i).getText().equals("Your review for property " + deleteRevText.getText() + " " + namePropRevLabel.get(i).getText() + " with rate " + rateRevLabel.get(i).getText() + "/5 : " + stringRevLabel.get(i).getText())) {
+                                //System.out.println(namePropRevLabel.get(i).getText());
+                                //user.editRevGUI(editRevText2.getText(),editRateText.getText(),namePropRevLabel.get(i).getText(),log.getUsername());
+                                user.deleteRev(namePropRevLabel.get(i).getText(), log.getUsername());
+                            }
+                        }
+                        try {
+                            user.reNewFile(fileR);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                        deleteUserPanel.removeAll();
+                        reviewLabel.removeAll(reviewLabel);
+                        namePropRevLabel.removeAll(namePropRevLabel);
+                        propRevLabel.removeAll(propRevLabel);
+                        userRevLabel.removeAll(userRevLabel);
+                        rateRevLabel.removeAll(rateRevLabel);
+                        stringRevLabel.removeAll(stringRevLabel);
+
+
+                        successPanelUser.setVisible(true);
+                        deleteUserPanel.setVisible(false);
                     }
                 }
-                try {
-                    user.reNewFile(fileR);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                deleteUserPanel.removeAll();
-                reviewLabel.removeAll(reviewLabel);
-                namePropRevLabel.removeAll(namePropRevLabel);
-                propRevLabel.removeAll(propRevLabel);
-                userRevLabel.removeAll(userRevLabel);
-                rateRevLabel.removeAll(rateRevLabel);
-                stringRevLabel.removeAll(stringRevLabel);
-
-
-
-
-
-                successPanelUser.setVisible(true);
-                deleteUserPanel.setVisible(false);
             }
         });
         changeProp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editPanel.setVisible(false);
-                changePanel.setVisible(false);
-                provider.editGUI(changeNameText.getText(),changeTypeText.getText(),changeLocText.getText(),changeDescrText.getText(),editAnsText.getText());
 
-                try {
-                    provider.reNewFile2(fileP);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                boolean flag=true;
+                for(int i=0;i<provider.getSize2();i++){
+                    if(provider.getProperties().get(i).getName().equals(changeNameText.getText())){
+                        flag=false;
+                    }
                 }
-                namePropLabel.removeAll(namePropLabel);
-                typePropLabel.removeAll(typePropLabel);
-                locPropLabel.removeAll(locPropLabel);
-                descrPropLabel.removeAll(descrPropLabel);
-                propLabel.removeAll(propLabel);
+                if(!flag){
+                    failedEdit1.setVisible(true);
+                }else {
+                    editPanel.setVisible(false);
+                    changePanel.setVisible(false);
+                    provider.editGUI(changeNameText.getText(), changeTypeText.getText(), changeLocText.getText(), changeDescrText.getText(), editAnsText.getText());
 
-                editPanel.removeAll();
+                    try {
+                        provider.reNewFile2(fileP);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    namePropLabel.removeAll(namePropLabel);
+                    typePropLabel.removeAll(typePropLabel);
+                    locPropLabel.removeAll(locPropLabel);
+                    descrPropLabel.removeAll(descrPropLabel);
+                    propLabel.removeAll(propLabel);
 
-                successPanelProv.setVisible(true);
+                    editPanel.removeAll();
+
+                    successPanelProv.setVisible(true);
+                    failedEdit1.setVisible(false);
+                }
 
             }
         });
@@ -691,6 +795,12 @@ public class GUI implements ActionListener {
 
                 editPanel.setVisible(false);
                 changePanel.setVisible(true);
+
+                changePanel.add(failedEdit1);
+                failedEdit1.setText("There is already a property with this name.Try another one");
+                failedEdit1.setForeground(Color.red);
+                failedEdit1.setBounds(350,650,400,30);
+                failedEdit1.setVisible(false);
 
                 changePanel.add(changeNameLabel);
                 changePanel.add(changeNameText);
@@ -733,14 +843,23 @@ public class GUI implements ActionListener {
         addRevButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
+
                 String propName = provider.getPropName2(Integer.parseInt(addAnsText.getText()));
 
-                user.addReviews(addRevText.getText(),propName,log.getUsername(),rateText.getText());
+                boolean has = user.hasRevs(propName, log.getUsername());
+
+                failed2Rev.setVisible(true);
+
+                user.addReviews(addRevText.getText(), propName, log.getUsername(), rateText.getText());
                 try {
                     user.reNewFile(fileR);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+                failed2Rev.setVisible(false);
+
 
 
 
@@ -750,13 +869,23 @@ public class GUI implements ActionListener {
             }
         });
 
+
+
         dashboardProv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                successPanelProv.add(failedDashProv);
+
+                failedDashProv.setText("You don't have properties to show");
+                failedDashProv.setForeground(Color.red);
+                failedDashProv.setBounds(380,350,250,40);
                 if(!provider.hasProps(log.getUsername())){
-                    System.out.println("No properties to show.");
+                    failedEdit.setVisible(false);
+                    failedDelete.setVisible(false);
+                    failedDashProv.setVisible(true);
                 }else {
                     successPanelProv.setVisible(false);
+                    failedDashProv.setVisible(false);
                     dashboardProvSession();
                 }
             }
@@ -764,10 +893,19 @@ public class GUI implements ActionListener {
         dashboardUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                successPanelUser.add(failedDashUser);
+                failedDashUser.setText("You haven't reviewed any property to view.");
+                failedDashUser.setBounds(350,400,250,30);
+                failedDashUser.setForeground(Color.red);
                 if(!user.hasGenRevs(log.getUsername())){
-                    System.out.println("You haven't reviewed any proeprty");
+                    failedDashUser.setVisible(true);
+                    failedDeleteUser.setVisible(false);
+                    failedEditUser.setVisible(false);
                 }else{
                     successPanelUser.setVisible(false);
+                    failedDashUser.setVisible(false);
+                    failedDeleteUser.setVisible(false);
+                    failedEditUser.setVisible(false);
                     dashboardUserSession();
                 }
             }
@@ -787,9 +925,32 @@ public class GUI implements ActionListener {
         viewPropUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dashboardUser1.setVisible(false);
-                successPanelUser.setVisible(false);
-                viewPropertyUser(Integer.parseInt(viewUserText.getText()));
+                dashboardUser1.add(failedProp);
+                dashboardUser1.add(failedDashRev);
+                failedProp.setText("Invalid Property Number");
+                failedProp.setForeground(Color.red);
+                failedProp.setBounds(750,700,250,30);
+                failedDashRev.setText("You dont have review for this property");
+                failedDashRev.setForeground(Color.red);
+                failedDashRev.setBounds(750,650,250,30);
+                if(Integer.parseInt(viewUserText.getText())> provider.getSize2()){
+                    failedProp.setVisible(true);
+                    failedDashRev.setVisible(false);
+                }else{
+                    String propName = provider.getPropName2(Integer.parseInt(viewUserText.getText()));
+                    boolean has = user.hasRevs(propName,log.getUsername());
+                    if(!has){
+                        failedDashRev.setVisible(true);
+                        failedProp.setVisible(false);
+                    }else {
+                        dashboardUser1.setVisible(false);
+                        successPanelUser.setVisible(false);
+                        viewPropertyUser(Integer.parseInt(viewUserText.getText()));
+                        failedProp.setVisible(false);
+                        failedDashRev.setVisible(false);
+                    }
+                }
+
             }
         });
         menuUser.addActionListener(new ActionListener() {
