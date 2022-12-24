@@ -215,7 +215,8 @@ public class GUI implements ActionListener {
 
 
 
-
+        successPanelUser.setBackground(Color.black);
+        successPanelProv.setBackground(Color.black);
         successPanelUser.add(addUser);
         successPanelUser.add(editUser);
         successPanelUser.add(search);
@@ -231,42 +232,52 @@ public class GUI implements ActionListener {
         signInButton.setBackground(Color.magenta);
 
         logout.setText("Log out");
+        logout.setBackground(Color.magenta);
         logout.setBounds(880,10,100,30);
 
         addUser.setText("Add a review");
         addUser.setBounds(350, 200, 200, 40);
+        addUser.setBackground(Color.magenta);
         addUser.setVisible(true);
 
         editUser.setText("Edit a review");
         editUser.setBounds(350, 250, 200, 40);
+        editUser.setBackground(Color.magenta);
         editUser.setVisible(true);
 
         deleteUser.setText("Delete a review");
         deleteUser.setBounds(350, 300, 200, 40);
+        deleteUser.setBackground(Color.magenta);
         deleteUser.setVisible(true);
 
         search.setText("Search properties");
         search.setBounds(350, 150, 200, 40);
+        search.setBackground(Color.magenta);
         search.setVisible(true);
 
         dashboardUser.setText("View your dashboard");
         dashboardUser.setBounds(350, 350, 200, 40);
+        dashboardUser.setBackground(Color.magenta);
         dashboardUser.setVisible(true);
 
         addProv.setText("Add a new Property");
         addProv.setBounds(380, 150, 200, 40);
+        addProv.setBackground(Color.magenta);
         addProv.setVisible(true);
 
         editProv.setText("Edit a property");
         editProv.setBounds(380, 200, 200, 40);
+        editProv.setBackground(Color.magenta);
         editProv.setVisible(true);
 
         deleteProv.setText("Delete a property");
         deleteProv.setBounds(380, 250, 200, 40);
+        deleteProv.setBackground(Color.magenta);
         deleteProv.setVisible(true);
 
         dashboardProv.setText("View your dashboard");
         dashboardProv.setBounds(380, 300, 200, 40);
+        dashboardProv.setBackground(Color.magenta);
         dashboardProv.setVisible(true);
 
 
@@ -792,6 +803,7 @@ public class GUI implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.add(changePanel);
+                changePanel.setBackground(Color.black);
 
                 editPanel.setVisible(false);
                 changePanel.setVisible(true);
@@ -814,17 +826,26 @@ public class GUI implements ActionListener {
 
                 changeNameLabel.setText("Change name to:");
                 changeNameLabel.setBounds(450,100,200,40);
+                changeNameLabel.setForeground(Color.magenta);
                 changeNameText.setBounds(400,150,200,40);
+                changeNameText.setBackground(Color.magenta);
                 changeTypeLabel.setText("Change Type to:");
                 changeTypeLabel.setBounds(450,200,200,40);
+                changeTypeLabel.setForeground(Color.magenta);
                 changeTypeText.setBounds(400,250,200,40);
+                changeTypeText.setBackground(Color.magenta);
                 changeLocLabel.setText("Change Location to:");
                 changeLocLabel.setBounds(450,300,200,40);
+                changeLocLabel.setForeground(Color.magenta);
                 changeLocText.setBounds(400,350,200,40);
+                changeLocText.setBackground(Color.magenta);
                 changeDescrLabel.setText("Change the description:");
                 changeDescrLabel.setBounds(450,400,200,40);
+                changeDescrLabel.setForeground(Color.magenta);
                 changeDescrText.setBounds(400,450,200,40);
+                changeDescrText.setBackground(Color.magenta);
                 changeProp.setText("Done");
+                changeProp.setBackground(Color.magenta);
                 changeProp.setBounds(420,500,150,40);
 
                 changeNameLabel.setVisible(true);
@@ -1155,8 +1176,10 @@ public class GUI implements ActionListener {
         frame.add(dashboardUser2);
 
         dashboardUser2.setLayout(null);
+        dashboardUser2.setBackground(Color.black);
         dashboardUser2.add(menuUser);
         menuUser.setText("Back to Menu");
+        menuUser.setBackground(Color.magenta);
         menuUser.setBounds(400,700,150,30);
         menuUser.setVisible(true);
 
@@ -1172,12 +1195,19 @@ public class GUI implements ActionListener {
 
 
         propLabel.get(property-1).setBounds(400,10,400,30);
+        propLabel.get(property-1).setForeground(Color.magenta);
         namePropLabel.get(property-1).setBounds(400,40,400,30);
+        namePropLabel.get(property-1).setForeground(Color.magenta);
         typePropLabel.get(property-1).setBounds(400,70,400,30);
+        typePropLabel.get(property-1).setForeground(Color.magenta);
         locPropLabel.get(property-1).setBounds(400,100,400,30);
+        locPropLabel.get(property-1).setForeground(Color.magenta);
         descrPropLabel.get(property-1).setBounds(400,130,400,30);
+        descrPropLabel.get(property-1).setForeground(Color.magenta);
         avg.get(property-1).setBounds(400,160,400,30);
+        avg.get(property-1).setForeground(Color.magenta);
         freqRevProp.get(property-1).setBounds(400,190,400,30);
+        freqRevProp.get(property-1).setForeground(Color.magenta);
 
 
         propLabel.get(property-1).setVisible(true);
@@ -1188,6 +1218,7 @@ public class GUI implements ActionListener {
         JLabel revs = new JLabel();
         dashboardUser2.add(revs);
         revs.setText("Reviews for this property");
+        revs.setForeground(Color.magenta);
         revs.setBounds(400,220,400,30);
         revs.setVisible(true);
         int height =250;
@@ -1200,6 +1231,7 @@ public class GUI implements ActionListener {
         }
         for(int i=0;i<stringRevLabel.size();i++){
             stringRevLabel.get(i).setBounds(400,height,400,30);
+            stringRevLabel.get(i).setForeground(Color.magenta);
             dashboardUser2.add(stringRevLabel.get(i));
             stringRevLabel.get(i).setVisible(true);
             height+=30;
@@ -1212,7 +1244,7 @@ public class GUI implements ActionListener {
         double sumRev=0;
         double avgRev;
         frame.add(dashboardUser1);
-       // dashboardUser2.setVisible(false);
+        dashboardUser1.setBackground(Color.black);
         dashboardUser1.setLayout(null);
         viewUserText.setText(null);
 
@@ -1306,13 +1338,18 @@ public class GUI implements ActionListener {
             for(int j=0;j<rateRevLabel.size();j++){
                 if(provider.getProperties().get(i).getName().equals(namePropRevLabel.get(j).getText())){
                     propLabel.get(i).setBounds(width,height,100,20);
+                    propLabel.get(i).setForeground(Color.magenta);
                     namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                    namePropLabel.get(i).setForeground(Color.magenta);
                     heightP+=20;
                     typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                    typePropLabel.get(i).setForeground(Color.magenta);
                     heightP+=20;
                     locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                    locPropLabel.get(i).setForeground(Color.magenta);
                     heightP+=20;
                     rateRevLabel.get(j).setBounds(widthD,heightP,150,20);
+                    rateRevLabel.get(i).setForeground(Color.magenta);
                     heightP =temp*height+20;
                     width +=200;
                     widthN +=200;
@@ -1340,13 +1377,17 @@ public class GUI implements ActionListener {
 
 
         viewAvgRate.setText("Average Rate of properties that you wrote a review: "+avgRev);
+        viewAvgRate.setForeground(Color.magenta);
         viewAvgRate.setBounds(300,730,500,30);
         viewAvgRate.setVisible(true);
 
         viewLabelUser.setText("Type the number of property to see full details ");
+        viewLabelUser.setForeground(Color.magenta);
         viewLabelUser.setBounds(50,700,400,30);
         viewUserText.setBounds(400,700,100,30);
+        viewUserText.setBackground(Color.magenta);
         viewPropUser.setText("View Property");
+        viewPropUser.setBackground(Color.magenta);
         viewPropUser.setBounds(520,700,200,30);
         viewPropUser.setVisible(true);
         viewUserText.setVisible(true);
@@ -1359,6 +1400,7 @@ public class GUI implements ActionListener {
         double sumProp,sumTotal=0;
 
         frame.add(dashboardProv1);
+        dashboardProv1.setBackground(Color.black);
         dashboardProv1.setLayout(null);
         viewProvText.setText(null);
 
@@ -1422,6 +1464,7 @@ public class GUI implements ActionListener {
         JLabel totalAvg = new JLabel();
         dashboardProv1.add(totalPropRevs);
         totalPropRevs.setText("Total Reviews for "+log.getUsername()+": "+totalReviews);
+        totalPropRevs.setForeground(Color.magenta);
         totalPropRevs.setBounds(50,730,400,30);
         totalPropRevs.setVisible(true);
         if(totalReviews==0)
@@ -1430,6 +1473,7 @@ public class GUI implements ActionListener {
             avgTotal = sumTotal /(double) totalReviews;
         dashboardProv1.add(totalAvg);
         totalAvg.setText("Average rate of all properties: "+avgTotal);
+        totalAvg.setForeground(Color.magenta);
         totalAvg.setBounds(450,730,400,30);
         totalAvg.setVisible(true);
 
@@ -1459,13 +1503,18 @@ public class GUI implements ActionListener {
             if(provider.getNames().get(i).equals(log.getUsername())){
 
                 propLabel.get(i).setBounds(width,height,100,20);
+                propLabel.get(i).setForeground(Color.magenta);
                 namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                namePropLabel.get(i).setForeground(Color.magenta);
                 heightP+=20;
                 typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                typePropLabel.get(i).setForeground(Color.magenta);
                 heightP+=20;
                 locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                locPropLabel.get(i).setForeground(Color.magenta);
                 heightP+=20;
                 avg.get(i).setBounds(widthD,heightP,150,20);
+                avg.get(i).setForeground(Color.magenta);
                 heightP =temp*height+20;
                 width +=200;
                 widthN +=200;
@@ -1492,8 +1541,11 @@ public class GUI implements ActionListener {
 
             viewLabelProv.setText("Type the number of property to see full details ");
             viewLabelProv.setBounds(50,700,400,30);
+            viewLabelProv.setForeground(Color.magenta);
             viewProvText.setBounds(400,700,100,30);
+            viewProvText.setBackground(Color.magenta);
             viewPropProv.setText("View Property");
+            viewPropProv.setBackground(Color.magenta);
             viewPropProv.setBounds(520,700,200,30);
             viewPropProv.setVisible(true);
             viewProvText.setVisible(true);
@@ -1507,10 +1559,12 @@ public class GUI implements ActionListener {
 
 
         frame.add(dashboardProv2);
+        dashboardProv2.setBackground(Color.black);
 
         dashboardProv2.setLayout(null);
         dashboardProv2.add(menuProv);
         menuProv.setText("Back to Menu");
+        menuProv.setBackground(Color.magenta);
         menuProv.setBounds(400,700,150,30);
         menuProv.setVisible(true);
 
@@ -1525,12 +1579,19 @@ public class GUI implements ActionListener {
         dashboardProv2.add(freqRevProp.get(property-1));
 
         propLabel.get(property-1).setBounds(400,10,400,30);
+        propLabel.get(property-1).setForeground(Color.magenta);
         namePropLabel.get(property-1).setBounds(400,40,400,30);
+        namePropLabel.get(property-1).setForeground(Color.magenta);
         typePropLabel.get(property-1).setBounds(400,70,400,30);
+        typePropLabel.get(property-1).setForeground(Color.magenta);
         locPropLabel.get(property-1).setBounds(400,100,400,30);
+        locPropLabel.get(property-1).setForeground(Color.magenta);
         descrPropLabel.get(property-1).setBounds(400,130,400,30);
+        descrPropLabel.get(property-1).setForeground(Color.magenta);
         avg.get(property-1).setBounds(400,160,400,30);
+        avg.get(property-1).setForeground(Color.magenta);
         freqRevProp.get(property-1).setBounds(400,190,400,30);
+        freqRevProp.get(property-1).setForeground(Color.magenta);
 
         propLabel.get(property-1).setVisible(true);
         namePropLabel.get(property-1).setVisible(true);
@@ -1542,6 +1603,7 @@ public class GUI implements ActionListener {
         JLabel revs = new JLabel();
         dashboardProv2.add(revs);
         revs.setText("Reviews for this property");
+        revs.setForeground(Color.magenta);
         revs.setBounds(400,220,400,30);
         revs.setVisible(true);
         int height =250;
@@ -1555,6 +1617,7 @@ public class GUI implements ActionListener {
         }
         for(int i=0;i<stringRevLabel.size();i++){
             stringRevLabel.get(i).setBounds(400,height,400,30);
+            stringRevLabel.get(i).setForeground(Color.magenta);
             dashboardProv2.add(stringRevLabel.get(i));
             stringRevLabel.get(i).setVisible(true);
             height+=30;
@@ -1769,6 +1832,7 @@ public class GUI implements ActionListener {
             successLabelUser.setBounds(400, 50, 400, 100);
             successLabelUser.setVisible(true);
             successLabelUser.setText("Hi " + log.getUsername() + ". " + "You are " + type);
+            successLabelUser.setForeground(Color.magenta);
 
         } else if (type.equals("provider")) {
             loginPanel.setVisible(false);
@@ -1791,6 +1855,7 @@ public class GUI implements ActionListener {
             successLabelProv.setBounds(400, 50, 400, 100);
             successLabelProv.setVisible(true);
             successLabelProv.setText("Hi " + log.getUsername() + ". " + "You are " + type);
+            successLabelProv.setForeground(Color.magenta);
         }
 
     }
@@ -1799,6 +1864,7 @@ public class GUI implements ActionListener {
 
     public void deletePropertySession(){
         frame.add(deletePanel);
+        deletePanel.setBackground(Color.black);
         deletePanel.setLayout(null);
         deletePanel.setVisible(true);
         deleteAnsText.setText(null);
@@ -1851,13 +1917,18 @@ public class GUI implements ActionListener {
             if(provider.getNames().get(i).equals(log.getUsername())){
 
                 propLabel.get(i).setBounds(width,height,100,20);
+                propLabel.get(i).setForeground(Color.magenta);
                 namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                namePropLabel.get(i).setForeground(Color.magenta);
                 heightP+=20;
                 typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                typePropLabel.get(i).setForeground(Color.magenta);
                 heightP+=20;
                 locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                locPropLabel.get(i).setForeground(Color.magenta);
                 heightP+=20;
                 descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
+                descrPropLabel.get(i).setForeground(Color.magenta);
                 heightP =temp*height+20;
                 width +=200;
                 widthN +=200;
@@ -1884,8 +1955,11 @@ public class GUI implements ActionListener {
 
             deleteAnsLabel.setText("Type the number of property you want to delete: ");
             deleteAnsLabel.setBounds(50,700,400,30);
+            deleteAnsLabel.setForeground(Color.magenta);
             deleteAnsText.setBounds(400,700,100,30);
+            deleteAnsText.setBackground(Color.magenta);
             deleteButton1.setText("Delete");
+            deleteButton1.setBackground(Color.magenta);
             deleteButton1.setBounds(520,700,100,30);
             deleteButton1.setVisible(true);
             deleteAnsText.setVisible(true);
@@ -1897,6 +1971,7 @@ public class GUI implements ActionListener {
 
     public void deleteReviewSession(){
         frame.add(deleteUserPanel);
+        deleteUserPanel.setBackground(Color.black);
         deleteUserPanel.setLayout(null);
 
         deleteRevText.setText(null);
@@ -1907,6 +1982,7 @@ public class GUI implements ActionListener {
         deleteUserPanel.add(revsLabel);
 
         revsLabel.setText("Your reviews are down below.");
+        revsLabel.setForeground(Color.magenta);
         revsLabel.setBounds(400,20,250,30);
 
         for(int i=0;i<user.getUsers().size();i++){
@@ -1949,6 +2025,7 @@ public class GUI implements ActionListener {
         for(int i=0;i<stringRevLabel.size();i++) {
             if(log.getUsername().equals(userRevLabel.get(i).getText())){
                 reviewLabel.get(i).setBounds(width,height,1000,30);
+                reviewLabel.get(i).setForeground(Color.magenta);
                 height+=40;
                 deleteUserPanel.add(reviewLabel.get(i));
                 reviewLabel.get(i).setVisible(true);
@@ -1957,9 +2034,12 @@ public class GUI implements ActionListener {
 
 
         deleteRevLabel.setText("For which property you want to delete your review?");
+        deleteRevLabel.setForeground(Color.magenta);
         deleteRevLabel.setBounds(50,700,400,30);
         deleteRevText.setBounds(400,700,100,30);
+        deleteRevText.setBackground(Color.magenta);
         deleteRevButton.setText("Delete Review");
+        deleteRevButton.setBackground(Color.magenta);
         deleteRevButton.setBounds(520,700,120,30);
 
         deleteRevButton.setVisible(true);
@@ -1970,8 +2050,10 @@ public class GUI implements ActionListener {
 
     public void editReviewSession(){
         frame.add(editUserPanel);
+        editUserPanel.setBackground(Color.black);
         editUserPanel.setLayout(null);
         editRevPanel.setLayout(null);
+        editRevPanel.setBackground(Color.black);
 
         editRevText1.setText(null);
         editRevText2.setText(null);
@@ -1989,18 +2071,24 @@ public class GUI implements ActionListener {
         editRevPanel.add(editRateText);
 
         revsLabel.setText("Your reviews are down below.");
+        revsLabel.setForeground(Color.magenta);
         revsLabel.setBounds(400,20,250,30);
 
         editRevLabel2.setText("Edit your review below.");
+        editRevLabel2.setForeground(Color.magenta);
         editRevLabel2.setBounds(380,150,200,30);
 
         editRateLabel.setText("Edit your rate below.");
+        editRateLabel.setForeground(Color.magenta);
         editRateLabel.setBounds(390,240,200,30);
 
         editRevText2.setBounds(350,200,200,30);
+        editRevText2.setBackground(Color.magenta);
         editRateText.setBounds(350,280,200,30);
+        editRateText.setBackground(Color.magenta);
 
         editRevButton2.setText("Done");
+        editRevButton2.setBackground(Color.magenta);
         editRevButton2.setBounds(350,320,200,30);
 
         editUserPanel.setVisible(true);
@@ -2059,6 +2147,7 @@ public class GUI implements ActionListener {
             if(log.getUsername().equals(userRevLabel.get(i).getText())){
                // System.out.println(reviewLabel.get(i).getText());
                 reviewLabel.get(i).setBounds(width,height,1000,30);
+                reviewLabel.get(i).setForeground(Color.magenta);
                 height+=40;
                 editUserPanel.add(reviewLabel.get(i));
                 reviewLabel.get(i).setVisible(true);
@@ -2068,8 +2157,11 @@ public class GUI implements ActionListener {
 
         editRevLabel1.setText("For which property you want to edit your review?");
         editRevLabel1.setBounds(50,700,400,30);
+        editRevLabel1.setForeground(Color.magenta);
         editRevText1.setBounds(400,700,100,30);
+        editRevText1.setBackground(Color.magenta);
         editRevButton1.setText("Edit Review");
+        editRevButton1.setBackground(Color.magenta);
         editRevButton1.setBounds(520,700,120,30);
 
         editRevButton1.setVisible(true);
@@ -2082,9 +2174,10 @@ public class GUI implements ActionListener {
 
     public void addReviewSession(){
         frame.add(addUserPanel);
-
+        addUserPanel.setBackground(Color.black);
         addUserPanel.setLayout(null);
         addRevPanel.setLayout(null);
+        addRevPanel.setBackground(Color.black);
         addRevText.setText(null);
         addAnsText.setText(null);
         rateText.setText(null);
@@ -2100,15 +2193,20 @@ public class GUI implements ActionListener {
         addRevPanel.add(rateLabel);
 
         addRevLabel.setText("Add new review below.");
+        addRevLabel.setForeground(Color.magenta);
         addRevLabel.setBounds(380,150,200,30);
 
         rateLabel.setText("Add your rate below.");
+        rateLabel.setForeground(Color.magenta);
         rateLabel.setBounds(390,240,200,30);
 
         addRevText.setBounds(350,200,200,30);
+        addRevText.setBackground(Color.magenta);
         rateText.setBounds(350,280,200,30);
+        rateText.setBackground(Color.magenta);
 
         addRevButton.setText("Done");
+        addRevButton.setBackground(Color.magenta);
         addRevButton.setBounds(350,320,200,30);
 
 
@@ -2156,13 +2254,18 @@ public class GUI implements ActionListener {
             }
 
             propLabel.get(i).setBounds(width,height,100,20);
+            propLabel.get(i).setForeground(Color.magenta);
             namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+            namePropLabel.get(i).setForeground(Color.magenta);
             heightP+=20;
             typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+            typePropLabel.get(i).setForeground(Color.magenta);
             heightP+=20;
             locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+            locPropLabel.get(i).setForeground(Color.magenta);
             heightP+=20;
             descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
+            descrPropLabel.get(i).setForeground(Color.magenta);
             heightP =temp*height+20;
             width +=200;
             widthN +=200;
@@ -2186,9 +2289,12 @@ public class GUI implements ActionListener {
 
 
             addAnsLabel.setText("For which property you want to add a review; ");
+            addAnsLabel.setForeground(Color.magenta);
             addAnsLabel.setBounds(50,700,400,30);
             addAnsText.setBounds(400,700,100,30);
+            addAnsText.setBackground(Color.magenta);
             addAnsButton.setText("Add a review");
+            addAnsButton.setBackground(Color.magenta);
             addAnsButton.setBounds(520,700,120,30);
 
             addAnsButton.setVisible(true);
@@ -2203,6 +2309,7 @@ public class GUI implements ActionListener {
 
     public void editPropertySession(){
         frame.add(editPanel);
+        editPanel.setBackground(Color.black);
         editPanel.setLayout(null);
         editPanel.setVisible(true);
         changeNameText.setText(null);
@@ -2254,13 +2361,18 @@ public class GUI implements ActionListener {
 
             if(provider.getNames().get(i).equals(log.getUsername())){
                 propLabel.get(i).setBounds(width,height,100,20);
+                propLabel.get(i).setForeground(Color.MAGENTA);
                 namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                namePropLabel.get(i).setForeground(Color.MAGENTA);
                 heightP+=20;
                 typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                typePropLabel.get(i).setForeground(Color.MAGENTA);
                 heightP+=20;
                 locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                locPropLabel.get(i).setForeground(Color.MAGENTA);
                 heightP+=20;
                 descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
+                descrPropLabel.get(i).setForeground(Color.MAGENTA);
                 heightP =temp*height+20;
                 width +=200;
                 widthN +=200;
@@ -2285,9 +2397,12 @@ public class GUI implements ActionListener {
             editPanel.add(editAnsText);
             editPanel.add(change);
             editAnsLabel.setText("Type the number of property you want to edit: ");
+            editAnsLabel.setForeground(Color.magenta);
             editAnsLabel.setBounds(50,700,400,30);
+            editAnsText.setBackground(Color.magenta);
             editAnsText.setBounds(400,700,100,30);
             change.setText("Change");
+            change.setBackground(Color.magenta);
             change.setBounds(520,700,100,30);
             change.setVisible(true);
             editAnsText.setVisible(true);
@@ -2301,6 +2416,7 @@ public class GUI implements ActionListener {
     public void addPropertySession(){
         frame.add(addProvPanel);
         addProvPanel.setLayout(null);
+        addProvPanel.setBackground(Color.black);
 
         addProvPanel.add(nameProp);
         addProvPanel.add(namePropText);
@@ -2319,19 +2435,27 @@ public class GUI implements ActionListener {
         descrPropText.setText(null);
         nameProp.setText("Name of property");
         nameProp.setBounds(400, 100, 100, 30);
+        nameProp.setForeground(Color.magenta);
         namePropText.setBounds(400, 150, 100, 30);
+        namePropText.setBackground(Color.magenta);
 
         typeProp.setText("Type of property");
         typeProp.setBounds(400, 200, 100, 30);
+        typeProp.setForeground(Color.magenta);
         typePropText.setBounds(400, 250, 100, 30);
+        typePropText.setBackground(Color.magenta);
 
         locProp.setText("Location of property");
         locProp.setBounds(400, 300, 150, 30);
+        locProp.setForeground(Color.magenta);
         locPropText.setBounds(400, 350, 100, 30);
+        locPropText.setBackground(Color.magenta);
 
         descrProp.setText("Add a description");
         descrProp.setBounds(400, 400, 100, 30);
+        descrProp.setForeground(Color.magenta);
         descrPropText.setBounds(400, 450, 100, 30);
+        descrPropText.setBackground(Color.magenta);
 
         failedAdd.setText("There is a already a property with this name. Try another one.");
         failedAdd.setBounds(280,600,350,30);
@@ -2352,6 +2476,7 @@ public class GUI implements ActionListener {
 
         submit.setText("Submit");
         submit.setBounds(400,500,100,30);
+        submit.setBackground(Color.magenta);
     }
 
     @Override
