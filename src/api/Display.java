@@ -2,15 +2,36 @@ package api;
 
 import java.util.*;
 
+/**
+ * Κλάση που αναπαριστά την προβολή καταχώρησης ενός καταλύματος ανάλογα με το άν ο χρήστης είναι Πάροχος ή Απλός Χρήστης
+ */
+
 public class Display {
 
     User user;
     Provider provider;
 
+    /**
+     * Κατασκευαστής / Constructor
+     * Δημιουργία αντικειμένων των κλάσεων User και Provider
+     */
+
     public Display(){
         user = new User();
         provider = new Provider();
     }
+
+    /**
+     * Μέθοδος που εμφανίζει την καρτέλα (Dashboard) του παρόχου που είναι συνδεδεμένος
+     * Εμφανίζει τον συνολικό αριθμό αξιολογήσεων που έχουν δεχθεί τα καταλύματα τους.
+     * Εμφανίζει τον μέσο όρο όλων των αξιολογήσεων των καταλυμάτων τους.
+     * Εμφανίζει όλες τις καταχώρησεις καταλυμάτων που έχει κάνει με το όνομα, τον τύπο, την τοποθεσία και τον μέσο όρο κάθε καταχώρησης.
+     * @param props η λίστα με τα καταλύματα
+     * @param name το όνομα του χρήστη(Πάροχος)
+     * @param listProp η λίστα με τα καταλύματα του αντίστοιχου παρόχου που έχουν αξιολογήσει απλοί χρήστες
+     * @param listRates η λίστα με τις βαθμολογίες που έχουν δώσει απλοί χρήστες στα καταλύματα του παρόχου
+     * @param names η λίστα με τα ονόματα σύνδεσης(usernames) των παρόχων
+     */
 
 
 
@@ -44,7 +65,6 @@ public class Display {
 
                 System.out.println("Average Rate: "+avgProp+"/5");
             }
-            //i++;
         }
         if(totalReviews == 0)
             avgTotal =0;
@@ -55,6 +75,17 @@ public class Display {
         System.out.println("Total Reviews for "+name+" : "+totalReviews);
         System.out.println("Average Rate for all properties: "+avgTotal);
     }
+
+    /**
+     * Μέθοδος που εμφανίζει την καρτέλα(Dashboard) του απλού χρήστη που είναι συνδεδεμένος.
+     * Εμφανίζει όλα τα καταλύματα που έχουν αξιολογήσει με το όνομα, τον τύπο, την τοποθεσία και τον βαθμό που έχουν δώσει στο συγκεκριμένο κατάλυμα
+     * Εμφανίζει τον μέσο όρο βαθμολογίας που έχουν δώσει συνολικά στα καταλύματα που έχουν αξιολογήσει
+     * @param props η λίστα με τα καταλύματα
+     * @param name το όνομα του χρήστη(Απλός Χρήστης)
+     * @param listRates η λίστα με τις βαθμολογίες όλων των χρηστών
+     * @param listUsers η λίστα με τα usernames όλων των χρηστών
+     * @param listProps η λίστα με τα καταλύματα που έχουν αξιολογήσει όλοι οι χρήστες
+     */
 
 
 
@@ -91,6 +122,18 @@ public class Display {
         System.out.println(".......................................");
         System.out.println();
     }
+
+    /**
+     * Μέθοδος που εμφανίζει αναλυτικά όλες τις πληροφορίες του καταλύματος που επέλεξε ο χρήστης
+     * Εμφανίζει το όνομα του καταλύματος, τον τύπο, την τοποθεσία, την περιγραφή του,
+     * τον αριθμό αξιολογήσεων που έχει δεχθεί το συγκεκριμένο κατάλυμα και την κάθε αξιολόγηση του κάθε χρήστη που αξιολόγησε το συγκεκριμένο κατάλυμα με τη βαθμολογία του
+     * @param props η λίστα με τα καταλύματα
+     * @param property το κάταλυμα που επιλέχθηκε για προβολή
+     * @param listRates η λίστα με τις βαθμολογίες των χρηστών
+     * @param listUsers η λίστα με τα usernames των χρηστών
+     * @param listReviews η λίστα με τις αξιολογήσεις των χρηστών
+     * @param listProp η λίστα με τα καταλύματα που έχουν αξιολογήσει οι χρήστες
+     */
 
 
     public void displayProperty(ArrayList<Property> props,String property,ArrayList<String> listRates,ArrayList<String> listUsers,ArrayList<String> listReviews,ArrayList<String> listProp){
@@ -135,6 +178,16 @@ public class Display {
         }
 
     }
+
+    /**
+     * Μέθοδος που εμφανίζει όλες τις αξιολογήσεις που έχει κάνει ο χρήστης που είναι συνδεδεμένος
+     * @param props η λίστα με τα καταλύματα
+     * @param name το username του Απλού Χρήστη
+     * @param listProps η λίστα με τα καταλύματα που έχουν αξιολογήσει οι χρήστες
+     * @param listUsers η λίστα με τα usernames των χρηστών
+     * @param listRates η λίστα με τις βαθμολογίες των χρηστών
+     * @param listReviews η λίστα με τις αξιολογήσεις των χρηστών
+     */
 
     public void showReviews(ArrayList<Property> props,String name,ArrayList<String> listProps,ArrayList<String> listUsers,ArrayList<String> listRates,ArrayList<String> listReviews){
         System.out.println("Your reviews are down below.");

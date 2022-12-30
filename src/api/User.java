@@ -5,16 +5,25 @@ import java.util.ArrayList;
 
 import java.util.Scanner;
 
+/**
+ * Κλάση που αναπαριστά τις λειτουργίες ενός απλού χρήστη(Αναζήτηση καταλύματος, Εισαγωγή, Επεξεργασία και Διαγραφή αξιολόγησης
+ */
+
 public class User {
 
-    ArrayList<String> rate;
+    ArrayList<String> rate; // Λίστα με τις βαθμολογίες των χρηστών
 
-    ArrayList<String> rev;
-    ArrayList<String> users;
-    ArrayList<String> properties;
+    ArrayList<String> rev; // Λίστα με τις αξιολογήσεις των χρηστών
+    ArrayList<String> users; // Λίστα με τα usernames των χρηστών που έχουν κάνει κάποια αξιολόγηση
+    ArrayList<String> properties; // Λίστα με τα καταλύματα που έχουν αξιολογήσει οι χρήστες
 
     Provider provider;
     Reviews review;
+
+    /**
+     * Κατασκευαστής / Constructor
+     * Δημιουργία αντικειμένου provider και αρχικοποίηση των παραπάνω λιστών
+     */
 
     public User()  {
         rev = new ArrayList<>();
@@ -24,21 +33,46 @@ public class User {
         provider = new Provider();
     }
 
+    /**
+     * Μέθοδος που επιστρέφει τη λίστα με τα καταλύματα που έχουν αξιολογήθει
+     */
+
     public ArrayList<String> getProperties() {
         return properties;
     }
+
+    /**
+     *
+     * Μέθοδος που επιστρέφει τη λίστα με τις βαθμολογίες του κάθε χρήστη
+     */
 
     public ArrayList<String> getRate() {
         return rate;
     }
 
+    /**
+     * Μέθοδος που επιστρέφει τη λίστα με τα usernames των χρηστών που έχουν κάνει κάποια αξιολόγηση
+     */
+
     public ArrayList<String> getUsers() {
         return users;
     }
 
+    /**
+     * Μέθοδος που επιστρέφει τη λίστα με τις αξιολογήσεις που έχουν κάνει οι χρήστες
+     */
+
     public ArrayList<String> getRev() {
         return rev;
     }
+
+    /**
+     * Μέθοδος που προσθέτει στις αντίστοιχες λίστες την αξιολογήση, τη βαθμολογία, το username του χρήστη και το κατάλυμα που κάνει την αξιολόγηση
+     * @param userReview η αξιολόγηση του χρήστη
+     * @param prop το κατάλυμα που αξιολογεί
+     * @param user ο χρήστης που κάνει την αξιολόγηση
+     * @param userRate τη βαθμολογία που δίνει στο κατάλυμα
+     */
 
     public void addReviews(String userReview,String prop, String user,String userRate){
         review = new Reviews(userReview);
@@ -47,6 +81,11 @@ public class User {
         users.add(user);
         rate.add(userRate);
     }
+
+    /**
+     * Μέθοδος που εμφανίζει το μενού επιλογών του χρήστη. Αναζήτηση καταλύματος, Εισαγωγλη, Επεξεργασία, Διαγραφή αξιολόγησης και προβολή DashBoard
+     * @return την επιλογή του χρήστη
+     */
 
     public String menuUser(){
         Scanner sc = new Scanner(System.in);
@@ -59,6 +98,12 @@ public class User {
         System.out.println("Type LOGOUT, to logout from your account.");
         return sc.next();
     }
+
+    /**
+     * Μέθοδος που προσθέτει μια νές αξιολόγηση απο έναν χρήστη
+     * @param property το κατάλυμα που κάνει την αξιολόγηση
+     * @param user ο χρήστης που κάνει την αξιολόγηση
+     */
 
     public void newReview(String property,String user) throws IOException {
         String review,rate;
@@ -86,6 +131,12 @@ public class User {
         addReviews(review,property,user,rate);
     }
 
+    /**
+     * Μέθοδος που επεξεργάζεται μια ήδη υπάρχων αξιολόγηση, αλλάζοντας την αξιολόγηση και τη βαθμολογία του
+     * @param property το κατάλυμα που θα αλλάξει την αξιολόγηση του
+     * @param user ο χρήστης που αλλάζει την αξιολόγηση του
+     */
+
 
     public void editReviews(String property,String user){
         String newReview,newRate;
@@ -109,6 +160,14 @@ public class User {
         }
     }
 
+    /**
+     * Μέθοδος που κάνει επεξεργασία αξιολόγησης μέσω της κλάσης GUI
+     * @param newReview η νεα αξιολόγηση που θα αντικαταστήσει την παλαιά
+     * @param newRate η νεα βαθμολογία που θα αντικαταστήσει την παλαιά
+     * @param property το κατάλυμα που θα αλλάξει την αξιολόγηση του
+     *      * @param user ο χρήστης που αλλάζει την αξιολόγηση του
+     */
+
     public void editRevGUI(String newReview,String newRate,String property,String user){
         review = new Reviews(newReview);
         for (int i=0;i<rev.size();i++){
@@ -119,6 +178,12 @@ public class User {
         }
     }
 
+    /**
+     * Μέθοδος που αν αλλάξει το όνομα ενός καταλύματος και υπάρχουν αξιολόγησεις σε αυτό, αλλάζει και το όνομα στη λίστα των καταλυμάτων που έχουν δεχθεί αξιολογήσεις
+     * @param prop1 το όνομα του παλαιού καταλύματος
+     * @param prop2 το όνομα που θα αντικαταστήσει το παλαιό
+     */
+
     public void editRevName(String prop1,String prop2){
         for(int i =0;i<properties.size();i++){
             if(properties.get(i).equals(prop1)){
@@ -127,6 +192,12 @@ public class User {
         }
 
     }
+
+    /**
+     * Μέθοδος που διαγράφει μια αξιολόγηση
+     * @param property το κατάλυμα για το οποίο θα διαγραφεί η αξιολόγηση του
+     * @param user ο χρήστης που θα διαγράψει την αξιολόγηση του
+     */
 
     public void deleteRev(String property,String user){
         for (int i=0;i< rev.size();i++){
@@ -139,6 +210,11 @@ public class User {
 
         }
     }
+
+    /**
+     * Μέθοδος που αν διαγραφεί ένα κατάλυμα που έχει αξιολογήσεις, τότε διαγράφονται και οι αξιολογήσεις αυτού του καταλύματος
+     * @param property το κατάλυμα που θα διαγραφεί
+     */
 
     public void deletePropRev(String property) {
         for (int i = 0; i < properties.size(); i++) {
@@ -153,7 +229,11 @@ public class User {
 
     }
 
-
+    /**
+     * Μέθοδος που ελέγχει εάν ο χρήστης έχει κάνει γενικά κάποια αξιολόγηση σε κάποιο κατάλυμα
+     * @param name το username του χρήστη
+     * @return true ή false ανάλογα με το αν ο χρήστης έχει κάνει αξιολόγηση ή όχι
+     */
 
     public boolean hasGenRevs(String name){
         int c=0;
@@ -164,6 +244,13 @@ public class User {
         }
         return c>0;
     }
+
+    /**
+     * Μέθοδος που ελέγχει έαν ο χρήστης έχει αξιολογήσει ενα συγκεκριμένο κατάλυμα
+     * @param property το κατάλυμα που ελέγχεται άν έχει αξιολογηθεί απο τον συγκεκριμένο χρήστη
+     * @param user το username του χρήστη
+     * @return true ή false ανάλογα με το εάν ο χρήστης έχει αξιολογήσει το συγκεκριμένο κατάλυμα ή οχι
+     */
     public boolean hasRevs(String property,String user){
         for (int i =0;i<rev.size();i++){
             if(properties.get(i).equals(property) && users.get(i).equals(user)){
@@ -173,6 +260,10 @@ public class User {
         return false;
     }
 
+    /**
+     * Μέθοδος που ανανεώνει το αρχείο txt όταν γίνονται αλλαγές απο τον χρήστη που είναι συνδεδεμένος
+     * @param f το αρχείο που θα ανανεωθεί και περιέχει τις αξιολογήσεις, τις βαθμολογίες, τα usernames των χρηστών και τα καταλύματα που αυτοί έχουν αξιολογήσει
+     */
 
     public void reNewFile(File f) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(f));
@@ -188,29 +279,6 @@ public class User {
         }
         writer.close();
 
-
-    }
-
-    public void printRevs(){
-        for (int i=0;i< rev.size();i++){
-            System.out.println();
-            System.out.println("Review for property "+properties.get(i)+": "+rev.get(i));
-            System.out.println("By - "+users.get(i));
-            System.out.println("________________");
-        }
-    }
-
-
-    public void showMyReviews(String name){
-        System.out.println("Your reviews are down below.");
-        System.out.println("--------------------");
-        for(int i=0;i<rev.size();i++){
-            if(users.get(i).equals(name)){
-                System.out.println("Review for property "+properties.get(i)+" with rate "+rate.get(i)+"/5 :"+rev.get(i));
-                System.out.println();
-            }
-
-        }
 
     }
 
