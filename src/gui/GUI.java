@@ -20,21 +20,21 @@ import javax.swing.*;
 
 public class GUI implements ActionListener {
 
-    ArrayList<JLabel> avg;
-    ArrayList<JLabel> totalAvgProp;
-    ArrayList<JLabel> freqRevProp;
+    private ArrayList<JLabel> avg;
+    private ArrayList<JLabel> totalAvgProp;
+    private ArrayList<JLabel> freqRevProp;
 
-    ArrayList<JLabel> rateRevLabel;
-    ArrayList<JLabel> propRevLabel;
-    ArrayList<JLabel> namePropRevLabel;
-    ArrayList<JLabel> userRevLabel;
-    ArrayList<JLabel> stringRevLabel;
-    ArrayList<JLabel> reviewLabel;
-    ArrayList<JLabel> namePropLabel;
-    ArrayList<JLabel> typePropLabel;
-    ArrayList<JLabel> locPropLabel;
-    ArrayList<JLabel> descrPropLabel;
-    ArrayList<JLabel> propLabel;
+    private ArrayList<JLabel> rateRevLabel;
+    private ArrayList<JLabel> propRevLabel;
+    private ArrayList<JLabel> namePropRevLabel;
+    private ArrayList<JLabel> userRevLabel;
+    private ArrayList<JLabel> stringRevLabel;
+    private ArrayList<JLabel> reviewLabel;
+    private ArrayList<JLabel> namePropLabel;
+    private ArrayList<JLabel> typePropLabel;
+    private ArrayList<JLabel> locPropLabel;
+    private ArrayList<JLabel> descrPropLabel;
+    private ArrayList<JLabel> propLabel;
 
     File fileP;
     File fileR;
@@ -968,598 +968,6 @@ public class GUI implements ActionListener {
 
     }
 
-    public void successSearch() {
-
-        frame.add(successSearchPanel);
-        successSearchPanel.setLayout(null);
-        successSearchPanel.setBackground(Color.black);
-
-        successSearchPanel.setVisible(true);
-
-        int results=0;
-
-        int width, height, widthN, widthT, widthL, widthD, heightP, temp = 1;width = 0;
-        widthN = 0;
-        widthT = 0;
-        widthD = 0;
-        widthL = 0;
-        height = 0;
-        heightP = 20;
-
-        for (int i = 0; i < provider.getSize2(); i++) {
-
-               JLabel tempProp = new JLabel();
-               JLabel tempName = new JLabel();
-               JLabel tempType = new JLabel();
-               JLabel tempLoc = new JLabel();
-               JLabel tempDescr = new JLabel();
-
-               tempName.setText("Name: " + provider.getProperties().get(i).getName());
-               namePropLabel.add(tempName);
-               tempType.setText("Type: " + provider.getProperties().get(i).getType());
-               typePropLabel.add(tempType);
-               tempLoc.setText("Location: " + provider.getProperties().get(i).getLocation());
-               locPropLabel.add(tempLoc);
-               tempDescr.setText("Description: " + provider.getProperties().get(i).getDescr());
-               descrPropLabel.add(tempDescr);
-               tempProp.setText("Property " + (i + 1));
-               propLabel.add(tempProp);
-
-
-
-
-
-            if (width == 1000) {
-                width = 0;
-                widthN = 0;
-                widthL = 0;
-                widthD = 0;
-                widthT = 0;
-                height += 160;
-
-                heightP = height + 20;
-            }
-
-
-            if (provider.getProperties().get(i).getName().toLowerCase().contains(searchText.getText().toLowerCase()) || provider.getProperties().get(i).getType().toLowerCase().contains(searchText.getText().toLowerCase()) || provider.getProperties().get(i).getLocation().toLowerCase().contains(searchText.getText().toLowerCase()) || provider.getProperties().get(i).getDescr().toLowerCase().contains(searchText.getText().toLowerCase())) {
-                results++;
-                propLabel.get(i).setBounds(width, height, 100, 20);
-                propLabel.get(i).setForeground(Color.magenta);
-                namePropLabel.get(i).setBounds(widthN, heightP, 150, 20);
-                namePropLabel.get(i).setForeground(Color.magenta);
-                heightP += 20;
-                typePropLabel.get(i).setBounds(widthT, heightP, 150, 20);
-                typePropLabel.get(i).setForeground(Color.magenta);
-                heightP += 20;
-                locPropLabel.get(i).setBounds(widthL, heightP, 150, 20);
-                locPropLabel.get(i).setForeground(Color.magenta);
-                heightP += 20;
-                descrPropLabel.get(i).setBounds(widthD, heightP, 150, 20);
-                descrPropLabel.get(i).setForeground(Color.magenta);
-                heightP = temp * height + 20;
-                width += 200;
-                widthN += 200;
-                widthT += 200;
-                widthL += 200;
-                widthD += 200;
-                successSearchPanel.add(propLabel.get(i));
-                successSearchPanel.add(namePropLabel.get(i));
-                successSearchPanel.add(typePropLabel.get(i));
-                successSearchPanel.add(locPropLabel.get(i));
-                successSearchPanel.add(descrPropLabel.get(i));
-                propLabel.get(i).setVisible(true);
-                namePropLabel.get(i).setVisible(true);
-                typePropLabel.get(i).setVisible(true);
-                locPropLabel.get(i).setVisible(true);
-                descrPropLabel.get(i).setVisible(true);
-            }
-
-        }
-
-        successSearchPanel.add(successSearchLabel);
-        successSearchLabel.setText(results+" results for '"+searchText.getText()+"'");
-        successSearchLabel.setForeground(Color.magenta);
-        successSearchLabel.setBounds(410,650,400,30);
-        successSearchLabel.setVisible(true);
-
-
-
-        successSearchPanel.add(menuUser);
-        menuUser.setText("Back to Menu");
-        menuUser.setBounds(390,710,150,30);
-        menuUser.setBackground(Color.magenta);
-        menuUser.setVisible(true);
-
-
-
-
-
-    }
-
-    public void searchSession(){
-        frame.add(searchPanel);
-        searchPanel.setLayout(null);
-        searchPanel.setBackground(Color.black);
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchButton);
-        searchPanel.add(searchText);
-
-        searchLabel.setText("You can search properties via Name,Type,Location and facilities");
-        searchLabel.setForeground(Color.magenta);
-        searchLabel.setBounds(230,50,500,30);
-        searchLabel.setVisible(true);
-
-        searchText.setText(null);
-        searchText.setBounds(200,90,400,30);
-        searchText.setBackground(Color.magenta);
-        searchText.setVisible(true);
-
-        searchButton.setText("Search");
-        searchButton.setBounds(620,90,100,30);
-        searchButton.setBackground(Color.magenta);
-        searchButton.setVisible(true);
-
-
-
-        searchPanel.setVisible(true);
-    }
-
-    public void viewPropertyUser(int property){
-        frame.add(dashboardUser2);
-
-        dashboardUser2.setLayout(null);
-        dashboardUser2.setBackground(Color.black);
-        dashboardUser2.add(menuUser);
-        menuUser.setText("Back to Menu");
-        menuUser.setBackground(Color.magenta);
-        menuUser.setBounds(400,700,150,30);
-        menuUser.setVisible(true);
-
-        dashboardUser2.setVisible(true);
-
-        dashboardUser2.add(namePropLabel.get(property-1));
-        dashboardUser2.add(typePropLabel.get(property-1));
-        dashboardUser2.add(locPropLabel.get(property-1));
-        dashboardUser2.add(descrPropLabel.get(property-1));
-        dashboardUser2.add(propLabel.get(property-1));
-        dashboardUser2.add(avg.get(property-1));
-        dashboardUser2.add(freqRevProp.get(property-1));
-
-
-        propLabel.get(property-1).setBounds(400,10,400,30);
-        propLabel.get(property-1).setForeground(Color.magenta);
-        namePropLabel.get(property-1).setBounds(400,40,400,30);
-        namePropLabel.get(property-1).setForeground(Color.magenta);
-        typePropLabel.get(property-1).setBounds(400,70,400,30);
-        typePropLabel.get(property-1).setForeground(Color.magenta);
-        locPropLabel.get(property-1).setBounds(400,100,400,30);
-        locPropLabel.get(property-1).setForeground(Color.magenta);
-        descrPropLabel.get(property-1).setBounds(400,130,400,30);
-        descrPropLabel.get(property-1).setForeground(Color.magenta);
-        avg.get(property-1).setBounds(400,160,400,30);
-        avg.get(property-1).setForeground(Color.magenta);
-        freqRevProp.get(property-1).setBounds(400,190,400,30);
-        freqRevProp.get(property-1).setForeground(Color.magenta);
-
-
-        propLabel.get(property-1).setVisible(true);
-        namePropLabel.get(property-1).setVisible(true);
-        typePropLabel.get(property-1).setVisible(true);
-        locPropLabel.get(property-1).setVisible(true);
-        descrPropLabel.get(property-1).setVisible(true);
-        JLabel revs = new JLabel();
-        dashboardUser2.add(revs);
-        revs.setText("Reviews for this property");
-        revs.setForeground(Color.magenta);
-        revs.setBounds(400,220,400,30);
-        revs.setVisible(true);
-        int height =250;
-        for(int i=0;i<user.getRev().size();i++){
-            if(namePropLabel.get(property-1).getText().equals("Name: "+user.getProperties().get(i))){
-                JLabel temp = new JLabel();
-                temp.setText("    By "+user.getUsers().get(i)+": "+user.getRev().get(i)+"(Rate: "+user.getRate().get(i)+"/5)");
-                stringRevLabel.add(temp);
-            }
-        }
-        for(int i=0;i<stringRevLabel.size();i++){
-            stringRevLabel.get(i).setBounds(400,height,400,30);
-            stringRevLabel.get(i).setForeground(Color.magenta);
-            dashboardUser2.add(stringRevLabel.get(i));
-            stringRevLabel.get(i).setVisible(true);
-            height+=30;
-        }
-
-
-    }
-    public void dashboardUserSession(){
-        int revNum=0;
-        double sumRev=0;
-        double avgRev;
-        frame.add(dashboardUser1);
-        dashboardUser1.setBackground(Color.black);
-        dashboardUser1.setLayout(null);
-        viewUserText.setText(null);
-
-        dashboardUser1.add(viewPropUser);
-        dashboardUser1.add(viewUserText);
-        dashboardUser1.add(viewLabelUser);
-
-
-
-        dashboardUser1.setVisible(true);
-
-        for(int i=0;i<provider.getSize2();i++){
-            JLabel tempProp = new JLabel();
-            JLabel tempName = new JLabel();
-            JLabel tempType = new JLabel();
-            JLabel tempLoc = new JLabel();
-            JLabel tempDescr = new JLabel();
-
-            tempName.setText("Name: "+provider.getProperties().get(i).getName());
-            namePropLabel.add(tempName);
-            tempType.setText("Type: "+provider.getProperties().get(i).getType());
-            typePropLabel.add(tempType);
-            tempLoc.setText("Location: "+provider.getProperties().get(i).getLocation());
-            locPropLabel.add(tempLoc);
-            tempDescr.setText("Description: "+provider.getProperties().get(i).getDescr());
-            descrPropLabel.add(tempDescr);
-            tempProp.setText("Property "+(i+1));
-            propLabel.add(tempProp);
-        }
-        for(int i=0;i< provider.getSize2();i++){
-            for(int j=0;j<user.getProperties().size();j++){
-                if(provider.getProperties().get(i).getName().equals(user.getProperties().get(j)) && user.getUsers().get(j).equals(log.getUsername())){
-                    revNum++;
-                    sumRev += Double.parseDouble(user.getRate().get(j));
-                    JLabel tempRate = new JLabel();
-                    JLabel tempName = new JLabel();
-                    tempRate.setText("Your rate: "+user.getRate().get(j));
-                    tempName.setText(user.getProperties().get(j));
-                    rateRevLabel.add(tempRate);
-                    namePropRevLabel.add(tempName);
-                }
-            }
-        }
-        double avgProp;
-        double sumProp;
-        int propReviews;
-        for(int i=0;i< provider.getSize2();i++){
-            propReviews=0;
-            sumProp=0;
-            for(int j=0;j<user.getProperties().size();j++){
-                if(provider.getProperties().get(i).getName().equals(user.getProperties().get(j))){
-                    propReviews++;
-                    sumProp+= Double.parseDouble(user.getRate().get(j));
-                }
-            }
-            JLabel tempFreq = new JLabel();
-            JLabel tempAvgProp = new JLabel();
-            tempFreq.setText("Total reviews for this property: "+propReviews);
-            freqRevProp.add(tempFreq);
-            if(propReviews==0){
-                avgProp=0;
-            }else
-                avgProp = sumProp /(double) propReviews;
-
-            tempAvgProp.setText("Average rate:"+avgProp);
-            avg.add(tempAvgProp);
-        }
-
-
-
-
-        int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
-        width=0;
-        widthN =0;
-        widthT =0;
-        widthD =0;
-        widthL =0;
-        height = 0;
-        heightP=20;
-
-
-        for (int i=0;i<provider.getSize2();i++){
-            if(width==1000){
-                width=0;
-                widthN=0;
-                widthL=0;
-                widthD=0;
-                widthT=0;
-                height+=160;
-
-                heightP=height+20;
-            }
-            for(int j=0;j<rateRevLabel.size();j++){
-                if(provider.getProperties().get(i).getName().equals(namePropRevLabel.get(j).getText())){
-                    propLabel.get(i).setBounds(width,height,100,20);
-                    propLabel.get(i).setForeground(Color.magenta);
-                    namePropLabel.get(i).setBounds(widthN,heightP,150,20);
-                    namePropLabel.get(i).setForeground(Color.magenta);
-                    heightP+=20;
-                    typePropLabel.get(i).setBounds(widthT,heightP,150,20);
-                    typePropLabel.get(i).setForeground(Color.magenta);
-                    heightP+=20;
-                    locPropLabel.get(i).setBounds(widthL,heightP,150,20);
-                    locPropLabel.get(i).setForeground(Color.magenta);
-                    heightP+=20;
-                    rateRevLabel.get(j).setBounds(widthD,heightP,150,20);
-                    rateRevLabel.get(j).setForeground(Color.magenta);
-                    heightP =temp*height+20;
-                    width +=200;
-                    widthN +=200;
-                    widthT +=200;
-                    widthL +=200;
-                    widthD +=200;
-                    dashboardUser1.add(propLabel.get(i));
-                    dashboardUser1.add(namePropLabel.get(i));
-                    dashboardUser1.add(typePropLabel.get(i));
-                    dashboardUser1.add(locPropLabel.get(i));
-                    dashboardUser1.add(rateRevLabel.get(j));
-                    propLabel.get(i).setVisible(true);
-                    namePropLabel.get(i).setVisible(true);
-                    typePropLabel.get(i).setVisible(true);
-                    locPropLabel.get(i).setVisible(true);
-                    rateRevLabel.get(j).setVisible(true);
-                }
-            }
-        }
-        avgRev = sumRev/(double) revNum;
-        dashboardUser1.add(viewUserText);
-        dashboardUser1.add(viewLabelUser);
-        dashboardUser1.add(viewPropUser);
-        dashboardUser1.add(viewAvgRate);
-
-
-        viewAvgRate.setText("Average Rate of properties that you wrote a review: "+avgRev);
-        viewAvgRate.setForeground(Color.magenta);
-        viewAvgRate.setBounds(300,730,500,30);
-        viewAvgRate.setVisible(true);
-
-        viewLabelUser.setText("Type the number of property to see full details ");
-        viewLabelUser.setForeground(Color.magenta);
-        viewLabelUser.setBounds(50,700,400,30);
-        viewUserText.setBounds(400,700,100,30);
-        viewUserText.setBackground(Color.magenta);
-        viewPropUser.setText("View Property");
-        viewPropUser.setBackground(Color.magenta);
-        viewPropUser.setBounds(520,700,200,30);
-        viewPropUser.setVisible(true);
-        viewUserText.setVisible(true);
-        viewLabelUser.setVisible(true);
-    }
-    public void dashboardProvSession(){
-
-        double avgTotal,avgProp;
-        int totalReviews = 0,propReviews;
-        double sumProp,sumTotal=0;
-
-        frame.add(dashboardProv1);
-        dashboardProv1.setBackground(Color.black);
-        dashboardProv1.setLayout(null);
-        viewProvText.setText(null);
-
-        dashboardProv1.add(viewProvText);
-        dashboardProv1.add(viewLabelProv);
-        dashboardProv1.add(viewPropProv);
-
-        dashboardProv1.setVisible(true);
-
-        for (int i=0;i<provider.getSize2();i++){
-
-            JLabel tempProp = new JLabel();
-            JLabel tempName = new JLabel();
-            JLabel tempType = new JLabel();
-            JLabel tempLoc = new JLabel();
-            JLabel tempDescr = new JLabel();
-
-            tempName.setText("Name: "+provider.getProperties().get(i).getName());
-            namePropLabel.add(tempName);
-            tempType.setText("Type: "+provider.getProperties().get(i).getType());
-            typePropLabel.add(tempType);
-            tempLoc.setText("Location: "+provider.getProperties().get(i).getLocation());
-            locPropLabel.add(tempLoc);
-            tempDescr.setText("Description: "+provider.getProperties().get(i).getDescr());
-            descrPropLabel.add(tempDescr);
-            tempProp.setText("Property "+(i+1));
-            propLabel.add(tempProp);
-        }
-        for(int i=0;i< provider.getSize2();i++){
-            propReviews=0;
-            sumProp=0;
-            for(int j=0;j<user.getProperties().size();j++){
-                if(provider.getProperties().get(i).getName().equals(user.getProperties().get(j))){
-                    propReviews++;
-                    sumProp+= Double.parseDouble(user.getRate().get(j));
-                }
-            }
-            JLabel tempFreq = new JLabel();
-            JLabel tempAvgProp = new JLabel();
-            tempFreq.setText("Total reviews for this property: "+propReviews);
-            freqRevProp.add(tempFreq);
-            if(propReviews==0){
-                avgProp=0;
-            }else
-                avgProp = sumProp /(double) propReviews;
-
-            tempAvgProp.setText("Average rate:"+avgProp);
-            avg.add(tempAvgProp);
-        }
-
-        for(int i=0;i< provider.getSize2();i++) {
-            for (int j = 0; j < user.getProperties().size(); j++) {
-                if (provider.getProperties().get(i).getName().equals(user.getProperties().get(j)) && log.getUsername().equals(provider.getNames().get(i))) {
-                    totalReviews++;
-                    sumTotal += Double.parseDouble(user.getRate().get(j));
-                }
-            }
-        }
-
-        JLabel totalPropRevs = new JLabel();
-        JLabel totalAvg = new JLabel();
-        dashboardProv1.add(totalPropRevs);
-        totalPropRevs.setText("Total Reviews for "+log.getUsername()+": "+totalReviews);
-        totalPropRevs.setForeground(Color.magenta);
-        totalPropRevs.setBounds(50,730,400,30);
-        totalPropRevs.setVisible(true);
-        if(totalReviews==0)
-            avgTotal=0;
-        else
-            avgTotal = sumTotal /(double) totalReviews;
-        dashboardProv1.add(totalAvg);
-        totalAvg.setText("Average rate of all properties: "+avgTotal);
-        totalAvg.setForeground(Color.magenta);
-        totalAvg.setBounds(450,730,400,30);
-        totalAvg.setVisible(true);
-
-        int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
-        width=0;
-        widthN =0;
-        widthT =0;
-        widthD =0;
-        widthL =0;
-        height = 0;
-        heightP=20;
-
-        for(int i=0;i< provider.getSize2();i++){
-
-            if(width==1000){
-                width=0;
-                widthN=0;
-                widthL=0;
-                widthD=0;
-                widthT=0;
-                height+=160;
-
-                heightP=height+20;
-            }
-
-
-            if(provider.getNames().get(i).equals(log.getUsername())){
-
-                propLabel.get(i).setBounds(width,height,100,20);
-                propLabel.get(i).setForeground(Color.magenta);
-                namePropLabel.get(i).setBounds(widthN,heightP,150,20);
-                namePropLabel.get(i).setForeground(Color.magenta);
-                heightP+=20;
-                typePropLabel.get(i).setBounds(widthT,heightP,150,20);
-                typePropLabel.get(i).setForeground(Color.magenta);
-                heightP+=20;
-                locPropLabel.get(i).setBounds(widthL,heightP,150,20);
-                locPropLabel.get(i).setForeground(Color.magenta);
-                heightP+=20;
-                avg.get(i).setBounds(widthD,heightP,150,20);
-                avg.get(i).setForeground(Color.magenta);
-                heightP =temp*height+20;
-                width +=200;
-                widthN +=200;
-                widthT +=200;
-                widthL +=200;
-                widthD +=200;
-                dashboardProv1.add(propLabel.get(i));
-                dashboardProv1.add(namePropLabel.get(i));
-                dashboardProv1.add(typePropLabel.get(i));
-                dashboardProv1.add(locPropLabel.get(i));
-                dashboardProv1.add(avg.get(i));
-                propLabel.get(i).setVisible(true);
-                namePropLabel.get(i).setVisible(true);
-                typePropLabel.get(i).setVisible(true);
-                locPropLabel.get(i).setVisible(true);
-                avg.get(i).setVisible(true);
-
-
-            }
-
-            dashboardProv1.add(viewProvText);
-            dashboardProv1.add(viewLabelProv);
-            dashboardProv1.add(viewPropProv);
-
-            viewLabelProv.setText("Type the number of property to see full details ");
-            viewLabelProv.setBounds(50,700,400,30);
-            viewLabelProv.setForeground(Color.magenta);
-            viewProvText.setBounds(400,700,100,30);
-            viewProvText.setBackground(Color.magenta);
-            viewPropProv.setText("View Property");
-            viewPropProv.setBackground(Color.magenta);
-            viewPropProv.setBounds(520,700,200,30);
-            viewPropProv.setVisible(true);
-            viewProvText.setVisible(true);
-            viewLabelProv.setVisible(true);
-
-        }
-    }
-
-
-    public void viewPropertyProv(int property){
-
-
-        frame.add(dashboardProv2);
-        dashboardProv2.setBackground(Color.black);
-
-        dashboardProv2.setLayout(null);
-        dashboardProv2.add(menuProv);
-        menuProv.setText("Back to Menu");
-        menuProv.setBackground(Color.magenta);
-        menuProv.setBounds(400,700,150,30);
-        menuProv.setVisible(true);
-
-        dashboardProv2.setVisible(true);
-
-        dashboardProv2.add(namePropLabel.get(property-1));
-        dashboardProv2.add(typePropLabel.get(property-1));
-        dashboardProv2.add(locPropLabel.get(property-1));
-        dashboardProv2.add(descrPropLabel.get(property-1));
-        dashboardProv2.add(propLabel.get(property-1));
-        dashboardProv2.add(avg.get(property-1));
-        dashboardProv2.add(freqRevProp.get(property-1));
-
-        propLabel.get(property-1).setBounds(400,10,400,30);
-        propLabel.get(property-1).setForeground(Color.magenta);
-        namePropLabel.get(property-1).setBounds(400,40,400,30);
-        namePropLabel.get(property-1).setForeground(Color.magenta);
-        typePropLabel.get(property-1).setBounds(400,70,400,30);
-        typePropLabel.get(property-1).setForeground(Color.magenta);
-        locPropLabel.get(property-1).setBounds(400,100,400,30);
-        locPropLabel.get(property-1).setForeground(Color.magenta);
-        descrPropLabel.get(property-1).setBounds(400,130,400,30);
-        descrPropLabel.get(property-1).setForeground(Color.magenta);
-        avg.get(property-1).setBounds(400,160,400,30);
-        avg.get(property-1).setForeground(Color.magenta);
-        freqRevProp.get(property-1).setBounds(400,190,400,30);
-        freqRevProp.get(property-1).setForeground(Color.magenta);
-
-        propLabel.get(property-1).setVisible(true);
-        namePropLabel.get(property-1).setVisible(true);
-        typePropLabel.get(property-1).setVisible(true);
-        locPropLabel.get(property-1).setVisible(true);
-        descrPropLabel.get(property-1).setVisible(true);
-        avg.get(property-1).setVisible(true);
-        freqRevProp.get(property-1).setVisible(true);
-        JLabel revs = new JLabel();
-        dashboardProv2.add(revs);
-        revs.setText("Reviews for this property");
-        revs.setForeground(Color.magenta);
-        revs.setBounds(400,220,400,30);
-        revs.setVisible(true);
-        int height =250;
-
-        for(int i=0;i<user.getRev().size();i++){
-            if(namePropLabel.get(property-1).getText().equals("Name: "+user.getProperties().get(i))){
-                JLabel temp = new JLabel();
-                temp.setText("    By "+user.getUsers().get(i)+": "+user.getRev().get(i)+"(Rate: "+user.getRate().get(i)+"/5)");
-                stringRevLabel.add(temp);
-            }
-        }
-        for(int i=0;i<stringRevLabel.size();i++){
-            stringRevLabel.get(i).setBounds(400,height,400,30);
-            stringRevLabel.get(i).setForeground(Color.magenta);
-            dashboardProv2.add(stringRevLabel.get(i));
-            stringRevLabel.get(i).setVisible(true);
-            height+=30;
-        }
-
-    }
-
-
     public void Initialize() throws FileNotFoundException {
         Scanner input;
 
@@ -1794,7 +1202,176 @@ public class GUI implements ActionListener {
 
     }
 
+    public void addPropertySession(){
+        frame.add(addProvPanel);
+        addProvPanel.setLayout(null);
+        addProvPanel.setBackground(Color.black);
 
+        addProvPanel.add(nameProp);
+        addProvPanel.add(namePropText);
+        addProvPanel.add(typeProp);
+        addProvPanel.add(typePropText);
+        addProvPanel.add(locProp);
+        addProvPanel.add(locPropText);
+        addProvPanel.add(descrProp);
+        addProvPanel.add(descrPropText);
+        addProvPanel.add(submit);
+        addProvPanel.add(failedAdd);
+
+        namePropText.setText(null);
+        typePropText.setText(null);
+        locPropText.setText(null);
+        descrPropText.setText(null);
+        nameProp.setText("Name of property");
+        nameProp.setBounds(400, 100, 100, 30);
+        nameProp.setForeground(Color.magenta);
+        namePropText.setBounds(400, 150, 100, 30);
+        namePropText.setBackground(Color.magenta);
+
+        typeProp.setText("Type of property");
+        typeProp.setBounds(400, 200, 100, 30);
+        typeProp.setForeground(Color.magenta);
+        typePropText.setBounds(400, 250, 100, 30);
+        typePropText.setBackground(Color.magenta);
+
+        locProp.setText("Location of property");
+        locProp.setBounds(400, 300, 150, 30);
+        locProp.setForeground(Color.magenta);
+        locPropText.setBounds(400, 350, 100, 30);
+        locPropText.setBackground(Color.magenta);
+
+        descrProp.setText("Add a description");
+        descrProp.setBounds(400, 400, 100, 30);
+        descrProp.setForeground(Color.magenta);
+        descrPropText.setBounds(400, 450, 100, 30);
+        descrPropText.setBackground(Color.magenta);
+
+        failedAdd.setText("There is a already a property with this name. Try another one.");
+        failedAdd.setBounds(280,600,350,30);
+        failedAdd.setForeground(Color.red);
+        failedAdd.setVisible(false);
+
+        nameProp.setVisible(true);
+        namePropText.setVisible(true);
+
+        typeProp.setVisible(true);
+        typePropText.setVisible(true);
+
+        locProp.setVisible(true);
+        locPropText.setVisible(true);
+
+        descrProp.setVisible(true);
+        descrPropText.setVisible(true);
+
+        submit.setText("Submit");
+        submit.setBounds(400,500,100,30);
+        submit.setBackground(Color.magenta);
+    }
+
+    public void editPropertySession(){
+        frame.add(editPanel);
+        editPanel.setBackground(Color.black);
+        editPanel.setLayout(null);
+        editPanel.setVisible(true);
+        changeNameText.setText(null);
+        changeTypeText.setText(null);
+        changeLocText.setText(null);
+        changeDescrText.setText(null);
+        editAnsText.setText(null);
+
+        ArrayList<Property> props = provider.getProperties();
+        ArrayList<String> names = provider.getNames();
+
+
+        int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
+        width=0;
+        widthN =0;
+        widthT =0;
+        widthD =0;
+        widthL =0;
+        height = 0;
+        heightP=20;
+        for(int i=0;i<props.size();i++){
+            JLabel tempProp = new JLabel();
+            JLabel tempName = new JLabel();
+            JLabel tempType = new JLabel();
+            JLabel tempLoc = new JLabel();
+            JLabel tempDescr = new JLabel();
+
+            tempName.setText("Name: "+provider.getProperties().get(i).getName());
+            namePropLabel.add(tempName);
+            tempType.setText("Type: "+provider.getProperties().get(i).getType());
+            typePropLabel.add(tempType);
+            tempLoc.setText("Location: "+provider.getProperties().get(i).getLocation());
+            locPropLabel.add(tempLoc);
+            tempDescr.setText("Description: "+provider.getProperties().get(i).getDescr());
+            descrPropLabel.add(tempDescr);
+            tempProp.setText("Property "+(i+1));
+            propLabel.add(tempProp);
+            if(width==1000){
+                width=0;
+                widthN=0;
+                widthL=0;
+                widthD=0;
+                widthT=0;
+                height+=160;
+
+                heightP=height+20;
+            }
+
+            if(names.get(i).equals(log.getUsername())){
+                propLabel.get(i).setBounds(width,height,100,20);
+                propLabel.get(i).setForeground(Color.MAGENTA);
+                namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                namePropLabel.get(i).setForeground(Color.MAGENTA);
+                heightP+=20;
+                typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                typePropLabel.get(i).setForeground(Color.MAGENTA);
+                heightP+=20;
+                locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                locPropLabel.get(i).setForeground(Color.MAGENTA);
+                heightP+=20;
+                descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
+                descrPropLabel.get(i).setForeground(Color.MAGENTA);
+                heightP =temp*height+20;
+                width +=200;
+                widthN +=200;
+                widthT +=200;
+                widthL +=200;
+                widthD +=200;
+                editPanel.add(propLabel.get(i));
+                editPanel.add(namePropLabel.get(i));
+                editPanel.add(typePropLabel.get(i));
+                editPanel.add(locPropLabel.get(i));
+                editPanel.add(descrPropLabel.get(i));
+                propLabel.get(i).setVisible(true);
+                namePropLabel.get(i).setVisible(true);
+                typePropLabel.get(i).setVisible(true);
+                locPropLabel.get(i).setVisible(true);
+                descrPropLabel.get(i).setVisible(true);
+
+
+            }
+
+            editPanel.add(editAnsLabel);
+            editPanel.add(editAnsText);
+            editPanel.add(change);
+            editAnsLabel.setText("Type the number of property you want to edit: ");
+            editAnsLabel.setForeground(Color.magenta);
+            editAnsLabel.setBounds(50,700,400,30);
+            editAnsText.setBackground(Color.magenta);
+            editAnsText.setBounds(400,700,100,30);
+            change.setText("Change");
+            change.setBackground(Color.magenta);
+            change.setBounds(520,700,100,30);
+            change.setVisible(true);
+            editAnsText.setVisible(true);
+            editAnsLabel.setVisible(true);
+
+        }
+
+
+    }
 
     public void deletePropertySession(){
         frame.add(deletePanel);
@@ -1802,6 +1379,9 @@ public class GUI implements ActionListener {
         deletePanel.setLayout(null);
         deletePanel.setVisible(true);
         deleteAnsText.setText(null);
+
+        ArrayList<Property> props = provider.getProperties();
+        ArrayList<String> names = provider.getNames();
 
 
         int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
@@ -1813,7 +1393,7 @@ public class GUI implements ActionListener {
         height = 0;
         heightP=20;
 
-        for(int i=0;i< provider.getSize2();i++){
+        for(int i=0;i< props.size();i++){
 
             JLabel tempProp = new JLabel();
             JLabel tempName = new JLabel();
@@ -1848,7 +1428,7 @@ public class GUI implements ActionListener {
             }
 
 
-            if(provider.getNames().get(i).equals(log.getUsername())){
+            if(names.get(i).equals(log.getUsername())){
 
                 propLabel.get(i).setBounds(width,height,100,20);
                 propLabel.get(i).setForeground(Color.magenta);
@@ -1902,197 +1482,373 @@ public class GUI implements ActionListener {
         }
     }
 
+    public void dashboardProvSession(){
 
-    public void deleteReviewSession(){
-        frame.add(deleteUserPanel);
-        deleteUserPanel.setBackground(Color.black);
-        deleteUserPanel.setLayout(null);
+        double avgTotal,avgProp;
+        int totalReviews = 0,propReviews;
+        double sumProp,sumTotal=0;
 
-        deleteRevText.setText(null);
+        frame.add(dashboardProv1);
+        dashboardProv1.setBackground(Color.black);
+        dashboardProv1.setLayout(null);
+        viewProvText.setText(null);
 
-        deleteUserPanel.add(deleteRevButton);
-        deleteUserPanel.add(deleteRevLabel);
-        deleteUserPanel.add(deleteRevText);
-        deleteUserPanel.add(revsLabel);
+        dashboardProv1.add(viewProvText);
+        dashboardProv1.add(viewLabelProv);
+        dashboardProv1.add(viewPropProv);
 
-        revsLabel.setText("Your reviews are down below.");
-        revsLabel.setForeground(Color.magenta);
-        revsLabel.setBounds(400,20,250,30);
+        dashboardProv1.setVisible(true);
 
-        for(int i=0;i<user.getUsers().size();i++){
-            JLabel tempRev = new JLabel();
-            JLabel tempRate = new JLabel();
-            JLabel tempUser = new JLabel();
-            JLabel tempPropName = new JLabel();
+        ArrayList<Property> props = provider.getProperties();
+        ArrayList<String> names = provider.getNames();
 
+        for (int i=0;i<props.size();i++){
 
-            tempRev.setText(user.getRev().get(i));
-            stringRevLabel.add(tempRev);
-            tempPropName.setText(user.getProperties().get(i));
-            namePropRevLabel.add(tempPropName);
-            tempUser.setText(user.getUsers().get(i));
-            userRevLabel.add(tempUser);
-            tempRate.setText(user.getRate().get(i));
-            rateRevLabel.add(tempRate);
+            JLabel tempProp = new JLabel();
+            JLabel tempName = new JLabel();
+            JLabel tempType = new JLabel();
+            JLabel tempLoc = new JLabel();
+            JLabel tempDescr = new JLabel();
 
+            tempName.setText("Name: "+provider.getProperties().get(i).getName());
+            namePropLabel.add(tempName);
+            tempType.setText("Type: "+provider.getProperties().get(i).getType());
+            typePropLabel.add(tempType);
+            tempLoc.setText("Location: "+provider.getProperties().get(i).getLocation());
+            locPropLabel.add(tempLoc);
+            tempDescr.setText("Description: "+provider.getProperties().get(i).getDescr());
+            descrPropLabel.add(tempDescr);
+            tempProp.setText("Property "+(i+1));
+            propLabel.add(tempProp);
         }
-        for(int i=0;i<user.getUsers().size();i++){
-
-            for(int j=0;j<provider.getProperties().size();j++){
-
-                if(provider.getProperties().get(j).getName().equals(user.getProperties().get(i))){
-                    JLabel tempProp = new JLabel();
-
-                    tempProp.setText(""+String.valueOf(j+1));
-                    propRevLabel.add(tempProp);
+        for(int i=0;i< props.size();i++){
+            propReviews=0;
+            sumProp=0;
+            for(int j=0;j<user.getProperties().size();j++){
+                if(props.get(i).getName().equals(user.getProperties().get(j))){
+                    propReviews++;
+                    sumProp+= Double.parseDouble(user.getRate().get(j));
                 }
+            }
+            JLabel tempFreq = new JLabel();
+            JLabel tempAvgProp = new JLabel();
+            tempFreq.setText("Total reviews for this property: "+propReviews);
+            freqRevProp.add(tempFreq);
+            if(propReviews==0){
+                avgProp=0;
+            }else
+                avgProp = sumProp /(double) propReviews;
+
+            tempAvgProp.setText("Average rate:"+avgProp);
+            avg.add(tempAvgProp);
+        }
+
+        for(int i=0;i< props.size();i++) {
+            for (int j = 0; j < user.getProperties().size(); j++) {
+                if (props.get(i).getName().equals(user.getProperties().get(j)) && log.getUsername().equals(names.get(i))) {
+                    totalReviews++;
+                    sumTotal += Double.parseDouble(user.getRate().get(j));
+                }
+            }
+        }
+
+        JLabel totalPropRevs = new JLabel();
+        JLabel totalAvg = new JLabel();
+        dashboardProv1.add(totalPropRevs);
+        totalPropRevs.setText("Total Reviews for "+log.getUsername()+": "+totalReviews);
+        totalPropRevs.setForeground(Color.magenta);
+        totalPropRevs.setBounds(50,730,400,30);
+        totalPropRevs.setVisible(true);
+        if(totalReviews==0)
+            avgTotal=0;
+        else
+            avgTotal = sumTotal /(double) totalReviews;
+        dashboardProv1.add(totalAvg);
+        totalAvg.setText("Average rate of all properties: "+avgTotal);
+        totalAvg.setForeground(Color.magenta);
+        totalAvg.setBounds(450,730,400,30);
+        totalAvg.setVisible(true);
+
+        int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
+        width=0;
+        widthN =0;
+        widthT =0;
+        widthD =0;
+        widthL =0;
+        height = 0;
+        heightP=20;
+
+        for(int i=0;i< props.size();i++){
+
+            if(width==1000){
+                width=0;
+                widthN=0;
+                widthL=0;
+                widthD=0;
+                widthT=0;
+                height+=160;
+
+                heightP=height+20;
+            }
+
+
+            if(names.get(i).equals(log.getUsername())){
+
+                propLabel.get(i).setBounds(width,height,100,20);
+                propLabel.get(i).setForeground(Color.magenta);
+                namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                namePropLabel.get(i).setForeground(Color.magenta);
+                heightP+=20;
+                typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                typePropLabel.get(i).setForeground(Color.magenta);
+                heightP+=20;
+                locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                locPropLabel.get(i).setForeground(Color.magenta);
+                heightP+=20;
+                avg.get(i).setBounds(widthD,heightP,150,20);
+                avg.get(i).setForeground(Color.magenta);
+                heightP =temp*height+20;
+                width +=200;
+                widthN +=200;
+                widthT +=200;
+                widthL +=200;
+                widthD +=200;
+                dashboardProv1.add(propLabel.get(i));
+                dashboardProv1.add(namePropLabel.get(i));
+                dashboardProv1.add(typePropLabel.get(i));
+                dashboardProv1.add(locPropLabel.get(i));
+                dashboardProv1.add(avg.get(i));
+                propLabel.get(i).setVisible(true);
+                namePropLabel.get(i).setVisible(true);
+                typePropLabel.get(i).setVisible(true);
+                locPropLabel.get(i).setVisible(true);
+                avg.get(i).setVisible(true);
+
 
             }
 
+            dashboardProv1.add(viewProvText);
+            dashboardProv1.add(viewLabelProv);
+            dashboardProv1.add(viewPropProv);
+
+            viewLabelProv.setText("Type the number of property to see full details ");
+            viewLabelProv.setBounds(50,700,400,30);
+            viewLabelProv.setForeground(Color.magenta);
+            viewProvText.setBounds(400,700,100,30);
+            viewProvText.setBackground(Color.magenta);
+            viewPropProv.setText("View Property");
+            viewPropProv.setBackground(Color.magenta);
+            viewPropProv.setBounds(520,700,200,30);
+            viewPropProv.setVisible(true);
+            viewProvText.setVisible(true);
+            viewLabelProv.setVisible(true);
+
+        }
+    }
+
+
+    public void viewPropertyProv(int property){
+
+
+        frame.add(dashboardProv2);
+        dashboardProv2.setBackground(Color.black);
+
+        dashboardProv2.setLayout(null);
+        dashboardProv2.add(menuProv);
+        menuProv.setText("Back to Menu");
+        menuProv.setBackground(Color.magenta);
+        menuProv.setBounds(400,700,150,30);
+        menuProv.setVisible(true);
+
+        dashboardProv2.setVisible(true);
+
+        dashboardProv2.add(namePropLabel.get(property-1));
+        dashboardProv2.add(typePropLabel.get(property-1));
+        dashboardProv2.add(locPropLabel.get(property-1));
+        dashboardProv2.add(descrPropLabel.get(property-1));
+        dashboardProv2.add(propLabel.get(property-1));
+        dashboardProv2.add(avg.get(property-1));
+        dashboardProv2.add(freqRevProp.get(property-1));
+
+        propLabel.get(property-1).setBounds(0,10,400,30);
+        propLabel.get(property-1).setForeground(Color.magenta);
+        namePropLabel.get(property-1).setBounds(0,40,400,30);
+        namePropLabel.get(property-1).setForeground(Color.magenta);
+        typePropLabel.get(property-1).setBounds(0,70,400,30);
+        typePropLabel.get(property-1).setForeground(Color.magenta);
+        locPropLabel.get(property-1).setBounds(0,100,400,30);
+        locPropLabel.get(property-1).setForeground(Color.magenta);
+        descrPropLabel.get(property-1).setBounds(0,130,400,30);
+        descrPropLabel.get(property-1).setForeground(Color.magenta);
+        avg.get(property-1).setBounds(0,160,400,30);
+        avg.get(property-1).setForeground(Color.magenta);
+        freqRevProp.get(property-1).setBounds(0,190,400,30);
+        freqRevProp.get(property-1).setForeground(Color.magenta);
+
+        propLabel.get(property-1).setVisible(true);
+        namePropLabel.get(property-1).setVisible(true);
+        typePropLabel.get(property-1).setVisible(true);
+        locPropLabel.get(property-1).setVisible(true);
+        descrPropLabel.get(property-1).setVisible(true);
+        avg.get(property-1).setVisible(true);
+        freqRevProp.get(property-1).setVisible(true);
+        JLabel revs = new JLabel();
+        dashboardProv2.add(revs);
+        revs.setText("Reviews for this property");
+        revs.setForeground(Color.magenta);
+        revs.setBounds(400,220,400,30);
+        revs.setVisible(true);
+        int height =250;
+
+        for(int i=0;i<user.getRev().size();i++){
+            if(namePropLabel.get(property-1).getText().equals("Name: "+user.getProperties().get(i))){
+                JLabel temp = new JLabel();
+                temp.setText("    By "+user.getUsers().get(i)+": "+user.getRev().get(i)+"(Rate: "+user.getRate().get(i)+"/5)");
+                stringRevLabel.add(temp);
+            }
         }
         for(int i=0;i<stringRevLabel.size();i++){
-            JLabel temp = new JLabel();
-            temp.setText("Your review for property "+propRevLabel.get(i).getText()+" "+namePropRevLabel.get(i).getText()+" with rate "+rateRevLabel.get(i).getText()+"/5 : "+stringRevLabel.get(i).getText());
-            reviewLabel.add(temp);
+            stringRevLabel.get(i).setBounds(0,height,900,30);
+            stringRevLabel.get(i).setForeground(Color.magenta);
+            dashboardProv2.add(stringRevLabel.get(i));
+            stringRevLabel.get(i).setVisible(true);
+            height+=30;
         }
-        int width=0, height=50;
-        for(int i=0;i<stringRevLabel.size();i++) {
-            if(log.getUsername().equals(userRevLabel.get(i).getText())){
-                reviewLabel.get(i).setBounds(width,height,1000,30);
-                reviewLabel.get(i).setForeground(Color.magenta);
-                height+=40;
-                deleteUserPanel.add(reviewLabel.get(i));
-                reviewLabel.get(i).setVisible(true);
-            }
-        }
-
-
-        deleteRevLabel.setText("For which property you want to delete your review?");
-        deleteRevLabel.setForeground(Color.magenta);
-        deleteRevLabel.setBounds(50,700,400,30);
-        deleteRevText.setBounds(400,700,100,30);
-        deleteRevText.setBackground(Color.magenta);
-        deleteRevButton.setText("Delete Review");
-        deleteRevButton.setBackground(Color.magenta);
-        deleteRevButton.setBounds(520,700,120,30);
-
-        deleteRevButton.setVisible(true);
-        deleteRevLabel.setVisible(true);
-        deleteRevText.setVisible(true);
 
     }
 
-    public void editReviewSession(){
-        frame.add(editUserPanel);
-        editUserPanel.setBackground(Color.black);
-        editUserPanel.setLayout(null);
-        editRevPanel.setLayout(null);
-        editRevPanel.setBackground(Color.black);
+    public void searchSession(){
+        frame.add(searchPanel);
+        searchPanel.setLayout(null);
+        searchPanel.setBackground(Color.black);
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchButton);
+        searchPanel.add(searchText);
 
-        editRevText1.setText(null);
-        editRevText2.setText(null);
-        editRateText.setText(null);
+        searchLabel.setText("You can search properties via Name,Type,Location and facilities");
+        searchLabel.setForeground(Color.magenta);
+        searchLabel.setBounds(230,50,500,30);
+        searchLabel.setVisible(true);
 
-        editUserPanel.add(editRevText1);
-        editUserPanel.add(editRevLabel1);
-        editUserPanel.add(editRevButton1);
-        editUserPanel.add(revsLabel);
+        searchText.setText(null);
+        searchText.setBounds(200,90,400,30);
+        searchText.setBackground(Color.magenta);
+        searchText.setVisible(true);
 
-        editRevPanel.add(editRevText2);
-        editRevPanel.add(editRevLabel2);
-        editRevPanel.add(editRevButton2);
-        editRevPanel.add(editRateLabel);
-        editRevPanel.add(editRateText);
-
-        revsLabel.setText("Your reviews are down below.");
-        revsLabel.setForeground(Color.magenta);
-        revsLabel.setBounds(400,20,250,30);
-
-        editRevLabel2.setText("Edit your review below.");
-        editRevLabel2.setForeground(Color.magenta);
-        editRevLabel2.setBounds(380,150,200,30);
-
-        editRateLabel.setText("Edit your rate below.");
-        editRateLabel.setForeground(Color.magenta);
-        editRateLabel.setBounds(390,240,200,30);
-
-        editRevText2.setBounds(350,200,200,30);
-        editRevText2.setBackground(Color.magenta);
-        editRateText.setBounds(350,280,200,30);
-        editRateText.setBackground(Color.magenta);
-
-        editRevButton2.setText("Done");
-        editRevButton2.setBackground(Color.magenta);
-        editRevButton2.setBounds(350,320,200,30);
-
-        editUserPanel.setVisible(true);
+        searchButton.setText("Search");
+        searchButton.setBounds(620,90,100,30);
+        searchButton.setBackground(Color.magenta);
+        searchButton.setVisible(true);
 
 
-        for(int i=0;i<user.getUsers().size();i++){
-            JLabel tempRev = new JLabel();
-            JLabel tempRate = new JLabel();
-            JLabel tempUser = new JLabel();
-            JLabel tempPropName = new JLabel();
+
+        searchPanel.setVisible(true);
+    }
 
 
-            tempRev.setText(user.getRev().get(i));
+    public void successSearch() {
 
-            stringRevLabel.add(tempRev);
-            tempPropName.setText(user.getProperties().get(i));
-            namePropRevLabel.add(tempPropName);
-            tempUser.setText(user.getUsers().get(i));
-            userRevLabel.add(tempUser);
-            tempRate.setText(user.getRate().get(i));
-            rateRevLabel.add(tempRate);
+        frame.add(successSearchPanel);
+        successSearchPanel.setLayout(null);
+        successSearchPanel.setBackground(Color.black);
 
-        }
-        for(int i=0;i<user.getUsers().size();i++){
+        successSearchPanel.setVisible(true);
 
-            for(int j=0;j<provider.getProperties().size();j++){
+        int results=0;
+
+        int width, height, widthN, widthT, widthL, widthD, heightP, temp = 1;width = 0;
+        widthN = 0;
+        widthT = 0;
+        widthD = 0;
+        widthL = 0;
+        height = 0;
+        heightP = 20;
+
+        for (int i = 0; i < provider.getSize2(); i++) {
+
+               JLabel tempProp = new JLabel();
+               JLabel tempName = new JLabel();
+               JLabel tempType = new JLabel();
+               JLabel tempLoc = new JLabel();
+               JLabel tempDescr = new JLabel();
+
+               tempName.setText("Name: " + provider.getProperties().get(i).getName());
+               namePropLabel.add(tempName);
+               tempType.setText("Type: " + provider.getProperties().get(i).getType());
+               typePropLabel.add(tempType);
+               tempLoc.setText("Location: " + provider.getProperties().get(i).getLocation());
+               locPropLabel.add(tempLoc);
+               tempDescr.setText("Description: " + provider.getProperties().get(i).getDescr());
+               descrPropLabel.add(tempDescr);
+               tempProp.setText("Property " + (i + 1));
+               propLabel.add(tempProp);
 
 
-                if(provider.getProperties().get(j).getName().equals(user.getProperties().get(i))){
-                    JLabel tempProp = new JLabel();
 
 
-                    tempProp.setText(""+String.valueOf(j+1));
-                    propRevLabel.add(tempProp);
-                }
 
+            if (width == 1000) {
+                width = 0;
+                widthN = 0;
+                widthL = 0;
+                widthD = 0;
+                widthT = 0;
+                height += 160;
+
+                heightP = height + 20;
+            }
+
+
+            if (provider.getProperties().get(i).getName().toLowerCase().contains(searchText.getText().toLowerCase()) || provider.getProperties().get(i).getType().toLowerCase().contains(searchText.getText().toLowerCase()) || provider.getProperties().get(i).getLocation().toLowerCase().contains(searchText.getText().toLowerCase()) || provider.getProperties().get(i).getDescr().toLowerCase().contains(searchText.getText().toLowerCase())) {
+                results++;
+                propLabel.get(i).setBounds(width, height, 100, 20);
+                propLabel.get(i).setForeground(Color.magenta);
+                namePropLabel.get(i).setBounds(widthN, heightP, 150, 20);
+                namePropLabel.get(i).setForeground(Color.magenta);
+                heightP += 20;
+                typePropLabel.get(i).setBounds(widthT, heightP, 150, 20);
+                typePropLabel.get(i).setForeground(Color.magenta);
+                heightP += 20;
+                locPropLabel.get(i).setBounds(widthL, heightP, 150, 20);
+                locPropLabel.get(i).setForeground(Color.magenta);
+                heightP += 20;
+                descrPropLabel.get(i).setBounds(widthD, heightP, 150, 20);
+                descrPropLabel.get(i).setForeground(Color.magenta);
+                heightP = temp * height + 20;
+                width += 200;
+                widthN += 200;
+                widthT += 200;
+                widthL += 200;
+                widthD += 200;
+                successSearchPanel.add(propLabel.get(i));
+                successSearchPanel.add(namePropLabel.get(i));
+                successSearchPanel.add(typePropLabel.get(i));
+                successSearchPanel.add(locPropLabel.get(i));
+                successSearchPanel.add(descrPropLabel.get(i));
+                propLabel.get(i).setVisible(true);
+                namePropLabel.get(i).setVisible(true);
+                typePropLabel.get(i).setVisible(true);
+                locPropLabel.get(i).setVisible(true);
+                descrPropLabel.get(i).setVisible(true);
             }
 
         }
-        for(int i=0;i<stringRevLabel.size();i++){
-            JLabel temp = new JLabel();
-            temp.setText("Your review for property "+propRevLabel.get(i).getText()+" "+namePropRevLabel.get(i).getText()+" with rate "+rateRevLabel.get(i).getText()+"/5 : "+stringRevLabel.get(i).getText());
 
-            reviewLabel.add(temp);
-        }
-        int width=0, height=50;
-        for(int i=0;i<stringRevLabel.size();i++) {
-
-            if(log.getUsername().equals(userRevLabel.get(i).getText())){
-                reviewLabel.get(i).setBounds(width,height,1000,30);
-                reviewLabel.get(i).setForeground(Color.magenta);
-                height+=40;
-                editUserPanel.add(reviewLabel.get(i));
-                reviewLabel.get(i).setVisible(true);
-            }
-        }
+        successSearchPanel.add(successSearchLabel);
+        successSearchLabel.setText(results+" results for '"+searchText.getText()+"'");
+        successSearchLabel.setForeground(Color.magenta);
+        successSearchLabel.setBounds(410,650,400,30);
+        successSearchLabel.setVisible(true);
 
 
-        editRevLabel1.setText("For which property you want to edit your review?");
-        editRevLabel1.setBounds(50,700,400,30);
-        editRevLabel1.setForeground(Color.magenta);
-        editRevText1.setBounds(400,700,100,30);
-        editRevText1.setBackground(Color.magenta);
-        editRevButton1.setText("Edit Review");
-        editRevButton1.setBackground(Color.magenta);
-        editRevButton1.setBounds(520,700,120,30);
 
-        editRevButton1.setVisible(true);
-        editRevLabel1.setVisible(true);
-        editRevText1.setVisible(true);
+        successSearchPanel.add(menuUser);
+        menuUser.setText("Back to Menu");
+        menuUser.setBounds(390,710,150,30);
+        menuUser.setBackground(Color.magenta);
+        menuUser.setVisible(true);
+
+
 
 
 
@@ -2231,32 +1987,216 @@ public class GUI implements ActionListener {
 
     }
 
+    public void editReviewSession(){
+        frame.add(editUserPanel);
+        editUserPanel.setBackground(Color.black);
+        editUserPanel.setLayout(null);
+        editRevPanel.setLayout(null);
+        editRevPanel.setBackground(Color.black);
+
+        editRevText1.setText(null);
+        editRevText2.setText(null);
+        editRateText.setText(null);
+
+        editUserPanel.add(editRevText1);
+        editUserPanel.add(editRevLabel1);
+        editUserPanel.add(editRevButton1);
+        editUserPanel.add(revsLabel);
+
+        editRevPanel.add(editRevText2);
+        editRevPanel.add(editRevLabel2);
+        editRevPanel.add(editRevButton2);
+        editRevPanel.add(editRateLabel);
+        editRevPanel.add(editRateText);
+
+        revsLabel.setText("Your reviews are down below.");
+        revsLabel.setForeground(Color.magenta);
+        revsLabel.setBounds(400,20,250,30);
+
+        editRevLabel2.setText("Edit your review below.");
+        editRevLabel2.setForeground(Color.magenta);
+        editRevLabel2.setBounds(380,150,200,30);
+
+        editRateLabel.setText("Edit your rate below.");
+        editRateLabel.setForeground(Color.magenta);
+        editRateLabel.setBounds(390,240,200,30);
+
+        editRevText2.setBounds(350,200,200,30);
+        editRevText2.setBackground(Color.magenta);
+        editRateText.setBounds(350,280,200,30);
+        editRateText.setBackground(Color.magenta);
+
+        editRevButton2.setText("Done");
+        editRevButton2.setBackground(Color.magenta);
+        editRevButton2.setBounds(350,320,200,30);
+
+        editUserPanel.setVisible(true);
 
 
-    public void editPropertySession(){
-        frame.add(editPanel);
-        editPanel.setBackground(Color.black);
-        editPanel.setLayout(null);
-        editPanel.setVisible(true);
-        changeNameText.setText(null);
-        changeTypeText.setText(null);
-        changeLocText.setText(null);
-        changeDescrText.setText(null);
-        editAnsText.setText(null);
+        for(int i=0;i<user.getUsers().size();i++){
+            JLabel tempRev = new JLabel();
+            JLabel tempRate = new JLabel();
+            JLabel tempUser = new JLabel();
+            JLabel tempPropName = new JLabel();
+
+
+            tempRev.setText(user.getRev().get(i));
+
+            stringRevLabel.add(tempRev);
+            tempPropName.setText(user.getProperties().get(i));
+            namePropRevLabel.add(tempPropName);
+            tempUser.setText(user.getUsers().get(i));
+            userRevLabel.add(tempUser);
+            tempRate.setText(user.getRate().get(i));
+            rateRevLabel.add(tempRate);
+
+        }
+        for(int i=0;i<user.getUsers().size();i++){
+
+            for(int j=0;j<provider.getProperties().size();j++){
+
+
+                if(provider.getProperties().get(j).getName().equals(user.getProperties().get(i))){
+                    JLabel tempProp = new JLabel();
+
+
+                    tempProp.setText(""+String.valueOf(j+1));
+                    propRevLabel.add(tempProp);
+                }
+
+            }
+
+        }
+        for(int i=0;i<stringRevLabel.size();i++){
+            JLabel temp = new JLabel();
+            temp.setText("Your review for property "+propRevLabel.get(i).getText()+" "+namePropRevLabel.get(i).getText()+" with rate "+rateRevLabel.get(i).getText()+"/5 : "+stringRevLabel.get(i).getText());
+
+            reviewLabel.add(temp);
+        }
+        int width=0, height=50;
+        for(int i=0;i<stringRevLabel.size();i++) {
+
+            if(log.getUsername().equals(userRevLabel.get(i).getText())){
+                reviewLabel.get(i).setBounds(width,height,1000,30);
+                reviewLabel.get(i).setForeground(Color.magenta);
+                height+=40;
+                editUserPanel.add(reviewLabel.get(i));
+                reviewLabel.get(i).setVisible(true);
+            }
+        }
+
+
+        editRevLabel1.setText("For which property you want to edit your review?");
+        editRevLabel1.setBounds(50,700,400,30);
+        editRevLabel1.setForeground(Color.magenta);
+        editRevText1.setBounds(400,700,100,30);
+        editRevText1.setBackground(Color.magenta);
+        editRevButton1.setText("Edit Review");
+        editRevButton1.setBackground(Color.magenta);
+        editRevButton1.setBounds(520,700,120,30);
+
+        editRevButton1.setVisible(true);
+        editRevLabel1.setVisible(true);
+        editRevText1.setVisible(true);
+
+    }
+
+    public void deleteReviewSession(){
+        frame.add(deleteUserPanel);
+        deleteUserPanel.setBackground(Color.black);
+        deleteUserPanel.setLayout(null);
+
+        deleteRevText.setText(null);
+
+        deleteUserPanel.add(deleteRevButton);
+        deleteUserPanel.add(deleteRevLabel);
+        deleteUserPanel.add(deleteRevText);
+        deleteUserPanel.add(revsLabel);
+
+        revsLabel.setText("Your reviews are down below.");
+        revsLabel.setForeground(Color.magenta);
+        revsLabel.setBounds(400,20,250,30);
+
+        for(int i=0;i<user.getUsers().size();i++){
+            JLabel tempRev = new JLabel();
+            JLabel tempRate = new JLabel();
+            JLabel tempUser = new JLabel();
+            JLabel tempPropName = new JLabel();
+
+
+            tempRev.setText(user.getRev().get(i));
+            stringRevLabel.add(tempRev);
+            tempPropName.setText(user.getProperties().get(i));
+            namePropRevLabel.add(tempPropName);
+            tempUser.setText(user.getUsers().get(i));
+            userRevLabel.add(tempUser);
+            tempRate.setText(user.getRate().get(i));
+            rateRevLabel.add(tempRate);
+
+        }
+        for(int i=0;i<user.getUsers().size();i++){
+
+            for(int j=0;j<provider.getProperties().size();j++){
+
+                if(provider.getProperties().get(j).getName().equals(user.getProperties().get(i))){
+                    JLabel tempProp = new JLabel();
+
+                    tempProp.setText(""+String.valueOf(j+1));
+                    propRevLabel.add(tempProp);
+                }
+
+            }
+
+        }
+        for(int i=0;i<stringRevLabel.size();i++){
+            JLabel temp = new JLabel();
+            temp.setText("Your review for property "+propRevLabel.get(i).getText()+" "+namePropRevLabel.get(i).getText()+" with rate "+rateRevLabel.get(i).getText()+"/5 : "+stringRevLabel.get(i).getText());
+            reviewLabel.add(temp);
+        }
+        int width=0, height=50;
+        for(int i=0;i<stringRevLabel.size();i++) {
+            if(log.getUsername().equals(userRevLabel.get(i).getText())){
+                reviewLabel.get(i).setBounds(width,height,1000,30);
+                reviewLabel.get(i).setForeground(Color.magenta);
+                height+=40;
+                deleteUserPanel.add(reviewLabel.get(i));
+                reviewLabel.get(i).setVisible(true);
+            }
+        }
+
+
+        deleteRevLabel.setText("For which property you want to delete your review?");
+        deleteRevLabel.setForeground(Color.magenta);
+        deleteRevLabel.setBounds(50,700,400,30);
+        deleteRevText.setBounds(400,700,100,30);
+        deleteRevText.setBackground(Color.magenta);
+        deleteRevButton.setText("Delete Review");
+        deleteRevButton.setBackground(Color.magenta);
+        deleteRevButton.setBounds(520,700,120,30);
+
+        deleteRevButton.setVisible(true);
+        deleteRevLabel.setVisible(true);
+        deleteRevText.setVisible(true);
+
+    }
+
+    public void dashboardUserSession(){
+        int revNum=0;
+        double sumRev=0;
+        double avgRev;
+        frame.add(dashboardUser1);
+        dashboardUser1.setBackground(Color.black);
+        dashboardUser1.setLayout(null);
+        viewUserText.setText(null);
+
+        dashboardUser1.add(viewPropUser);
+        dashboardUser1.add(viewUserText);
+        dashboardUser1.add(viewLabelUser);
 
 
 
+        dashboardUser1.setVisible(true);
 
-
-
-        int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
-        width=0;
-        widthN =0;
-        widthT =0;
-        widthD =0;
-        widthL =0;
-        height = 0;
-        heightP=20;
         for(int i=0;i<provider.getSize2();i++){
             JLabel tempProp = new JLabel();
             JLabel tempName = new JLabel();
@@ -2274,6 +2214,58 @@ public class GUI implements ActionListener {
             descrPropLabel.add(tempDescr);
             tempProp.setText("Property "+(i+1));
             propLabel.add(tempProp);
+        }
+        for(int i=0;i< provider.getSize2();i++){
+            for(int j=0;j<user.getProperties().size();j++){
+                if(provider.getProperties().get(i).getName().equals(user.getProperties().get(j)) && user.getUsers().get(j).equals(log.getUsername())){
+                    revNum++;
+                    sumRev += Double.parseDouble(user.getRate().get(j));
+                    JLabel tempRate = new JLabel();
+                    JLabel tempName = new JLabel();
+                    tempRate.setText("Your rate: "+user.getRate().get(j));
+                    tempName.setText(user.getProperties().get(j));
+                    rateRevLabel.add(tempRate);
+                    namePropRevLabel.add(tempName);
+                }
+            }
+        }
+        double avgProp;
+        double sumProp;
+        int propReviews;
+        for(int i=0;i< provider.getSize2();i++){
+            propReviews=0;
+            sumProp=0;
+            for(int j=0;j<user.getProperties().size();j++){
+                if(provider.getProperties().get(i).getName().equals(user.getProperties().get(j))){
+                    propReviews++;
+                    sumProp+= Double.parseDouble(user.getRate().get(j));
+                }
+            }
+            JLabel tempFreq = new JLabel();
+            JLabel tempAvgProp = new JLabel();
+            tempFreq.setText("Total reviews for this property: "+propReviews);
+            freqRevProp.add(tempFreq);
+            if(propReviews==0){
+                avgProp=0;
+            }else
+                avgProp = sumProp /(double) propReviews;
+
+            tempAvgProp.setText("Average rate:"+avgProp);
+            avg.add(tempAvgProp);
+        }
+        
+
+        int width,height,widthN,widthT,widthL,widthD,heightP,temp=1;
+        width=0;
+        widthN =0;
+        widthT =0;
+        widthD =0;
+        widthL =0;
+        height = 0;
+        heightP=20;
+
+
+        for (int i=0;i<provider.getSize2();i++){
             if(width==1000){
                 width=0;
                 widthN=0;
@@ -2284,126 +2276,133 @@ public class GUI implements ActionListener {
 
                 heightP=height+20;
             }
-
-            if(provider.getNames().get(i).equals(log.getUsername())){
-                propLabel.get(i).setBounds(width,height,100,20);
-                propLabel.get(i).setForeground(Color.MAGENTA);
-                namePropLabel.get(i).setBounds(widthN,heightP,150,20);
-                namePropLabel.get(i).setForeground(Color.MAGENTA);
-                heightP+=20;
-                typePropLabel.get(i).setBounds(widthT,heightP,150,20);
-                typePropLabel.get(i).setForeground(Color.MAGENTA);
-                heightP+=20;
-                locPropLabel.get(i).setBounds(widthL,heightP,150,20);
-                locPropLabel.get(i).setForeground(Color.MAGENTA);
-                heightP+=20;
-                descrPropLabel.get(i).setBounds(widthD,heightP,150,20);
-                descrPropLabel.get(i).setForeground(Color.MAGENTA);
-                heightP =temp*height+20;
-                width +=200;
-                widthN +=200;
-                widthT +=200;
-                widthL +=200;
-                widthD +=200;
-                editPanel.add(propLabel.get(i));
-                editPanel.add(namePropLabel.get(i));
-                editPanel.add(typePropLabel.get(i));
-                editPanel.add(locPropLabel.get(i));
-                editPanel.add(descrPropLabel.get(i));
-                propLabel.get(i).setVisible(true);
-                namePropLabel.get(i).setVisible(true);
-                typePropLabel.get(i).setVisible(true);
-                locPropLabel.get(i).setVisible(true);
-                descrPropLabel.get(i).setVisible(true);
-
-
+            for(int j=0;j<rateRevLabel.size();j++){
+                if(provider.getProperties().get(i).getName().equals(namePropRevLabel.get(j).getText())){
+                    propLabel.get(i).setBounds(width,height,100,20);
+                    propLabel.get(i).setForeground(Color.magenta);
+                    namePropLabel.get(i).setBounds(widthN,heightP,150,20);
+                    namePropLabel.get(i).setForeground(Color.magenta);
+                    heightP+=20;
+                    typePropLabel.get(i).setBounds(widthT,heightP,150,20);
+                    typePropLabel.get(i).setForeground(Color.magenta);
+                    heightP+=20;
+                    locPropLabel.get(i).setBounds(widthL,heightP,150,20);
+                    locPropLabel.get(i).setForeground(Color.magenta);
+                    heightP+=20;
+                    rateRevLabel.get(j).setBounds(widthD,heightP,150,20);
+                    rateRevLabel.get(j).setForeground(Color.magenta);
+                    heightP =temp*height+20;
+                    width +=200;
+                    widthN +=200;
+                    widthT +=200;
+                    widthL +=200;
+                    widthD +=200;
+                    dashboardUser1.add(propLabel.get(i));
+                    dashboardUser1.add(namePropLabel.get(i));
+                    dashboardUser1.add(typePropLabel.get(i));
+                    dashboardUser1.add(locPropLabel.get(i));
+                    dashboardUser1.add(rateRevLabel.get(j));
+                    propLabel.get(i).setVisible(true);
+                    namePropLabel.get(i).setVisible(true);
+                    typePropLabel.get(i).setVisible(true);
+                    locPropLabel.get(i).setVisible(true);
+                    rateRevLabel.get(j).setVisible(true);
+                }
             }
+        }
+        avgRev = sumRev/(double) revNum;
+        dashboardUser1.add(viewUserText);
+        dashboardUser1.add(viewLabelUser);
+        dashboardUser1.add(viewPropUser);
+        dashboardUser1.add(viewAvgRate);
 
-            editPanel.add(editAnsLabel);
-            editPanel.add(editAnsText);
-            editPanel.add(change);
-            editAnsLabel.setText("Type the number of property you want to edit: ");
-            editAnsLabel.setForeground(Color.magenta);
-            editAnsLabel.setBounds(50,700,400,30);
-            editAnsText.setBackground(Color.magenta);
-            editAnsText.setBounds(400,700,100,30);
-            change.setText("Change");
-            change.setBackground(Color.magenta);
-            change.setBounds(520,700,100,30);
-            change.setVisible(true);
-            editAnsText.setVisible(true);
-            editAnsLabel.setVisible(true);
 
+        viewAvgRate.setText("Average Rate of properties that you wrote a review: "+avgRev);
+        viewAvgRate.setForeground(Color.magenta);
+        viewAvgRate.setBounds(300,730,500,30);
+        viewAvgRate.setVisible(true);
+
+        viewLabelUser.setText("Type the number of property to see full details ");
+        viewLabelUser.setForeground(Color.magenta);
+        viewLabelUser.setBounds(50,700,400,30);
+        viewUserText.setBounds(400,700,100,30);
+        viewUserText.setBackground(Color.magenta);
+        viewPropUser.setText("View Property");
+        viewPropUser.setBackground(Color.magenta);
+        viewPropUser.setBounds(520,700,200,30);
+        viewPropUser.setVisible(true);
+        viewUserText.setVisible(true);
+        viewLabelUser.setVisible(true);
+    }
+
+    public void viewPropertyUser(int property){
+        frame.add(dashboardUser2);
+
+        dashboardUser2.setLayout(null);
+        dashboardUser2.setBackground(Color.black);
+        dashboardUser2.add(menuUser);
+        menuUser.setText("Back to Menu");
+        menuUser.setBackground(Color.magenta);
+        menuUser.setBounds(400,700,150,30);
+        menuUser.setVisible(true);
+
+        dashboardUser2.setVisible(true);
+
+        dashboardUser2.add(namePropLabel.get(property-1));
+        dashboardUser2.add(typePropLabel.get(property-1));
+        dashboardUser2.add(locPropLabel.get(property-1));
+        dashboardUser2.add(descrPropLabel.get(property-1));
+        dashboardUser2.add(propLabel.get(property-1));
+        dashboardUser2.add(avg.get(property-1));
+        dashboardUser2.add(freqRevProp.get(property-1));
+
+
+        propLabel.get(property-1).setBounds(400,10,400,30);
+        propLabel.get(property-1).setForeground(Color.magenta);
+        namePropLabel.get(property-1).setBounds(400,40,400,30);
+        namePropLabel.get(property-1).setForeground(Color.magenta);
+        typePropLabel.get(property-1).setBounds(400,70,400,30);
+        typePropLabel.get(property-1).setForeground(Color.magenta);
+        locPropLabel.get(property-1).setBounds(400,100,400,30);
+        locPropLabel.get(property-1).setForeground(Color.magenta);
+        descrPropLabel.get(property-1).setBounds(400,130,400,30);
+        descrPropLabel.get(property-1).setForeground(Color.magenta);
+        avg.get(property-1).setBounds(400,160,400,30);
+        avg.get(property-1).setForeground(Color.magenta);
+        freqRevProp.get(property-1).setBounds(400,190,400,30);
+        freqRevProp.get(property-1).setForeground(Color.magenta);
+
+
+        propLabel.get(property-1).setVisible(true);
+        namePropLabel.get(property-1).setVisible(true);
+        typePropLabel.get(property-1).setVisible(true);
+        locPropLabel.get(property-1).setVisible(true);
+        descrPropLabel.get(property-1).setVisible(true);
+        JLabel revs = new JLabel();
+        dashboardUser2.add(revs);
+        revs.setText("Reviews for this property");
+        revs.setForeground(Color.magenta);
+        revs.setBounds(400,220,400,30);
+        revs.setVisible(true);
+        int height =250;
+        for(int i=0;i<user.getRev().size();i++){
+            if(namePropLabel.get(property-1).getText().equals("Name: "+user.getProperties().get(i))){
+                JLabel temp = new JLabel();
+                temp.setText("    By "+user.getUsers().get(i)+": "+user.getRev().get(i)+"(Rate: "+user.getRate().get(i)+"/5)");
+                stringRevLabel.add(temp);
+            }
+        }
+        for(int i=0;i<stringRevLabel.size();i++){
+            stringRevLabel.get(i).setBounds(400,height,400,30);
+            stringRevLabel.get(i).setForeground(Color.magenta);
+            dashboardUser2.add(stringRevLabel.get(i));
+            stringRevLabel.get(i).setVisible(true);
+            height+=30;
         }
 
 
     }
 
-    public void addPropertySession(){
-        frame.add(addProvPanel);
-        addProvPanel.setLayout(null);
-        addProvPanel.setBackground(Color.black);
-
-        addProvPanel.add(nameProp);
-        addProvPanel.add(namePropText);
-        addProvPanel.add(typeProp);
-        addProvPanel.add(typePropText);
-        addProvPanel.add(locProp);
-        addProvPanel.add(locPropText);
-        addProvPanel.add(descrProp);
-        addProvPanel.add(descrPropText);
-        addProvPanel.add(submit);
-        addProvPanel.add(failedAdd);
-
-        namePropText.setText(null);
-        typePropText.setText(null);
-        locPropText.setText(null);
-        descrPropText.setText(null);
-        nameProp.setText("Name of property");
-        nameProp.setBounds(400, 100, 100, 30);
-        nameProp.setForeground(Color.magenta);
-        namePropText.setBounds(400, 150, 100, 30);
-        namePropText.setBackground(Color.magenta);
-
-        typeProp.setText("Type of property");
-        typeProp.setBounds(400, 200, 100, 30);
-        typeProp.setForeground(Color.magenta);
-        typePropText.setBounds(400, 250, 100, 30);
-        typePropText.setBackground(Color.magenta);
-
-        locProp.setText("Location of property");
-        locProp.setBounds(400, 300, 150, 30);
-        locProp.setForeground(Color.magenta);
-        locPropText.setBounds(400, 350, 100, 30);
-        locPropText.setBackground(Color.magenta);
-
-        descrProp.setText("Add a description");
-        descrProp.setBounds(400, 400, 100, 30);
-        descrProp.setForeground(Color.magenta);
-        descrPropText.setBounds(400, 450, 100, 30);
-        descrPropText.setBackground(Color.magenta);
-
-        failedAdd.setText("There is a already a property with this name. Try another one.");
-        failedAdd.setBounds(280,600,350,30);
-        failedAdd.setForeground(Color.red);
-        failedAdd.setVisible(false);
-
-        nameProp.setVisible(true);
-        namePropText.setVisible(true);
-
-        typeProp.setVisible(true);
-        typePropText.setVisible(true);
-
-        locProp.setVisible(true);
-        locPropText.setVisible(true);
-
-        descrProp.setVisible(true);
-        descrPropText.setVisible(true);
-
-        submit.setText("Submit");
-        submit.setBounds(400,500,100,30);
-        submit.setBackground(Color.magenta);
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
