@@ -208,6 +208,23 @@ public class Provider {
     }
 
     /**
+     * Μέθοδος που επιστρέφει true ή false ανάλογα αν ο πάροχος δίνει έγκυρο αριθμό καταλύματος
+     * @param property ο αιρθμός καταλύματος
+     * @param name το username του παρόχου
+     */
+
+    public boolean isValid(int property,String name){
+        for(int i=0;i<properties.size();i++){
+            if(names.get(i).equals(name)){
+                if (property == i+1){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Μέθοδος που ανανεώνει ένα αρχείο txt αν ο πάροχος κάνει αλλαγές
      * @param f το αρχέιο txt που περιέχει τα καταλύματα και τους αντίχτοιχους παρόχους
      */

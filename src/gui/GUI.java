@@ -44,13 +44,13 @@ public class GUI implements ActionListener {
     Provider provider;
     User user;
     LogIn log;
-    JFrame frame;
+     JFrame frame;
 
-    JPanel panelIntro,loginPanel,regPanel,successPanelUser,successPanelProv,addProvPanel,userPanel,editPanel,changePanel,deletePanel,addUserPanel,addRevPanel,editUserPanel,editRevPanel,deleteUserPanel,dashboardProv1,dashboardProv2,dashboardUser1,dashboardUser2,searchPanel,successSearchPanel;
-    JButton loginButton,regButton,signInButton,logout,addUser,editUser,search,deleteUser,dashboardUser,addProv,editProv,dashboardProv,deleteProv,propButton,submit,create,change,changeProp,deleteButton1,addRevButton,addAnsButton,editRevButton1,editRevButton2,deleteRevButton,viewPropProv,menuProv,menuUser,viewPropUser,searchButton;
-    JLabel uLabel,pLabel,userLabel,passLabel,failedReg1,failedReg2,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,nameProp,typeProp,locProp,descrProp,failedAdd,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel,deleteAnsLabel,failedEdit,failedDelete,addRevLabel,addAnsLabel,rateLabel,editRevLabel1,editRevLabel2,editRateLabel,revsLabel,deleteRevLabel,viewLabelProv,viewLabelUser,viewAvgRate,searchLabel,successSearchLabel,selectPropLabel,failedEdit1,failedMax,failedDashProv,failed2Rev,failedEditRev,failedDeleteRev,failedDashRev,failedProp,failedDashUser,failedEditUser,failedDeleteUser,invalidRate;
-    JTextField uText,userText,fnameText,lnameText,typeText,namePropText,typePropText,locPropText,descrPropText,editAnsText,changeNameText,changeTypeText,changeLocText,changeDescrText,deleteAnsText,addRevText,addAnsText,rateText,editRevText1,editRevText2,editRateText,deleteRevText,viewProvText,viewUserText,searchText,successSearchText;
-    JPasswordField passText,pText;
+     JPanel panelIntro,loginPanel,regPanel,successPanelUser,successPanelProv,addProvPanel,userPanel,editPanel,changePanel,deletePanel,addUserPanel,addRevPanel,editUserPanel,editRevPanel,deleteUserPanel,dashboardProv1,dashboardProv2,dashboardUser1,dashboardUser2,searchPanel,successSearchPanel;
+     JButton loginButton,regButton,signInButton,logout,addUser,editUser,search,deleteUser,dashboardUser,addProv,editProv,dashboardProv,deleteProv,propButton,submit,create,change,changeProp,deleteButton1,addRevButton,addAnsButton,editRevButton1,editRevButton2,deleteRevButton,viewPropProv,menuProv,menuUser,viewPropUser,searchButton;
+     JLabel uLabel,pLabel,userLabel,passLabel,failedReg1,failedReg2,labelIntro1,labelIntro2,fnameLabel,lnameLabel,typeLabel,successLabelUser,failedLabel,successLabelProv,nameProp,typeProp,locProp,descrProp,failedAdd,editAnsLabel,changeNameLabel,changeTypeLabel,changeLocLabel,changeDescrLabel,deleteAnsLabel,failedEdit,failedDelete,addRevLabel,addAnsLabel,rateLabel,editRevLabel1,editRevLabel2,editRateLabel,revsLabel,deleteRevLabel,viewLabelProv,viewLabelUser,viewAvgRate,searchLabel,successSearchLabel,selectPropLabel,failedEdit1,failedMax,failedDashProv,failed2Rev,failedEditRev,failedDeleteRev,failedDashRev,failedProp,failedDashUser,failedEditUser,failedDeleteUser,invalidRate;
+     JTextField uText,userText,fnameText,lnameText,typeText,namePropText,typePropText,locPropText,descrPropText,editAnsText,changeNameText,changeTypeText,changeLocText,changeDescrText,deleteAnsText,addRevText,addAnsText,rateText,editRevText1,editRevText2,editRateText,deleteRevText,viewProvText,viewUserText,searchText,successSearchText;
+     JPasswordField passText,pText;
 
     public GUI() {
 
@@ -455,34 +455,40 @@ public class GUI implements ActionListener {
 
 
         deleteButton1.addActionListener(e -> {
-            deletePanel.setVisible(false);
-            String propName = provider.getPropName2(Integer.parseInt(deleteAnsText.getText()));
+            boolean isValid = provider.isValid(Integer.parseInt(deleteAnsText.getText()), log.getUsername());
+            if(!isValid || Integer.parseInt(deleteAnsText.getText()) > provider.getSize2()){
+                failedProp.setVisible(true);
+            }else {
+                deletePanel.setVisible(false);
+                String propName = provider.getPropName2(Integer.parseInt(deleteAnsText.getText()));
 
 
-            namePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
+                namePropLabel.remove(Integer.parseInt(deleteAnsText.getText()) - 1);
 
-            typePropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-            locPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-            descrPropLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-            propLabel.remove(Integer.parseInt(deleteAnsText.getText())-1);
-            provider.deleteProp(Integer.parseInt(deleteAnsText.getText()));
-            user.deletePropRev(propName);
-            try {
-                provider.reNewFile2(fileP);
-                user.reNewFile(fileR);
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                typePropLabel.remove(Integer.parseInt(deleteAnsText.getText()) - 1);
+                locPropLabel.remove(Integer.parseInt(deleteAnsText.getText()) - 1);
+                descrPropLabel.remove(Integer.parseInt(deleteAnsText.getText()) - 1);
+                propLabel.remove(Integer.parseInt(deleteAnsText.getText()) - 1);
+                provider.deleteProp(Integer.parseInt(deleteAnsText.getText()));
+                user.deletePropRev(propName);
+                try {
+                    provider.reNewFile2(fileP);
+                    user.reNewFile(fileR);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
+                namePropLabel.removeAll(namePropLabel);
+                typePropLabel.removeAll(typePropLabel);
+                locPropLabel.removeAll(locPropLabel);
+                descrPropLabel.removeAll(descrPropLabel);
+                propLabel.removeAll(propLabel);
+
+                deletePanel.removeAll();
+                successPanelProv.setVisible(true);
+                failedProp.setVisible(false);
             }
-
-
-            namePropLabel.removeAll(namePropLabel);
-            typePropLabel.removeAll(typePropLabel);
-            locPropLabel.removeAll(locPropLabel);
-            descrPropLabel.removeAll(descrPropLabel);
-            propLabel.removeAll(propLabel);
-
-            deletePanel.removeAll();
-            successPanelProv.setVisible(true);
 
         });
         deleteProv.addActionListener(e -> {
@@ -732,10 +738,17 @@ public class GUI implements ActionListener {
             }else {
                 editPanel.setVisible(false);
                 changePanel.setVisible(false);
+                String propName = provider.getPropName2(Integer.parseInt(editAnsText.getText()));
                 provider.editGUI(changeNameText.getText(), changeTypeText.getText(), changeLocText.getText(), changeDescrText.getText(), editAnsText.getText());
-
+                String newpropName = provider.getPropName2(Integer.parseInt(editAnsText.getText()));
+                user.editRevName(propName,newpropName);
                 try {
                     provider.reNewFile2(fileP);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    user.reNewFile(fileR);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -754,61 +767,68 @@ public class GUI implements ActionListener {
         });
 
         change.addActionListener(e -> {
-            frame.add(changePanel);
-            changePanel.setBackground(Color.black);
 
-            editPanel.setVisible(false);
-            changePanel.setVisible(true);
+            boolean isValid = provider.isValid(Integer.parseInt(editAnsText.getText()),log.getUsername());
+            if(!isValid || Integer.parseInt(editAnsText.getText()) > provider.getSize2()){
+                failedProp.setVisible(true);
+            }else {
+                frame.add(changePanel);
+                changePanel.setBackground(Color.black);
 
-            changePanel.add(failedEdit1);
-            failedEdit1.setText("There is already a property with this name.Try another one");
-            failedEdit1.setForeground(Color.red);
-            failedEdit1.setBounds(350,650,400,30);
-            failedEdit1.setVisible(false);
+                editPanel.setVisible(false);
+                changePanel.setVisible(true);
 
-            changePanel.add(changeNameLabel);
-            changePanel.add(changeNameText);
-            changePanel.add(changeTypeLabel);
-            changePanel.add(changeTypeText);
-            changePanel.add(changeLocLabel);
-            changePanel.add(changeLocText);
-            changePanel.add(changeDescrLabel);
-            changePanel.add(changeDescrText);
-            changePanel.add(changeProp);
+                changePanel.add(failedEdit1);
+                failedEdit1.setText("There is already a property with this name.Try another one");
+                failedEdit1.setForeground(Color.red);
+                failedEdit1.setBounds(350, 650, 400, 30);
+                failedEdit1.setVisible(false);
 
-            changeNameLabel.setText("Change name to:");
-            changeNameLabel.setBounds(450,100,200,40);
-            changeNameLabel.setForeground(Color.magenta);
-            changeNameText.setBounds(400,150,200,40);
-            changeNameText.setBackground(Color.magenta);
-            changeTypeLabel.setText("Change Type to:");
-            changeTypeLabel.setBounds(450,200,200,40);
-            changeTypeLabel.setForeground(Color.magenta);
-            changeTypeText.setBounds(400,250,200,40);
-            changeTypeText.setBackground(Color.magenta);
-            changeLocLabel.setText("Change Location to:");
-            changeLocLabel.setBounds(450,300,200,40);
-            changeLocLabel.setForeground(Color.magenta);
-            changeLocText.setBounds(400,350,200,40);
-            changeLocText.setBackground(Color.magenta);
-            changeDescrLabel.setText("Change the description:");
-            changeDescrLabel.setBounds(450,400,200,40);
-            changeDescrLabel.setForeground(Color.magenta);
-            changeDescrText.setBounds(400,450,200,40);
-            changeDescrText.setBackground(Color.magenta);
-            changeProp.setText("Done");
-            changeProp.setBackground(Color.magenta);
-            changeProp.setBounds(420,500,150,40);
+                changePanel.add(changeNameLabel);
+                changePanel.add(changeNameText);
+                changePanel.add(changeTypeLabel);
+                changePanel.add(changeTypeText);
+                changePanel.add(changeLocLabel);
+                changePanel.add(changeLocText);
+                changePanel.add(changeDescrLabel);
+                changePanel.add(changeDescrText);
+                changePanel.add(changeProp);
 
-            changeNameLabel.setVisible(true);
-            changeNameText.setVisible(true);
-            changeTypeLabel.setVisible(true);
-            changeTypeText.setVisible(true);
-            changeLocLabel.setVisible(true);
-            changeLocText.setVisible(true);
-            changeDescrLabel.setVisible(true);
-            changeDescrText.setVisible(true);
-            changeProp.setVisible(true);
+                changeNameLabel.setText("Change name to:");
+                changeNameLabel.setBounds(450, 100, 200, 40);
+                changeNameLabel.setForeground(Color.magenta);
+                changeNameText.setBounds(400, 150, 200, 40);
+                changeNameText.setBackground(Color.magenta);
+                changeTypeLabel.setText("Change Type to:");
+                changeTypeLabel.setBounds(450, 200, 200, 40);
+                changeTypeLabel.setForeground(Color.magenta);
+                changeTypeText.setBounds(400, 250, 200, 40);
+                changeTypeText.setBackground(Color.magenta);
+                changeLocLabel.setText("Change Location to:");
+                changeLocLabel.setBounds(450, 300, 200, 40);
+                changeLocLabel.setForeground(Color.magenta);
+                changeLocText.setBounds(400, 350, 200, 40);
+                changeLocText.setBackground(Color.magenta);
+                changeDescrLabel.setText("Change the description:");
+                changeDescrLabel.setBounds(450, 400, 200, 40);
+                changeDescrLabel.setForeground(Color.magenta);
+                changeDescrText.setBounds(400, 450, 200, 40);
+                changeDescrText.setBackground(Color.magenta);
+                changeProp.setText("Done");
+                changeProp.setBackground(Color.magenta);
+                changeProp.setBounds(420, 500, 150, 40);
+
+                changeNameLabel.setVisible(true);
+                changeNameText.setVisible(true);
+                changeTypeLabel.setVisible(true);
+                changeTypeText.setVisible(true);
+                changeLocLabel.setVisible(true);
+                changeLocText.setVisible(true);
+                changeDescrLabel.setVisible(true);
+                changeDescrText.setVisible(true);
+                changeProp.setVisible(true);
+                failedProp.setVisible(false);
+            }
 
         });
 
@@ -885,12 +905,17 @@ public class GUI implements ActionListener {
         });
 
         viewPropProv.addActionListener(e -> {
+            boolean isValid = provider.isValid(Integer.parseInt(viewProvText.getText()),log.getUsername());
+            if(!isValid || Integer.parseInt(viewProvText.getText()) >provider.getSize2() ){
+                failedProp.setVisible(true);
+            }else {
 
+                failedProp.setVisible(false);
+                dashboardProv1.setVisible(false);
+                successPanelProv.setVisible(false);
 
-            dashboardProv1.setVisible(false);
-            successPanelProv.setVisible(false);
-
-            viewPropertyProv(Integer.parseInt(viewProvText.getText()));
+                viewPropertyProv(Integer.parseInt(viewProvText.getText()));
+            }
         });
         viewPropUser.addActionListener(e -> {
             dashboardUser1.add(failedProp);
@@ -1031,7 +1056,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void loginSession(){
+    private void loginSession(){
         frame.add(loginPanel);
         loginPanel.setBackground(Color.BLACK);
         loginPanel.add(userLabel);
@@ -1068,7 +1093,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void registerSession(){
+    private void registerSession(){
         frame.add(regPanel);
         regPanel.setBackground(Color.BLACK);
         regPanel.add(fnameLabel);
@@ -1158,7 +1183,7 @@ public class GUI implements ActionListener {
 
 
     }
-    public void loggedIn(String type) {
+    private void loggedIn(String type) {
 
 
         if (type.equals("user")) {
@@ -1202,7 +1227,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void addPropertySession(){
+    private void addPropertySession(){
         frame.add(addProvPanel);
         addProvPanel.setLayout(null);
         addProvPanel.setBackground(Color.black);
@@ -1268,7 +1293,7 @@ public class GUI implements ActionListener {
         submit.setBackground(Color.magenta);
     }
 
-    public void editPropertySession(){
+    private void editPropertySession(){
         frame.add(editPanel);
         editPanel.setBackground(Color.black);
         editPanel.setLayout(null);
@@ -1368,12 +1393,18 @@ public class GUI implements ActionListener {
             editAnsText.setVisible(true);
             editAnsLabel.setVisible(true);
 
+            editPanel.add(failedProp);
+            failedProp.setText("Invalid Property");
+            failedProp.setForeground(Color.red);
+            failedProp.setBounds(650,700,150,30);
+            failedProp.setVisible(false);
+
         }
 
 
     }
 
-    public void deletePropertySession(){
+    private void deletePropertySession(){
         frame.add(deletePanel);
         deletePanel.setBackground(Color.black);
         deletePanel.setLayout(null);
@@ -1479,10 +1510,16 @@ public class GUI implements ActionListener {
             deleteAnsText.setVisible(true);
             deleteAnsLabel.setVisible(true);
 
+            deletePanel.add(failedProp);
+            failedProp.setText("Invalid Property");
+            failedProp.setForeground(Color.red);
+            failedProp.setBounds(650,700,150,30);
+            failedProp.setVisible(false);
+
         }
     }
 
-    public void dashboardProvSession(){
+    private void dashboardProvSession(){
 
         double avgTotal,avgProp;
         int totalReviews = 0,propReviews;
@@ -1642,12 +1679,17 @@ public class GUI implements ActionListener {
             viewPropProv.setVisible(true);
             viewProvText.setVisible(true);
             viewLabelProv.setVisible(true);
+            dashboardProv1.add(failedProp);
+            failedProp.setText("Invalid Property");
+            failedProp.setForeground(Color.red);
+            failedProp.setBounds(750,700,150,30);
+            failedProp.setVisible(false);
 
         }
     }
 
 
-    public void viewPropertyProv(int property){
+    private void viewPropertyProv(int property){
 
 
         frame.add(dashboardProv2);
@@ -1717,7 +1759,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void searchSession(){
+    private void searchSession(){
         frame.add(searchPanel);
         searchPanel.setLayout(null);
         searchPanel.setBackground(Color.black);
@@ -1746,7 +1788,7 @@ public class GUI implements ActionListener {
     }
 
 
-    public void successSearch() {
+    private void successSearch() {
 
         frame.add(successSearchPanel);
         successSearchPanel.setLayout(null);
@@ -1849,12 +1891,9 @@ public class GUI implements ActionListener {
         menuUser.setVisible(true);
 
 
-
-
-
     }
 
-    public void addReviewSession(){
+    private void addReviewSession(){
         frame.add(addUserPanel);
         addUserPanel.setBackground(Color.black);
         addUserPanel.setLayout(null);
@@ -1987,7 +2026,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void editReviewSession(){
+    private void editReviewSession(){
         frame.add(editUserPanel);
         editUserPanel.setBackground(Color.black);
         editUserPanel.setLayout(null);
@@ -2101,7 +2140,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void deleteReviewSession(){
+    private void deleteReviewSession(){
         frame.add(deleteUserPanel);
         deleteUserPanel.setBackground(Color.black);
         deleteUserPanel.setLayout(null);
@@ -2180,7 +2219,7 @@ public class GUI implements ActionListener {
 
     }
 
-    public void dashboardUserSession(){
+    private void dashboardUserSession(){
         int revNum=0;
         double sumRev=0;
         double avgRev;
@@ -2335,7 +2374,7 @@ public class GUI implements ActionListener {
         viewLabelUser.setVisible(true);
     }
 
-    public void viewPropertyUser(int property){
+    private void viewPropertyUser(int property){
         frame.add(dashboardUser2);
 
         dashboardUser2.setLayout(null);
@@ -2357,19 +2396,19 @@ public class GUI implements ActionListener {
         dashboardUser2.add(freqRevProp.get(property-1));
 
 
-        propLabel.get(property-1).setBounds(400,10,400,30);
+        propLabel.get(property-1).setBounds(0,10,400,30);
         propLabel.get(property-1).setForeground(Color.magenta);
-        namePropLabel.get(property-1).setBounds(400,40,400,30);
+        namePropLabel.get(property-1).setBounds(0,40,400,30);
         namePropLabel.get(property-1).setForeground(Color.magenta);
-        typePropLabel.get(property-1).setBounds(400,70,400,30);
+        typePropLabel.get(property-1).setBounds(0,70,400,30);
         typePropLabel.get(property-1).setForeground(Color.magenta);
-        locPropLabel.get(property-1).setBounds(400,100,400,30);
+        locPropLabel.get(property-1).setBounds(0,100,400,30);
         locPropLabel.get(property-1).setForeground(Color.magenta);
-        descrPropLabel.get(property-1).setBounds(400,130,400,30);
+        descrPropLabel.get(property-1).setBounds(0,130,400,30);
         descrPropLabel.get(property-1).setForeground(Color.magenta);
-        avg.get(property-1).setBounds(400,160,400,30);
+        avg.get(property-1).setBounds(0,160,400,30);
         avg.get(property-1).setForeground(Color.magenta);
-        freqRevProp.get(property-1).setBounds(400,190,400,30);
+        freqRevProp.get(property-1).setBounds(0,190,400,30);
         freqRevProp.get(property-1).setForeground(Color.magenta);
 
 
@@ -2393,7 +2432,7 @@ public class GUI implements ActionListener {
             }
         }
         for(int i=0;i<stringRevLabel.size();i++){
-            stringRevLabel.get(i).setBounds(400,height,400,30);
+            stringRevLabel.get(i).setBounds(0,height,400,30);
             stringRevLabel.get(i).setForeground(Color.magenta);
             dashboardUser2.add(stringRevLabel.get(i));
             stringRevLabel.get(i).setVisible(true);

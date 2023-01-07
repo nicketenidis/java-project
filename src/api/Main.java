@@ -177,10 +177,8 @@ public class Main {
                                 System.out.println("Type the number of property above to edit.");
                                 key = fromKeyboard.nextInt();
                                 propName = prov.getPropName2(key);
-                                System.out.println(propName);
                                 prov.editProps2(key);
                                 newPropName = prov.getPropName2(key);
-                                System.out.println(newPropName);
                                 user.editRevName(propName,newPropName);
                                 prov.reNewFile2(fileP);
                                 user.reNewFile(fileR);
