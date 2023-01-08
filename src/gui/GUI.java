@@ -1056,7 +1056,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void loginSession(){
+    public void loginSession(){
         frame.add(loginPanel);
         loginPanel.setBackground(Color.BLACK);
         loginPanel.add(userLabel);
@@ -1093,7 +1093,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void registerSession(){
+    public void registerSession(){
         frame.add(regPanel);
         regPanel.setBackground(Color.BLACK);
         regPanel.add(fnameLabel);
@@ -1183,7 +1183,7 @@ public class GUI implements ActionListener {
 
 
     }
-    private void loggedIn(String type) {
+    public void loggedIn(String type) {
 
 
         if (type.equals("user")) {
@@ -1227,7 +1227,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void addPropertySession(){
+    public void addPropertySession(){
         frame.add(addProvPanel);
         addProvPanel.setLayout(null);
         addProvPanel.setBackground(Color.black);
@@ -1293,7 +1293,7 @@ public class GUI implements ActionListener {
         submit.setBackground(Color.magenta);
     }
 
-    private void editPropertySession(){
+    public void editPropertySession(){
         frame.add(editPanel);
         editPanel.setBackground(Color.black);
         editPanel.setLayout(null);
@@ -1404,7 +1404,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void deletePropertySession(){
+    public void deletePropertySession(){
         frame.add(deletePanel);
         deletePanel.setBackground(Color.black);
         deletePanel.setLayout(null);
@@ -1519,7 +1519,7 @@ public class GUI implements ActionListener {
         }
     }
 
-    private void dashboardProvSession(){
+    public void dashboardProvSession(){
 
         double avgTotal,avgProp;
         int totalReviews = 0,propReviews;
@@ -1689,7 +1689,7 @@ public class GUI implements ActionListener {
     }
 
 
-    private void viewPropertyProv(int property){
+    public void viewPropertyProv(int property){
 
 
         frame.add(dashboardProv2);
@@ -1759,7 +1759,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void searchSession(){
+    public void searchSession(){
         frame.add(searchPanel);
         searchPanel.setLayout(null);
         searchPanel.setBackground(Color.black);
@@ -1893,7 +1893,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void addReviewSession(){
+    public void addReviewSession(){
         frame.add(addUserPanel);
         addUserPanel.setBackground(Color.black);
         addUserPanel.setLayout(null);
@@ -2026,7 +2026,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void editReviewSession(){
+    public void editReviewSession(){
         frame.add(editUserPanel);
         editUserPanel.setBackground(Color.black);
         editUserPanel.setLayout(null);
@@ -2140,7 +2140,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void deleteReviewSession(){
+    public void deleteReviewSession(){
         frame.add(deleteUserPanel);
         deleteUserPanel.setBackground(Color.black);
         deleteUserPanel.setLayout(null);
@@ -2219,7 +2219,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void dashboardUserSession(){
+    public void dashboardUserSession(){
         int revNum=0;
         double sumRev=0;
         double avgRev;
@@ -2374,7 +2374,7 @@ public class GUI implements ActionListener {
         viewLabelUser.setVisible(true);
     }
 
-    private void viewPropertyUser(int property){
+    public void viewPropertyUser(int property){
         frame.add(dashboardUser2);
 
         dashboardUser2.setLayout(null);
