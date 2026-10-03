@@ -6,4 +6,4 @@
 Νικόλαος Κετενίδης 3669 
 
 
-⚠ Please keep the submission deadline
+⚠ Please keep the submission deadline.
